@@ -1,0 +1,80 @@
+<!-- DO NOT EDIT README.md (It will be overridden by README.hbs) -->
+
+# {{changeCase "title" (package "name")}}
+
+<!-- Badges from shield.io -->
+> {{package "description"}}
+>
+> {{#each (package "shields")}}[![{{this.name}}][{{this.name}}]][{{this.name}}-url]{{/each}}
+
+{{#each (package "shields")}}
+[{{this.name}}]: {{this.image}}
+[{{this.name}}-url]: {{this.url}}
+{{/each}}
+
+<!-- START doctoc -->
+<!-- END doctoc -->
+
+# Installation
+
+`npm install indexable-array`
+
+# Description
+
+`indexable-array` extends native JavaScript array and provides indexed lookup features similar to native `Map` by using
+`Proxy` for shallow change detection.
+
+# Synopsis
+
+```ts
+import IndexableArray, { Self } from "indexable-array";
+
+const users = new IndexableArray({ id: 23, name: "George" }, { id: 92, name: "George" }).addIndex("name", Self);
+const otherUsers = new IndexableArray({ id: 12, name: "Hans" }, { id: 18, name: "Tanja" }).addIndex("name").addSelfIndex();
+
+Array.isArray(users);                     // true
+users.getIndex("George");                 // 1
+users.get("George");                      // Get first George: { id: 23, name: "George"}
+users.get("George", { fromIndex: 1 });    // Get first George starting from index 1: { id: 23, name: "George"}
+users.getAllIndexes("George");            // [0, 1]
+
+// Replace George with Henry
+const newUser = { id: 21, name: "Henry" };
+users[0] = newUser;
+users.getIndex(newUser);                  // 0 - It is possible to index whole object by { selfIndex: true } option.
+
+// Add another Henry
+users.splice(1, 1, { id: 34, name: "Henry" });
+users.getAllIndexes("Henry"); // [0, 1];
+
+// You may want to disable en re-enable index for heavy updates for performance reasons.
+users.disableIndex();                     // Disable index before heavy updates.
+// ... many many many updates here
+users.enableIndex();                      // Index is recreated from scratch.
+
+// Do NOT change deeply nested values in indexed fields.
+// users[0].name = "DON'T DO THIS";       // WRONG: Sub fields (i.e. [0]."name") of the array is not watched, so index does not get updated.
+
+// To change nested values use `set()`
+users.set(0, "name", "OK");               // Index updated.
+
+// or (not preferred because of expensive index creation for a small update)
+users.disableIndex();
+users[0].name = "Prefer set()";
+users.enableIndex();                      // Index is recreated from scratch.
+```
+
+# Details
+
+* Written in TypeScript.
+* Is a native `Array` (`Array.isArray(indexableArray) === true`), so supports all array features.
+* 100% test coverage.
+* Tracks all shallow changes via by using `Proxy`
+* Limited support for updating deep properties via `set()` method.
+* Uses `map` to index for very fast lookups.
+* Uses binary search for updates for faster index update.
+* Disables and recreates index from scratch automatically for heavy update operations like `splice` if above threshold..
+* Indexing may be disabled and re-enabled for heavy update operations manually.
+
+# API
+{{>main~}}

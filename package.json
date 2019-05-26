@@ -1,0 +1,81 @@
+{
+  "name": "indexable-array",
+  "version": "0.0.1",
+  "description": "Extended native JavaScript Array which provides indexed lookup similar to native Map.",
+  "homepage": "https://github.com/ozum/indexable-array",
+  "bugs": "https://github.com/ozum/indexable-array/issues",
+  "author": {
+    "name": "Özüm Eldoğan"
+  },
+  "license": "MIT",
+  "main": "dist/index",
+  "types": "dist/index",
+  "files": [
+    "/bin",
+    "/lib",
+    "/dist",
+    "/@types"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ozum/indexable-array.git"
+  },
+  "shields": [
+    {
+      "name": "Commitizen Friendly",
+      "image": "https://img.shields.io/badge/commitizen-friendly-brightgreen.svg",
+      "url": "http://commitizen.github.io/cz-cli/"
+    },
+    {
+      "name": "Conventional Commits",
+      "image": "https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg",
+      "url": "https://conventionalcommits.org"
+    }
+  ],
+  "scripts": {
+    "build": "tsc",
+    "doc": "echo '\\033[33mBuilding doc.. (Do NOT forget build project first.)\\033[0m' && jsdoc2md --plugin dmd-readable --example-lang ts --template readme-template.hbs --configure ./jsdoc.json --no-cache dist/*.js > README.md",
+    "test": "jest --coverage",
+    "lint": "eslint --ignore-path .gitignore --cache 'src/**/*.+(js|jsx|ts|tsx|vue)'",
+    "format": "prettier --write --config .prettierrc --check 'src/**/*.+(js|jsx|json|less|css|ts|tsx|md|vue|gql)'",
+    "watch:run": "ts-node-dev --respawn --transpileOnly",
+    "watch:test": "jest --watch",
+    "validate": "npm-run-all --parallel lint test",
+    "commit": "git-cz",
+    "commit:add": "git add -A && npm run commit",
+    "release": "npm-run-all build doc commit:add && git checkout master && git pull origin master && standard-version --no-verify && git push --follow-tags origin master && npm publish"
+  },
+  "dependencies": {
+    "lodash.set": "^4.3.2",
+    "sorted-array-functions": "^1.2.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^7.6.1",
+    "@commitlint/config-conventional": "^7.6.0",
+    "@types/jest": "^24.0.13",
+    "@types/lodash.set": "^4.3.6",
+    "@types/node": "^12.0.2",
+    "@typescript-eslint/eslint-plugin": "^1.9.0",
+    "commitizen": "^3.1.1",
+    "cz-conventional-changelog": "^2.1.0",
+    "dmd-readable": "^0.2.1",
+    "doctoc": "^1.4.0",
+    "eslint": "^5.15.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-jest": "^22.6.4",
+    "eslint-plugin-prettier": "^3.0.1",
+    "husky": "^2.3.0",
+    "jest": "^24.8.0",
+    "jsdoc-to-markdown": "^5.0.0",
+    "jsonlint": "^1.6.3",
+    "lint-staged": "^8.1.7",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.17.1",
+    "standard-version": "^6.0.1",
+    "ts-jest": "^24.0.2",
+    "ts-node-dev": "^1.0.0-pre.39",
+    "typescript": "^3.4.5"
+  }
+}

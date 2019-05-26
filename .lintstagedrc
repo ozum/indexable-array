@@ -1,0 +1,7 @@
+{
+  "linters": {
+    "*.{js,ts}": ["eslint --fix", "git add", "jest --bail --coverage --findRelatedTests"],
+    "*.{json,md,gql,less,css}": ["prettier --write", "git add"],
+    ".*{rc, json}": "jsonlint"
+  }
+}
