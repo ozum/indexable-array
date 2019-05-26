@@ -1,6 +1,6 @@
 {
   "name": "indexable-array",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Extended native JavaScript Array which provides indexed lookup similar to native Map.",
   "homepage": "https://github.com/ozum/indexable-array",
   "bugs": "https://github.com/ozum/indexable-array/issues",
