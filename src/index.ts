@@ -46,6 +46,10 @@ export default class IndexableArray<I extends any, DK extends IndexKey<I> = Inde
   private indexEnabled: boolean = false;
   private operationAtEnd: boolean = false;
 
+  /**
+   * Creates an `IndexableArray` instance from given items.
+   * @param   {...*} items - Items to create `IndexableArray` from.
+   */
   public constructor(...items: I[]) {
     super(...items);
 
@@ -57,6 +61,8 @@ export default class IndexableArray<I extends any, DK extends IndexKey<I> = Inde
     });
   }
 
+  public static from<T>(arrayLike: Iterable<T> | ArrayLike<T>): IndexableArray<T>;
+  public static from<T, U>(arrayLike: Iterable<T> | ArrayLike<T>, mapFn?: (v: T, k: number) => U, thisArg?: any): IndexableArray<U>;
   /**
    * Creates a new, shallow-copied `IndexableArray` instance from an array-like or iterable object. If source is also `IndexableArray`,
    * returned `IndexableArray` will have same indexed keys.
@@ -65,8 +71,6 @@ export default class IndexableArray<I extends any, DK extends IndexKey<I> = Inde
    * @param   {*}                   [thisArg]   - Value to use as this when executing mapFn.
    * @returns {IndexableArray}                  - A new `IndexableArray` instance.
    */
-  public static from<T>(arrayLike: Iterable<T> | ArrayLike<T>): IndexableArray<T>;
-  public static from<T, U>(arrayLike: Iterable<T> | ArrayLike<T>, mapFn?: (v: T, k: number) => U, thisArg?: any): IndexableArray<U>;
   public static from<T, U>(
     arrayLike: Iterable<T> | ArrayLike<T>,
     mapFn?: (v: T, k: number) => U,

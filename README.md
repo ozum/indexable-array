@@ -86,16 +86,50 @@ users.enableIndex(); // Index is recreated from scratch.
 > <p>Extended native array class to access array elements by fast key lookups using binary search. Used for storing objects.</p>
 
 - [IndexableArray](#IndexableArray)
-  - [.addIndex(keys)](#IndexableArray+addIndex) ⇒ <code>this</code>
-  - [.addSelfIndex()](#IndexableArray+addSelfIndex) ⇒ <code>this</code>
-  - [.getIndex(value, [options])](#IndexableArray+getIndex) ⇒ <code>number</code>
-  - [.getAllIndexes(value, [options])](#IndexableArray+getAllIndexes) ⇒ <code>Array.&lt;number&gt;</code>
-  - [.get(value, [options])](#IndexableArray+get) ⇒ <code>Object</code> \| <code>undefined</code>
-  - [.getAll(value, [options])](#IndexableArray+getAll) ⇒ <code>Array.&lt;number&gt;</code>
-  - [.has(value, [options])](#IndexableArray+has) ⇒ <code>boolean</code>
-  - [.set(position, path, value)](#IndexableArray+set) ⇒ <code>void</code>
-  - [.disableIndex()](#IndexableArray+disableIndex)
-  - [.enableIndex()](#IndexableArray+enableIndex)
+  - [new IndexableArray(...items)](#new_IndexableArray_new)
+  - _instance_
+    - [.addIndex(keys)](#IndexableArray+addIndex) ⇒ <code>this</code>
+    - [.addSelfIndex()](#IndexableArray+addSelfIndex) ⇒ <code>this</code>
+    - [.getIndex(value, [options])](#IndexableArray+getIndex) ⇒ <code>number</code>
+    - [.getAllIndexes(value, [options])](#IndexableArray+getAllIndexes) ⇒ <code>Array.&lt;number&gt;</code>
+    - [.get(value, [options])](#IndexableArray+get) ⇒ <code>Object</code> \| <code>undefined</code>
+    - [.getAll(value, [options])](#IndexableArray+getAll) ⇒ <code>Array.&lt;number&gt;</code>
+    - [.has(value, [options])](#IndexableArray+has) ⇒ <code>boolean</code>
+    - [.set(position, path, value)](#IndexableArray+set) ⇒ <code>void</code>
+    - [.disableIndex()](#IndexableArray+disableIndex)
+    - [.enableIndex()](#IndexableArray+enableIndex)
+  - _static_
+    - [.from(arrayLike, [mapFn], [thisArg])](#IndexableArray.from) ⇒ [<code>IndexableArray</code>](#IndexableArray)
+
+<br><a name="new_IndexableArray_new"></a>
+
+### new IndexableArray(...items)
+
+> <p>Creates an <code>IndexableArray</code> instance from given items.</p>
+
+| Param    | Type            | Description                                              |
+| -------- | --------------- | -------------------------------------------------------- |
+| ...items | <code>\*</code> | <p>Items to create <code>IndexableArray</code> from.</p> |
+
+**Example**
+
+```ts
+import IndexableArray, { Self } from "indexable-array";
+const users = new IndexableArray({ id: 23, name: "Geroge" }, { id: 96, name: "Lisa" }).addIndex("name");
+Array.isArray(users); // true
+users.get("George"); // { id: 23, name: "George"}
+const user = { id: 21, name: "Henry" };
+users[0] = user;
+users.getIndex(user); // 0 - It is possible to index whole object by { selfIndex: true } option.
+users.splice(1, 1, { id: 34, name: "Henry" });
+users.getAllIndexes("Henry"); // [0, 1];
+
+users[0].name = "DON'T DO THIS"; // WRONG: Sub fields (i.e. [0]."name") of the array is not watched, so index does not get updated.
+users.set(0, "name", "OK"); // Index updated.
+users.disableIndex();
+users[0].name = "THIS IS OK NOW";
+users.enableIndex(); // Index is recreated from scratch.
+```
 
 <br><a name="IndexableArray+addIndex"></a>
 
@@ -266,3 +300,21 @@ indexedArray.enableIndex(); // Index is recreated from scratch.
 > <p>Enables indexing and recreates index from scratch.</p>
 
 **See**: {IndexedArray#disableIndex} method.
+
+<br><a name="IndexableArray.from"></a>
+
+### IndexableArray.from(arrayLike, [mapFn], [thisArg]) ⇒ [<code>IndexableArray</code>](#IndexableArray)
+
+> <p>Creates a new, shallow-copied <code>IndexableArray</code> instance from an array-like or iterable object. If source is also <code>IndexableArray</code>,
+> returned <code>IndexableArray</code> will have same indexed keys.</p>
+
+**Returns**: [<code>IndexableArray</code>](#IndexableArray) - <ul>
+
+<li>A new <code>IndexableArray</code> instance.</li>
+</ul>
+
+| Param     | Type                                          | Description                                                     |
+| --------- | --------------------------------------------- | --------------------------------------------------------------- |
+| arrayLike | <code>Iterable</code>, <code>ArrayLike</code> | <p>An array-like or iterable object to convert to an array.</p> |
+| [mapFn]   | <code>function</code>                         | <p>Map function to call on every element of the array.</p>      |
+| [thisArg] | <code>\*</code>                               | <p>Value to use as this when executing mapFn.</p>               |
