@@ -88,8 +88,13 @@ users.enableIndex(); // Index is recreated from scratch.
 - [IndexableArray](#IndexableArray)
   - [new IndexableArray(...items)](#new_IndexableArray_new)
   - _instance_
+    - [.indexedKeys](#IndexableArray+indexedKeys) : <code>Set.&lt;string&gt;</code>
     - [.addIndex(keys)](#IndexableArray+addIndex) ⇒ <code>this</code>
+    - [.addIndexFrom(source)](#IndexableArray+addIndexFrom) ⇒ <code>this</code>
     - [.addSelfIndex()](#IndexableArray+addSelfIndex) ⇒ <code>this</code>
+    - [.map(callbackfn, [thisArg])](#IndexableArray+map) ⇒ [<code>IndexableArray</code>](#IndexableArray)
+    - [.mapWithIndex(callbackfn, [thisArg])](#IndexableArray+mapWithIndex) ⇒ [<code>IndexableArray</code>](#IndexableArray)
+    - [.setDefaultIndex(key)](#IndexableArray+setDefaultIndex) ⇒ <code>this</code>
     - [.getIndex(value, [options])](#IndexableArray+getIndex) ⇒ <code>number</code>
     - [.getAllIndexes(value, [options])](#IndexableArray+getAllIndexes) ⇒ <code>Array.&lt;number&gt;</code>
     - [.get(value, [options])](#IndexableArray+get) ⇒ <code>Object</code> \| <code>undefined</code>
@@ -131,6 +136,20 @@ users[0].name = "THIS IS OK NOW";
 users.enableIndex(); // Index is recreated from scratch.
 ```
 
+<br><a name="IndexableArray+indexedKeys"></a>
+
+### indexableArray.indexedKeys : <code>Set.&lt;string&gt;</code>
+
+> <p>Set of the indexed key names. <code>$$self</code> is used for the whole value.</p>
+
+`Read only`<br>
+**Example**
+
+```ts
+const users = new IndexableArray({ id: 23, name: "Geroge" }, { id: 96, name: "Lisa" }).addSelfIndex().addIndex("name");
+users.indexedArray; // ["$$self", "name"]
+```
+
 <br><a name="IndexableArray+addIndex"></a>
 
 ### indexableArray.addIndex(keys) ⇒ <code>this</code>
@@ -145,6 +164,28 @@ users.enableIndex(); // Index is recreated from scratch.
 | Param | Type                                   | Description                          |
 | ----- | -------------------------------------- | ------------------------------------ |
 | keys  | <code>string</code>, <code>Self</code> | <p>List of keys to add to index.</p> |
+
+<br><a name="IndexableArray+addIndexFrom"></a>
+
+### indexableArray.addIndexFrom(source) ⇒ <code>this</code>
+
+> <p>Adds same index types from another IndexableArray.</p>
+
+**Returns**: <code>this</code> - <ul>
+
+<li>This object.</li>
+</ul>
+
+| Param  | Type                                           | Description                                   |
+| ------ | ---------------------------------------------- | --------------------------------------------- |
+| source | [<code>IndexableArray</code>](#IndexableArray) | <p>IndexableArray to get index keys from.</p> |
+
+**Example**
+
+```ts
+const users = new IndexableArray({ id: 23, name: "Geroge" }, { id: 96, name: "Lisa" }).addIndex("name");
+const other = new IndexableArray().addIndexFrom(users); // Indexes "name".
+```
 
 <br><a name="IndexableArray+addSelfIndex"></a>
 
@@ -162,6 +203,79 @@ const users = new IndexableArray([{ id: 1, name: "George" }, { id: 2, name: "Lis
 const newUser = { id: 3, name: "George" };
 users.push(newUser);
 users.getIndex(newUser); // 2;
+```
+
+<br><a name="IndexableArray+map"></a>
+
+### indexableArray.map(callbackfn, [thisArg]) ⇒ [<code>IndexableArray</code>](#IndexableArray)
+
+> <p>Creates a new <code>IndexableArray</code> having no indexes with the results of calling a provided function on every element in the calling array.</p>
+
+**Returns**: [<code>IndexableArray</code>](#IndexableArray) - <ul>
+
+<li>A new <code>IndexableArray</code> with each element being the result of the callback function. Returned value <strong>has no indexes</strong>.</li>
+</ul>  
+**See**: [indexableArray#mapWithIndex](indexableArray#mapWithIndex) to get an `IndexableArray` with same index keys.
+
+| Param      | Type                  | Description                                                                                                                                                |
+| ---------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| callbackfn | <code>function</code> | <p>Function that produces an element of the new Array, taking three arguments: <code>value</code>, <code>index</code> and <code>indexableArray</code>.</p> |
+| [thisArg]  | <code>\*</code>       | <p>Value to use as this when executing callback.</p>                                                                                                       |
+
+**Example**
+
+```ts
+const usersWithName = new IndexableArray({ id: 23, name: "Geroge" }, { id: 96, name: "Lisa" }).addIndex("name");
+const usersWithNick = usersWithName.map(user => ({ id: user.id, nick: name.substring(0, 2) })).addIndex("nick"); // Has only "nick" index.
+```
+
+<br><a name="IndexableArray+mapWithIndex"></a>
+
+### indexableArray.mapWithIndex(callbackfn, [thisArg]) ⇒ [<code>IndexableArray</code>](#IndexableArray)
+
+> <p>Creates a new <code>IndexableArray</code> having same indexes with the results of calling a provided function on every element in the calling array.</p>
+
+**Returns**: [<code>IndexableArray</code>](#IndexableArray) - <ul>
+
+<li>A new <code>IndexableArray</code> with each element being the result of the callback function. Returned value <strong>has same indexes with source <code>IndexedArray</code></strong>.</li>
+</ul>  
+**See**: [indexableArray#map](indexableArray#map) to get an `IndexableArray` without any index key.
+
+| Param      | Type                  | Description                                                                                                                                                |
+| ---------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| callbackfn | <code>function</code> | <p>Function that produces an element of the new Array, taking three arguments: <code>value</code>, <code>index</code> and <code>indexableArray</code>.</p> |
+| [thisArg]  | <code>\*</code>       | <p>Value to use as this when executing callback.</p>                                                                                                       |
+
+**Example**
+
+```ts
+const usersWithName = new IndexableArray({ id: 23, name: "Geroge" }, { id: 96, name: "Lisa" }).addIndex("name");
+const usersTrimmedName = usersWithName.mapWithIndex(user => ({ id: user.id, name: name.trim() })); // Has "name" index already.
+```
+
+<br><a name="IndexableArray+setDefaultIndex"></a>
+
+### indexableArray.setDefaultIndex(key) ⇒ <code>this</code>
+
+> <p>Sets default index key to be used with lookup functions such as [get](#IndexableArray+get), [getAll](#IndexableArray+getAll),
+> [getIndex](#IndexableArray+getIndex), [getAllIndexes](#IndexableArray+getAllIndexes) etc.
+> If not set, <code>IndexedArray</code> uses first indexable key as default key.</p>
+
+**Returns**: <code>this</code> - <ul>
+
+<li>This value.</li>
+</ul>
+
+| Param | Type                | Description                                          |
+| ----- | ------------------- | ---------------------------------------------------- |
+| key   | <code>string</code> | <p>Default key to be used with lookup functions.</p> |
+
+**Example**
+
+```ts
+const input = [{ id: 23, name: "Geroge" }, { id: 96, name: "Lisa" }];
+const users = new IndexableArray(...input).addIndex("name", "id"); // "name" is default index
+users.setDefaultIndex("id"); // "id" is default index.
 ```
 
 <br><a name="IndexableArray+getIndex"></a>

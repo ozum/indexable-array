@@ -20,8 +20,8 @@
   "types": "dist/index",
   "files": [
     "/bin",
-    "/lib",
-    "/dist",
+    "/lib/**/!(*.spec|*.test)*.*",
+    "/dist/**/!(*.spec|*.test)*.*",
     "/@types"
   ],
   "repository": {

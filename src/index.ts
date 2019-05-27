@@ -7,16 +7,10 @@ export const Self = "$$self";
 
 type IndexKey<I> = keyof I | typeof Self;
 type IndexValue<I, K extends IndexKey<I>> = K extends keyof I ? I[K] : I;
-
-interface IndexConfig<I, DK extends IndexKey<I>> {
-  key: IndexKey<I> | (IndexKey<I>)[];
-  defaultKey?: DK;
-}
-
 type PrimitiveLookups<I, K = IndexKey<I>> = Map<K, Map<K extends keyof I ? I[K] : I, number[]>>;
 type ObjectLookups<I, K = IndexKey<I>, O extends Record<string, any> = K extends keyof I ? I[K] : I> = Map<K, WeakMap<O, number[]>>;
 
-const addedProperties = new Set(["primitiveLookups", "objectLookups", "indexedKeys", "defaultKey", "indexEnabled", "operationAtEnd"]);
+const nonEnumerableProps = new Set(["primitiveLookups", "objectLookups", "indexedKeys", "defaultKey", "indexEnabled", "operationAtEnd"]);
 
 /**
  * Extended native array class to access array elements by fast key lookups using binary search. Used for storing objects.
@@ -40,11 +34,20 @@ const addedProperties = new Set(["primitiveLookups", "objectLookups", "indexedKe
 export default class IndexableArray<I extends any, DK extends IndexKey<I> = IndexKey<I>> extends Array<I> {
   private readonly primitiveLookups: PrimitiveLookups<I> = new Map();
   private readonly objectLookups: ObjectLookups<I> = new Map();
-  public readonly indexedKeys: Set<keyof I> = new Set();
   private readonly builtIndexKeys: Set<keyof I> = new Set();
   private defaultKey?: IndexKey<I>;
   private indexEnabled: boolean = false;
   private operationAtEnd: boolean = false;
+
+  /**
+   * Set of the indexed key names. `$$self` is used for the whole value.
+   * @type {Set.<string>}
+   * @readonly
+   * @example
+   * const users = new IndexableArray({ id: 23, name: "Geroge" }, { id: 96, name: "Lisa" }).addSelfIndex().addIndex("name");
+   * users.indexedArray; // ["$$self", "name"]
+   */
+  public readonly indexedKeys: Set<keyof I> = new Set();
 
   /**
    * Creates an `IndexableArray` instance from given items.
@@ -53,7 +56,7 @@ export default class IndexableArray<I extends any, DK extends IndexKey<I> = Inde
   public constructor(...items: I[]) {
     super(...items);
 
-    addedProperties.forEach(property => Object.defineProperty(this, property, { writable: true, enumerable: false })); // Make added fields non-enumerable.
+    nonEnumerableProps.forEach(property => Object.defineProperty(this, property, { writable: true, enumerable: false })); // Make added fields non-enumerable.
 
     return new Proxy(this, {
       set: <T>(target: IndexableArray<T>, property: number, value: T): boolean => target.setProperty(property, value),
@@ -125,6 +128,18 @@ export default class IndexableArray<I extends any, DK extends IndexKey<I> = Inde
     this.forEach((item, position) => this.addToIndex(position, item, addedIndexKeys));
     this.operationAtEnd = false;
     return this;
+  }
+
+  /**
+   * Adds same index types from another IndexableArray.
+   * @param   {IndexableArray}  source - IndexableArray to get index keys from.
+   * @returns {this}                   - This object.
+   * @example
+   * const users = new IndexableArray({ id: 23, name: "Geroge" }, { id: 96, name: "Lisa" }).addIndex("name");
+   * const other = new IndexableArray().addIndexFrom(users); // Indexes "name".
+   */
+  public addIndexFrom<T, K extends IndexKey<T> = IndexKey<T>>(source: IndexableArray<T, K>): this {
+    return this.addIndex(...source.indexedKeys);
   }
 
   /**
@@ -226,7 +241,7 @@ export default class IndexableArray<I extends any, DK extends IndexKey<I> = Inde
    * @private
    */
   private setProperty(property: keyof this, newItem: any): boolean {
-    if (this.indexEnabled && !addedProperties.has(property as string)) {
+    if (this.indexEnabled && !nonEnumerableProps.has(property as string)) {
       if (property === "length") {
         if (newItem < this.length) {
           const oldLength = this.length;
@@ -315,6 +330,53 @@ export default class IndexableArray<I extends any, DK extends IndexKey<I> = Inde
     return super.splice(start, deleteCount, ...items);
   }
 
+  public filter(callbackfn: (value: I, index: number, array: IndexableArray<I, DK>) => any, thisArg?: any): IndexableArray<I, DK> {
+    return (super.filter((callbackfn as unknown) as any, thisArg) as IndexableArray<I, DK>).addIndexFrom(this);
+  }
+
+  /**
+   * Creates a new `IndexableArray` having no indexes with the results of calling a provided function on every element in the calling array.
+   * @param   {Function}        callbackfn  - Function that produces an element of the new Array, taking three arguments: `value`, `index` and `indexableArray`.
+   * @param   {*}               [thisArg]   - Value to use as this when executing callback.
+   * @returns {IndexableArray}              - A new `IndexableArray` with each element being the result of the callback function. Returned value **has no indexes**.
+   * @see {@link indexableArray#mapWithIndex} to get an `IndexableArray` with same index keys.
+   * @example
+   * const usersWithName = new IndexableArray({ id: 23, name: "Geroge" }, { id: 96, name: "Lisa" }).addIndex("name");
+   * const usersWithNick = usersWithName.map(user => ({ id: user.id, nick: name.substring(0,2) })).addIndex("nick"); // Has only "nick" index.
+   */
+  public map<U>(callbackfn: (value: I, index: number, array: IndexableArray<I, DK>) => U, thisArg?: any): IndexableArray<U> {
+    return super.map(callbackfn as any, thisArg) as IndexableArray<U>;
+  }
+
+  /**
+   * Creates a new `IndexableArray` having same indexes with the results of calling a provided function on every element in the calling array.
+   * @param   {Function}        callbackfn  - Function that produces an element of the new Array, taking three arguments: `value`, `index` and `indexableArray`.
+   * @param   {*}               [thisArg]   - Value to use as this when executing callback.
+   * @returns {IndexableArray}              - A new `IndexableArray` with each element being the result of the callback function. Returned value **has same indexes with source `IndexedArray`**.
+   * @see {@link indexableArray#map} to get an `IndexableArray` without any index key.
+   * @example
+   * const usersWithName = new IndexableArray({ id: 23, name: "Geroge" }, { id: 96, name: "Lisa" }).addIndex("name");
+   * const usersTrimmedName = usersWithName.mapWithIndex(user => ({ id: user.id, name: name.trim() })); // Has "name" index already.
+   */
+  public mapWithIndex<U>(callbackfn: (value: I, index: number, array: IndexableArray<I, DK>) => U, thisArg?: any): IndexableArray<U> {
+    return (super.map(callbackfn as any, thisArg) as IndexableArray<U>).addIndexFrom(this);
+  }
+
+  public slice(start?: number, end?: number): IndexableArray<I, DK> {
+    return (super.slice(start, end) as IndexableArray<I, DK>).addIndexFrom(this);
+  }
+
+  /**
+   * Sets default index key to be used with lookup functions such as {@link IndexableArray#get}, {@link IndexableArray#getAll},
+   * {@link IndexableArray#getIndex}, {@link IndexableArray#getAllIndexes} etc.
+   * If not set, `IndexedArray` uses first indexable key as default key.
+   * @param   {string}  key - Default key to be used with lookup functions.
+   * @returns {this}        - This value.
+   * @example
+   * const input = [{ id: 23, name: "Geroge" }, { id: 96, name: "Lisa" }];
+   * const users = new IndexableArray(...input).addIndex("name", "id"); // "name" is default index
+   * users.setDefaultIndex("id"); // "id" is default index.
+   */
   public setDefaultIndex(key: IndexKey<I>): this {
     this.defaultKey = key;
     return this;

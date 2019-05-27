@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import IndexableArray from "./index";
 
 function getData(): { id?: number; name: string }[] {
@@ -213,6 +214,44 @@ describe("Indexable Array", () => {
 
     it("should check existence of value for given field.", () => {
       expect(ia().has(1, { key: "id" })).toBe(true);
+    });
+  });
+
+  describe("map()", () => {
+    it("should return IndexableArray without any index.", () => {
+      const result = ia().map(user => ({ name: `X${user.name}` }));
+      expect(result instanceof IndexableArray).toBeTruthy();
+      expect(result.indexedKeys).toEqual(new Set());
+
+      result.addIndex("name");
+      expect(result.getAllIndexes("XGeorge")).toEqual([0, 2]);
+    });
+  });
+
+  describe("mapWithIndex()", () => {
+    it("should return IndexableArray with same indexes.", () => {
+      const result = ia().mapWithIndex((user): { name: string } => ({ name: `X${user.name}` }));
+      expect(result instanceof IndexableArray).toBeTruthy();
+      expect(result.indexedKeys).toEqual(new Set(["id", "name"]));
+      expect(result.getAllIndexes("XGeorge")).toEqual([0, 2]);
+    });
+  });
+
+  describe("filter()", () => {
+    it("should return filtered array with same indexes.", () => {
+      const result = ia().filter(user => user.id && user.id >= 2);
+      expect(result instanceof IndexableArray).toBeTruthy();
+      expect(result.indexedKeys).toEqual(new Set(["id", "name"]));
+      expect(result.getAllIndexes("George")).toEqual([1]);
+    });
+  });
+
+  describe("slice()", () => {
+    it("should return sliced array with same indexes.", () => {
+      const result = ia().slice(0, 1);
+      expect(result instanceof IndexableArray).toBeTruthy();
+      expect(result.indexedKeys).toEqual(new Set(["id", "name"]));
+      expect(result.getAllIndexes("George")).toEqual([0]);
     });
   });
 
