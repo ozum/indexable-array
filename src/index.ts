@@ -400,6 +400,17 @@ export default class IndexableArray<I extends any, DK extends IndexKey<I> = Inde
     return super.lastIndexOf(searchElement, fromIndex);
   }
 
+  public concatIndexed(...items: I[]): IndexableArray<I, DK>;
+  public concatIndexed(...items: ConcatArray<I>[]): IndexableArray<I, DK>;
+  /**
+   * Merges two or more arrays. This method does not change the existing arrays, but instead returns a new array.
+   * @param   {...*}              items - Arrays and/or values to concatenate into a new array. If all valueN parameters are omitted, concat returns a shallow copy of the existing array on which it is called.
+   * @return  {IndexableArray}          - A new `IndexableArray` instance with same indexes as source.
+   */
+  public concatIndexed(...items: (I | ConcatArray<I>)[]): IndexableArray<I, DK> {
+    return (this.concat(...items) as IndexableArray<I, DK>).addIndexFrom(this);
+  }
+
   /**
    * Sets default index key to be used with lookup functions such as {@link IndexableArray#get}, {@link IndexableArray#getAll},
    * {@link IndexableArray#getIndex}, {@link IndexableArray#getAllIndexes} etc.

@@ -314,6 +314,13 @@ describe("Indexable Array", () => {
     });
   });
 
+  describe("concatIndexed()", () => {
+    it("should concat given items and preserve same indexes as source.", () => {
+      const result = ia().concatIndexed({ id: 102, name: "George" });
+      expect(result.getAllIndexes("George")).toEqual([0, 2, 3]);
+    });
+  });
+
   describe("push()", () => {
     it("should add given values.", () => {
       const result = ia();

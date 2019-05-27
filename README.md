@@ -96,6 +96,7 @@ users.enableIndex(); // Index is recreated from scratch.
     - [.addSelfIndex()](#IndexableArray+addSelfIndex) ⇒ <code>this</code>
     - [.map(callbackfn, [thisArg])](#IndexableArray+map) ⇒ [<code>IndexableArray</code>](#IndexableArray)
     - [.mapWithIndex(callbackfn, [thisArg])](#IndexableArray+mapWithIndex) ⇒ [<code>IndexableArray</code>](#IndexableArray)
+    - [.concatIndexed(...items)](#IndexableArray+concatIndexed) ⇒ [<code>IndexableArray</code>](#IndexableArray)
     - [.setDefaultIndex(key)](#IndexableArray+setDefaultIndex) ⇒ <code>this</code>
     - [.getIndex(value, [options])](#IndexableArray+getIndex) ⇒ <code>number</code>
     - [.getAllIndexes(value, [options])](#IndexableArray+getAllIndexes) ⇒ <code>Array.&lt;number&gt;</code>
@@ -257,6 +258,21 @@ const usersWithNick = usersWithName.map(user => ({ id: user.id, nick: name.subst
 const usersWithName = new IndexableArray({ id: 23, name: "Geroge" }, { id: 96, name: "Lisa" }).addIndex("name");
 const usersTrimmedName = usersWithName.mapWithIndex(user => ({ id: user.id, name: name.trim() })); // Has "name" index already.
 ```
+
+<br><a name="IndexableArray+concatIndexed"></a>
+
+### indexableArray.concatIndexed(...items) ⇒ [<code>IndexableArray</code>](#IndexableArray)
+
+> <p>Merges two or more arrays. This method does not change the existing arrays, but instead returns a new array.</p>
+
+**Returns**: [<code>IndexableArray</code>](#IndexableArray) - <ul>
+
+<li>A new <code>IndexableArray</code> instance with same indexes as source.</li>
+</ul>
+
+| Param    | Type            | Description                                                                                                                                                                   |
+| -------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ...items | <code>\*</code> | <p>Arrays and/or values to concatenate into a new array. If all valueN parameters are omitted, concat returns a shallow copy of the existing array on which it is called.</p> |
 
 <br><a name="IndexableArray+setDefaultIndex"></a>
 
