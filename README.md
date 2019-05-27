@@ -94,6 +94,7 @@ users.enableIndex(); // Index is recreated from scratch.
     - [.addIndex(keys)](#IndexableArray+addIndex) ⇒ <code>this</code>
     - [.addIndexFrom(source)](#IndexableArray+addIndexFrom) ⇒ <code>this</code>
     - [.addSelfIndex()](#IndexableArray+addSelfIndex) ⇒ <code>this</code>
+    - [.sortBy([key])](#IndexableArray+sortBy) ⇒ <code>this</code>
     - [.map(callbackfn, [thisArg])](#IndexableArray+map) ⇒ [<code>IndexableArray</code>](#IndexableArray)
     - [.mapWithIndex(callbackfn, [thisArg])](#IndexableArray+mapWithIndex) ⇒ [<code>IndexableArray</code>](#IndexableArray)
     - [.concatIndexed(...items)](#IndexableArray+concatIndexed) ⇒ [<code>IndexableArray</code>](#IndexableArray)
@@ -207,6 +208,21 @@ const newUser = { id: 3, name: "George" };
 users.push(newUser);
 users.getIndex(newUser); // 2;
 ```
+
+<br><a name="IndexableArray+sortBy"></a>
+
+### indexableArray.sortBy([key]) ⇒ <code>this</code>
+
+> <p>Sorts the elements of an array by given key in place and returns the sorted array.</p>
+
+**Returns**: <code>this</code> - <ul>
+
+<li>This instance.</li>
+</ul>
+
+| Param | Type                | Default                | Description |
+| ----- | ------------------- | ---------------------- | ----------- |
+| [key] | <code>string</code> | <code>&quot;defaultKey |             | Self&quot;</code> | <p>Key to sort array by.</p> |
 
 <br><a name="IndexableArray+map"></a>
 

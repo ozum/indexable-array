@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import IndexableArray from "./index";
+import IndexableArray, { Self } from "./index";
 
 function getData(): { id?: number; name: string }[] {
   return [{ id: 1, name: "George" }, { id: 10, name: "Lisa" }, { id: 3, name: "George" }];
@@ -529,10 +529,30 @@ describe("assignment()", () => {
 
 describe("sort()", () => {
   it("should sort and update indexes.", () => {
-    expect(
-      ia()
-        .sort((a, b) => (a.id || 0) - (b.id || 0))
-        .getAllIndexes("George")
-    ).toEqual([0, 1]);
+    const result = ia()
+      .sort((a, b) => (a.id || 0) - (b.id || 0))
+      .getAllIndexes("George");
+
+    expect(result).toEqual([0, 1]);
+  });
+});
+
+describe("sortBy()", () => {
+  it("should sort by given key and update indexes.", () => {
+    const result = ia()
+      .sortBy("id")
+      .getAllIndexes("George");
+
+    expect(result).toEqual([0, 1]);
+  });
+
+  it("should sort by default key and update indexes.", () => {
+    const result = ia().sortBy();
+    expect(result.getAllIndexes("George")).toEqual([0, 1]);
+  });
+
+  it("should sort by self and update indexes.", () => {
+    const result = primitiveIa().sortBy();
+    expect(result).toEqual([1, 1, 3]);
   });
 });

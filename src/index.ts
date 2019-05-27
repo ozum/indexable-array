@@ -344,6 +344,25 @@ export default class IndexableArray<I extends any, DK extends IndexKey<I> = Inde
     return result;
   }
 
+  /**
+   * Sorts the elements of an array by given key in place and returns the sorted array.
+   * @param   {string}  [key=defaultKey || Self]  - Key to sort array by.
+   * @returns {this}                              - This instance.
+   */
+  public sortBy(key: IndexKey<I> = this.defaultKey || Self): this {
+    return key === Self
+      ? this.sort()
+      : this.sort((a, b) => {
+          if (typeof a[key] === "number" && typeof b[key] === "number") {
+            return a[key] - b[key];
+          }
+          const textA = a[key].toUpperCase();
+          const textB = b[key].toUpperCase();
+          // eslint-disable-next-line no-nested-ternary
+          return textA < textB ? -1 : textA > textB ? 1 : 0;
+        });
+  }
+
   public filter(callbackfn: (value: I, index: number, array: IndexableArray<I, DK>) => any, thisArg?: any): IndexableArray<I, DK> {
     return (super.filter((callbackfn as unknown) as any, thisArg) as IndexableArray<I, DK>).addIndexFrom(this);
   }
