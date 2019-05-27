@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/ozum/indexable-array/compare/v0.3.0...v0.4.0) (2019-05-27)
+
+
+### Features
+
+* add sortBy() ([07a8f2e](https://github.com/ozum/indexable-array/commit/07a8f2e))
+
+
+
 ## [0.3.0](https://github.com/ozum/indexable-array/compare/v0.2.0...v0.3.0) (2019-05-27)
 
 
