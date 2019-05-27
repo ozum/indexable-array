@@ -10,7 +10,15 @@ type IndexValue<I, K extends IndexKey<I>> = K extends keyof I ? I[K] : I;
 type PrimitiveLookups<I, K = IndexKey<I>> = Map<K, Map<K extends keyof I ? I[K] : I, number[]>>;
 type ObjectLookups<I, K = IndexKey<I>, O extends Record<string, any> = K extends keyof I ? I[K] : I> = Map<K, WeakMap<O, number[]>>;
 
-const nonEnumerableProps = new Set(["primitiveLookups", "objectLookups", "indexedKeys", "defaultKey", "indexEnabled", "operationAtEnd"]);
+const nonEnumerableProps = new Set([
+  "primitiveLookups",
+  "objectLookups",
+  "indexedKeys",
+  "defaultKey",
+  "indexEnabled",
+  "operationAtEnd",
+  "builtIndexKeys",
+]);
 
 /**
  * Extended native array class to access array elements by fast key lookups using binary search. Used for storing objects.
@@ -335,7 +343,9 @@ export default class IndexableArray<I extends any, DK extends IndexKey<I> = Inde
   }
 
   /**
-   * Creates a new `IndexableArray` having no indexes with the results of calling a provided function on every element in the calling array.
+   * Creates a new `IndexableArray` with the results of calling a provided function on every element in the calling array.
+   * Returned `IndexedArray` does not have any indexes, because callback function may return different kind of elements from source array.
+   * To have same indexes as source `IndexedArray`, use `mapWithIndex()` instead.
    * @param   {Function}        callbackfn  - Function that produces an element of the new Array, taking three arguments: `value`, `index` and `indexableArray`.
    * @param   {*}               [thisArg]   - Value to use as this when executing callback.
    * @returns {IndexableArray}              - A new `IndexableArray` with each element being the result of the callback function. Returned value **has no indexes**.
@@ -349,11 +359,12 @@ export default class IndexableArray<I extends any, DK extends IndexKey<I> = Inde
   }
 
   /**
-   * Creates a new `IndexableArray` having same indexes with the results of calling a provided function on every element in the calling array.
+   * Creates a new `IndexableArray` with the results of calling a provided function on every element in the calling array.
+   * Returned `IndexedArray` have same indexes as source `IndexedArray`. To have different indexes than source `IndexedArray` use `map()` instead.
    * @param   {Function}        callbackfn  - Function that produces an element of the new Array, taking three arguments: `value`, `index` and `indexableArray`.
    * @param   {*}               [thisArg]   - Value to use as this when executing callback.
    * @returns {IndexableArray}              - A new `IndexableArray` with each element being the result of the callback function. Returned value **has same indexes with source `IndexedArray`**.
-   * @see {@link indexableArray#map} to get an `IndexableArray` without any index key.
+   * @see {@link indexableArray#map} to get an `IndexableArray` without any index keys.
    * @example
    * const usersWithName = new IndexableArray({ id: 23, name: "Geroge" }, { id: 96, name: "Lisa" }).addIndex("name");
    * const usersTrimmedName = usersWithName.mapWithIndex(user => ({ id: user.id, name: name.trim() })); // Has "name" index already.
@@ -364,6 +375,29 @@ export default class IndexableArray<I extends any, DK extends IndexKey<I> = Inde
 
   public slice(start?: number, end?: number): IndexableArray<I, DK> {
     return (super.slice(start, end) as IndexableArray<I, DK>).addIndexFrom(this);
+  }
+
+  public includes(searchElement: I, fromIndex: number = 0): boolean {
+    if (this.indexedKeys.has(Self)) {
+      return this.has(searchElement as any, { key: Self, fromIndex });
+    }
+    return super.includes(searchElement, fromIndex);
+  }
+
+  public indexOf(searchElement: I, fromIndex: number = 0): number {
+    if (this.indexedKeys.has(Self)) {
+      return this.getIndex(searchElement as any, { key: Self, fromIndex });
+    }
+    return super.indexOf(searchElement, fromIndex);
+  }
+
+  public lastIndexOf(searchElement: I, fromIndex: number = this.length): number {
+    if (this.indexedKeys.has(Self)) {
+      const indexes = this.getAllIndexes(searchElement as any);
+      const positionOfIndex = sorted.lte(indexes, fromIndex);
+      return indexes[positionOfIndex];
+    }
+    return super.lastIndexOf(searchElement, fromIndex);
   }
 
   /**

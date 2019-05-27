@@ -75,6 +75,8 @@ users.enableIndex();                      // Index is recreated from scratch.
 * Uses binary search for updates for faster index update.
 * Disables and recreates index from scratch automatically for heavy update operations like `splice` if above threshold..
 * Indexing may be disabled and re-enabled for heavy update operations manually.
+* Uses binary search for `indexOf()`, `lastIndexOf()`, `has()` if user added self index.
+* Methods such as `map()`, `filter()`, `slice()` returns `IndexedArray`. Additionally provides `mapIndexed()` method.
 
 # API
 {{>main~}}

@@ -76,6 +76,8 @@ users.enableIndex(); // Index is recreated from scratch.
 - Uses binary search for updates for faster index update.
 - Disables and recreates index from scratch automatically for heavy update operations like `splice` if above threshold..
 - Indexing may be disabled and re-enabled for heavy update operations manually.
+- Uses binary search for `indexOf()`, `lastIndexOf()`, `has()` if user added self index.
+- Methods such as `map()`, `filter()`, `slice()` returns `IndexedArray`. Additionally provides `mapIndexed()` method.
 
 # API
 
@@ -209,7 +211,9 @@ users.getIndex(newUser); // 2;
 
 ### indexableArray.map(callbackfn, [thisArg]) ⇒ [<code>IndexableArray</code>](#IndexableArray)
 
-> <p>Creates a new <code>IndexableArray</code> having no indexes with the results of calling a provided function on every element in the calling array.</p>
+> <p>Creates a new <code>IndexableArray</code> with the results of calling a provided function on every element in the calling array.
+> Returned <code>IndexedArray</code> does not have any indexes, because callback function may return different kind of elements from source array.
+> To have same indexes as source <code>IndexedArray</code>, use <code>mapWithIndex()</code> instead.</p>
 
 **Returns**: [<code>IndexableArray</code>](#IndexableArray) - <ul>
 
@@ -233,13 +237,14 @@ const usersWithNick = usersWithName.map(user => ({ id: user.id, nick: name.subst
 
 ### indexableArray.mapWithIndex(callbackfn, [thisArg]) ⇒ [<code>IndexableArray</code>](#IndexableArray)
 
-> <p>Creates a new <code>IndexableArray</code> having same indexes with the results of calling a provided function on every element in the calling array.</p>
+> <p>Creates a new <code>IndexableArray</code> with the results of calling a provided function on every element in the calling array.
+> Returned <code>IndexedArray</code> have same indexes as source <code>IndexedArray</code>. To have different indexes than source <code>IndexedArray</code> use <code>map()</code> instead.</p>
 
 **Returns**: [<code>IndexableArray</code>](#IndexableArray) - <ul>
 
 <li>A new <code>IndexableArray</code> with each element being the result of the callback function. Returned value <strong>has same indexes with source <code>IndexedArray</code></strong>.</li>
 </ul>  
-**See**: [indexableArray#map](indexableArray#map) to get an `IndexableArray` without any index key.
+**See**: [indexableArray#map](indexableArray#map) to get an `IndexableArray` without any index keys.
 
 | Param      | Type                  | Description                                                                                                                                                |
 | ---------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |

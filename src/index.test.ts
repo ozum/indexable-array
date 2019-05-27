@@ -17,6 +17,14 @@ function selfIa() {
   return new IndexableArray(...getData()).addSelfIndex();
 }
 
+function selfPrimitiveIa() {
+  return new IndexableArray(1, 3, 1).addSelfIndex();
+}
+
+function primitiveIa() {
+  return new IndexableArray(1, 3, 1);
+}
+
 describe("Indexable Array", () => {
   describe("instance", () => {
     it("should be an instance of Array.", () => {
@@ -252,6 +260,57 @@ describe("Indexable Array", () => {
       expect(result instanceof IndexableArray).toBeTruthy();
       expect(result.indexedKeys).toEqual(new Set(["id", "name"]));
       expect(result.getAllIndexes("George")).toEqual([0]);
+    });
+  });
+
+  describe("includes()", () => {
+    it("should use binary search if array has self index.", () => {
+      const result = selfPrimitiveIa();
+      expect(result.includes(1)).toBeTruthy();
+    });
+
+    it("should use binary search if array has self index (with from index).", () => {
+      const result = selfPrimitiveIa();
+      expect(result.includes(1, 1)).toBeTruthy();
+    });
+
+    it("should use parent method if array does not have self index.", () => {
+      const result = primitiveIa();
+      expect(result.includes(1)).toBeTruthy();
+    });
+  });
+
+  describe("indexOf()", () => {
+    it("should use binary search if array has self index.", () => {
+      const result = selfPrimitiveIa();
+      expect(result.indexOf(1)).toBe(0);
+    });
+
+    it("should use binary search if array has self index (with from index).", () => {
+      const result = selfPrimitiveIa();
+      expect(result.indexOf(1, 1)).toBe(2);
+    });
+
+    it("should use parent method if array does not have self index.", () => {
+      const result = primitiveIa();
+      expect(result.indexOf(1)).toBe(0);
+    });
+  });
+
+  describe("lastIndexOf()", () => {
+    it("should use binary search if array has self index.", () => {
+      const result = selfPrimitiveIa();
+      expect(result.lastIndexOf(1)).toBe(2);
+    });
+
+    it("should use binary search if array has self index (with from index).", () => {
+      const result = selfPrimitiveIa();
+      expect(result.lastIndexOf(1, 1)).toBe(0);
+    });
+
+    it("should use parent method if array does not have self index.", () => {
+      const result = primitiveIa();
+      expect(result.lastIndexOf(1)).toBe(2);
     });
   });
 
