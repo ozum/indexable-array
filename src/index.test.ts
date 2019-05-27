@@ -2,7 +2,7 @@
 import IndexableArray from "./index";
 
 function getData(): { id?: number; name: string }[] {
-  return [{ id: 1, name: "George" }, { id: 2, name: "Lisa" }, { id: 3, name: "George" }];
+  return [{ id: 1, name: "George" }, { id: 10, name: "Lisa" }, { id: 3, name: "George" }];
 }
 
 function ia() {
@@ -52,7 +52,7 @@ describe("Indexable Array", () => {
     });
 
     it("should update sub values using set() even if sub field does not exists.", () => {
-      const result = new IndexableArray({ id: 1 }, { id: 2, name: "Lisa" }, { id: 3, name: "George" }).addIndex("name");
+      const result = new IndexableArray({ id: 1 }, { id: 10, name: "Lisa" }, { id: 3, name: "George" }).addIndex("name");
       result.set(0, "name", "Kevin");
       expect(result.getAllIndexes("George")).toEqual([2]);
       expect(result.getAllIndexes("Kevin")).toEqual([0]);
@@ -103,13 +103,13 @@ describe("Indexable Array", () => {
 
   describe("IndexableArray.from()", () => {
     it("should create new IndexableArray from normal array", () => {
-      const result = IndexableArray.from([{ id: 1, name: "George" }, { id: 2, name: "Lisa" }, { id: 3, name: "George" }]).addIndex("name");
+      const result = IndexableArray.from([{ id: 1, name: "George" }, { id: 10, name: "Lisa" }, { id: 3, name: "George" }]).addIndex("name");
       expect(result.getAllIndexes("George")).toEqual([0, 2]);
     });
 
     it("should create new IndexableArray from normal array using map function", () => {
       const result = IndexableArray.from(
-        [{ id: 1, name: "George" }, { id: 2, name: "Lisa" }, { id: 3, name: "George" }],
+        [{ id: 1, name: "George" }, { id: 10, name: "Lisa" }, { id: 3, name: "George" }],
         ({ id, name }) => ({ id: id + 1, name })
       ).addIndex("name");
 
@@ -140,11 +140,11 @@ describe("Indexable Array", () => {
     });
 
     it("should return index of value for given field.", () => {
-      expect(ia().getIndex(2, { key: "id" })).toBe(1);
+      expect(ia().getIndex(10, { key: "id" })).toBe(1);
     });
 
     it("should return -1 if value for given field is not found.", () => {
-      expect(ia().getIndex(2, { key: "id" })).toBe(1);
+      expect(ia().getIndex(10, { key: "id" })).toBe(1);
     });
 
     it("should return index of value for given field from given index.", () => {
@@ -179,7 +179,7 @@ describe("Indexable Array", () => {
     });
 
     it("should return index of value for given field.", () => {
-      expect(ia().get(2, { key: "id" })).toEqual({ name: "Lisa", id: 2 });
+      expect(ia().get(10, { key: "id" })).toEqual({ id: 10, name: "Lisa" });
     });
 
     it("should return index of value for given field from given index.", () => {
@@ -197,7 +197,7 @@ describe("Indexable Array", () => {
     });
 
     it("should return index of value for given field.", () => {
-      expect(ia().getAll(2, { key: "id" })).toEqual([{ name: "Lisa", id: 2 }]);
+      expect(ia().getAll(10, { key: "id" })).toEqual([{ id: 10, name: "Lisa" }]);
     });
   });
 
@@ -340,14 +340,14 @@ describe("Indexable Array", () => {
     it("should remove last value.", () => {
       const result = ia();
       result.pop();
-      expect([...result]).toEqual([{ id: 1, name: "George" }, { id: 2, name: "Lisa" }]);
+      expect([...result]).toEqual([{ id: 1, name: "George" }, { id: 10, name: "Lisa" }]);
       expect(result.getAllIndexes("George")).toEqual([0]);
     });
 
     it("should remove last value for self Indexable Array.", () => {
       const result = selfIa();
       result.pop();
-      expect([...result]).toEqual([{ id: 1, name: "George" }, { id: 2, name: "Lisa" }]);
+      expect([...result]).toEqual([{ id: 1, name: "George" }, { id: 10, name: "Lisa" }]);
       expect(result.getIndex(result[1])).toEqual(1);
     });
 
@@ -361,7 +361,7 @@ describe("Indexable Array", () => {
     it("should remove first value.", () => {
       const result = ia();
       result.shift();
-      expect([...result]).toEqual([{ id: 2, name: "Lisa" }, { id: 3, name: "George" }]);
+      expect([...result]).toEqual([{ id: 10, name: "Lisa" }, { id: 3, name: "George" }]);
       expect(result.getAllIndexes("George")).toEqual([1]);
     });
   });
@@ -374,7 +374,7 @@ describe("Indexable Array", () => {
         { id: 9, name: "Mia" },
         { id: 10, name: "Mia" },
         { id: 1, name: "George" },
-        { id: 2, name: "Lisa" },
+        { id: 10, name: "Lisa" },
         { id: 3, name: "George" },
       ]);
       expect(result.getAllIndexes("George")).toEqual([2, 4]);
@@ -385,14 +385,14 @@ describe("Indexable Array", () => {
     it("should handle increase.", () => {
       const result = ia();
       result.length = 4;
-      expect([...result]).toEqual([{ id: 1, name: "George" }, { id: 2, name: "Lisa" }, { id: 3, name: "George" }, undefined]);
+      expect([...result]).toEqual([{ id: 1, name: "George" }, { id: 10, name: "Lisa" }, { id: 3, name: "George" }, undefined]);
       expect(result.getAllIndexes("George")).toEqual([0, 2]);
     });
 
     it("should handle decrease.", () => {
       const result = ia();
       result.length = 2;
-      expect([...result]).toEqual([{ id: 1, name: "George" }, { id: 2, name: "Lisa" }]);
+      expect([...result]).toEqual([{ id: 1, name: "George" }, { id: 10, name: "Lisa" }]);
       expect(result.getAllIndexes("George")).toEqual([0]);
     });
   });
@@ -401,7 +401,7 @@ describe("Indexable Array", () => {
     it("should remove elements.", () => {
       const result = ia();
       result.splice(0, 1);
-      expect([...result]).toEqual([{ id: 2, name: "Lisa" }, { id: 3, name: "George" }]);
+      expect([...result]).toEqual([{ id: 10, name: "Lisa" }, { id: 3, name: "George" }]);
       expect(result.getAllIndexes("George")).toEqual([1]);
     });
 
@@ -413,7 +413,7 @@ describe("Indexable Array", () => {
         { id: 9, name: "Mia" },
         { id: 10, name: "Mia" },
         { id: 11, name: "George" },
-        { id: 2, name: "Lisa" },
+        { id: 10, name: "Lisa" },
         { id: 3, name: "George" },
       ]);
       expect(result.getAllIndexes("George")).toEqual([0, 3, 5]);
@@ -467,7 +467,7 @@ describe("Indexable Array", () => {
       const result = ia();
       result.push({ id: 9, name: "Mia" });
       result.reverse();
-      expect([...result]).toEqual([{ id: 9, name: "Mia" }, { id: 3, name: "George" }, { id: 2, name: "Lisa" }, { id: 1, name: "George" }]);
+      expect([...result]).toEqual([{ id: 9, name: "Mia" }, { id: 3, name: "George" }, { id: 10, name: "Lisa" }, { id: 1, name: "George" }]);
       expect(result.getAllIndexes("George")).toEqual([1, 3]);
     });
   });
@@ -486,7 +486,7 @@ describe("copyWithin()", () => {
   it("should copy elements.", () => {
     const result = ia();
     result.copyWithin(0, 1, 2);
-    expect([...result]).toEqual([{ id: 2, name: "Lisa" }, { id: 2, name: "Lisa" }, { id: 3, name: "George" }]);
+    expect([...result]).toEqual([{ id: 10, name: "Lisa" }, { id: 10, name: "Lisa" }, { id: 3, name: "George" }]);
     expect(result.getAllIndexes("Lisa")).toEqual([0, 1]);
     expect(result.getAllIndexes("George")).toEqual([2]);
   });
@@ -503,10 +503,10 @@ describe("fill()", () => {
 });
 
 describe("assignment()", () => {
-  it("should cahnge value of assigned item.", () => {
+  it("should change value of assigned item.", () => {
     const result = ia();
     result[0] = { id: 9, name: "Mia" };
-    expect([...result]).toEqual([{ id: 9, name: "Mia" }, { id: 2, name: "Lisa" }, { id: 3, name: "George" }]);
+    expect([...result]).toEqual([{ id: 9, name: "Mia" }, { id: 10, name: "Lisa" }, { id: 3, name: "George" }]);
     expect(result.getAllIndexes("Mia")).toEqual([0]);
     expect(result.getAllIndexes("George")).toEqual([2]);
   });
@@ -516,7 +516,7 @@ describe("assignment()", () => {
     result[5] = { id: 9, name: "Mia" };
     expect([...result]).toEqual([
       { id: 1, name: "George" },
-      { id: 2, name: "Lisa" },
+      { id: 10, name: "Lisa" },
       { id: 3, name: "George" },
       undefined,
       undefined,
@@ -524,5 +524,15 @@ describe("assignment()", () => {
     ]);
     expect(result.getAllIndexes("Mia")).toEqual([5]);
     expect(result.getAllIndexes("George")).toEqual([0, 2]);
+  });
+});
+
+describe("sort()", () => {
+  it("should sort and update indexes.", () => {
+    expect(
+      ia()
+        .sort((a, b) => (a.id || 0) - (b.id || 0))
+        .getAllIndexes("George")
+    ).toEqual([0, 1]);
   });
 });

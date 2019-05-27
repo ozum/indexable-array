@@ -327,15 +327,21 @@ export default class IndexableArray<I extends any, DK extends IndexKey<I> = Inde
 
   public splice(start: number, deleteCount: number = this.length, ...items: I[]): I[] {
     if (start < this.length * 0.8) {
-      this.indexEnabled = false;
+      this.disableIndex();
       const result = super.splice(start, deleteCount, ...items);
       this.indexEnabled = true;
-      this.clearIndex();
-      this.addIndex();
+      this.enableIndex();
       return result;
     }
 
     return super.splice(start, deleteCount, ...items);
+  }
+
+  public sort(compareFn?: (a: I, b: I) => number): this {
+    this.disableIndex();
+    const result = super.sort(compareFn);
+    this.enableIndex();
+    return result;
   }
 
   public filter(callbackfn: (value: I, index: number, array: IndexableArray<I, DK>) => any, thisArg?: any): IndexableArray<I, DK> {
