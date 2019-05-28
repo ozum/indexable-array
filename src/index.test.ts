@@ -1,8 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import IndexableArray, { Self } from "./index";
+import IndexableArray from "./index";
 
-function getData(): { id?: number; name: string }[] {
-  return [{ id: 1, name: "George" }, { id: 10, name: "Lisa" }, { id: 3, name: "George" }];
+class User {
+  public id?: number;
+  public name: string;
+
+  public constructor(name: string, id?: number) {
+    this.id = id;
+    this.name = name;
+  }
+
+  public get plusOne(): number {
+    return (this.id || 0) + 1;
+  }
+}
+
+function getData(): User[] {
+  return [new User("George", 1), new User("Lisa", 10), new User("George", 3)];
 }
 
 function ia() {
@@ -98,6 +112,11 @@ describe("Indexable Array", () => {
       const result = ia();
       result.addIndex("name");
       expect(result.getIndex("Lisa")).toBe(1);
+    });
+
+    it("should index getters.", () => {
+      const result = new IndexableArray(...getData()).addIndex("plusOne");
+      expect(result.getIndex(11)).toBe(1);
     });
   });
 
@@ -316,7 +335,7 @@ describe("Indexable Array", () => {
 
   describe("concatIndexed()", () => {
     it("should concat given items and preserve same indexes as source.", () => {
-      const result = ia().concatIndexed({ id: 102, name: "George" });
+      const result = ia().concatIndexed(new User("George", 102));
       expect(result.getAllIndexes("George")).toEqual([0, 2, 3]);
     });
   });
@@ -324,14 +343,14 @@ describe("Indexable Array", () => {
   describe("push()", () => {
     it("should add given values.", () => {
       const result = ia();
-      result.push({ name: "Mia", id: 9 }, { name: "Mia", id: 10 });
+      result.push(new User("Mia", 9), new User("Mia", 10));
       expect([...result]).toEqual([...getData(), { name: "Mia", id: 9 }, { name: "Mia", id: 10 }]);
       expect(result.getAllIndexes("Mia")).toEqual([3, 4]);
     });
 
     it("should add given value even with a missing indexed fields.", () => {
       const result = ia();
-      result.push({ name: "Mia" });
+      result.push(new User("Mia"));
       expect(result.getIndex(undefined, { key: "id" })).toBe(3);
     });
   });
@@ -369,7 +388,7 @@ describe("Indexable Array", () => {
   describe("unshift()", () => {
     it("should add first value.", () => {
       const result = ia();
-      result.unshift({ id: 9, name: "Mia" }, { id: 10, name: "Mia" });
+      result.unshift(new User("Mia", 9), new User("Mia", 10));
       expect([...result]).toEqual([
         { id: 9, name: "Mia" },
         { id: 10, name: "Mia" },
@@ -407,7 +426,7 @@ describe("Indexable Array", () => {
 
     it("should add elements.", () => {
       const result = ia();
-      result.splice(1, 0, { id: 9, name: "Mia" }, { id: 10, name: "Mia" }, { id: 11, name: "George" });
+      result.splice(1, 0, new User("Mia", 9), new User("Mia", 10), new User("George", 11));
       expect([...result]).toEqual([
         { id: 1, name: "George" },
         { id: 9, name: "Mia" },
@@ -421,7 +440,7 @@ describe("Indexable Array", () => {
 
     it("should remove and add elements.", () => {
       const result = ia();
-      result.splice(1, 1, { id: 9, name: "Mia" }, { id: 10, name: "Mia" }, { id: 11, name: "George" });
+      result.splice(1, 1, new User("Mia", 9), new User("Mia", 10), new User("George", 11));
       expect([...result]).toEqual([
         { id: 1, name: "George" },
         { id: 9, name: "Mia" },
@@ -465,7 +484,7 @@ describe("Indexable Array", () => {
   describe("reverse()", () => {
     it("should reverse array.", () => {
       const result = ia();
-      result.push({ id: 9, name: "Mia" });
+      result.push(new User("Mia", 9));
       result.reverse();
       expect([...result]).toEqual([{ id: 9, name: "Mia" }, { id: 3, name: "George" }, { id: 10, name: "Lisa" }, { id: 1, name: "George" }]);
       expect(result.getAllIndexes("George")).toEqual([1, 3]);
@@ -495,7 +514,7 @@ describe("copyWithin()", () => {
 describe("fill()", () => {
   it("should fill elements.", () => {
     const result = ia();
-    result.fill({ id: 9, name: "Mia" }, 1, 3);
+    result.fill(new User("Mia", 9), 1, 3);
     expect([...result]).toEqual([{ id: 1, name: "George" }, { id: 9, name: "Mia" }, { id: 9, name: "Mia" }]);
     expect(result.getAllIndexes("Mia")).toEqual([1, 2]);
     expect(result.getAllIndexes("George")).toEqual([0]);
@@ -505,7 +524,7 @@ describe("fill()", () => {
 describe("assignment()", () => {
   it("should change value of assigned item.", () => {
     const result = ia();
-    result[0] = { id: 9, name: "Mia" };
+    result[0] = new User("Mia", 9);
     expect([...result]).toEqual([{ id: 9, name: "Mia" }, { id: 10, name: "Lisa" }, { id: 3, name: "George" }]);
     expect(result.getAllIndexes("Mia")).toEqual([0]);
     expect(result.getAllIndexes("George")).toEqual([2]);
@@ -513,7 +532,7 @@ describe("assignment()", () => {
 
   it("should add value of non-existing item.", () => {
     const result = ia();
-    result[5] = { id: 9, name: "Mia" };
+    result[5] = new User("Mia", 9);
     expect([...result]).toEqual([
       { id: 1, name: "George" },
       { id: 10, name: "Lisa" },
