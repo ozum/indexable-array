@@ -398,6 +398,20 @@ export default class IndexableArray<I extends any, DK extends IndexKey<I> = Inde
     return (super.map(callbackfn as any, thisArg) as IndexableArray<U>).addIndexFrom(this);
   }
 
+  /**
+   * Creates a new base Array (not IndexableArray) with the results of calling a provided function on every element in the calling array.
+   * @param   {Function}        callbackfn  - Function that produces an element of the new Array, taking three arguments: `value`, `index` and `indexableArray`.
+   * @param   {*}               [thisArg]   - Value to use as this when executing callback.
+   * @returns {Array}                       - A new `IndexableArray` with each element being the result of the callback function. Returned value **has no indexes**.
+   * @see {@link indexableArray#mapWithIndex} or {@link indexableArray#map} to get an `IndexableArray`.
+   * @example
+   * const usersWithName = new IndexableArray({ id: 23, name: "Geroge" }, { id: 96, name: "Lisa" }).addIndex("name");
+   * const baseArray = usersWithName.mapToArray(user => ({ id: user.id, nick: name.substring(0,2) })); // Normal base array.
+   */
+  public mapToArray<U>(callbackfn: (value: I, index: number, array: IndexableArray<I, DK>) => U, thisArg?: any): U[] {
+    return Array.from(this).map(callbackfn as any, thisArg);
+  }
+
   public slice(start?: number, end?: number): IndexableArray<I, DK> {
     return (super.slice(start, end) as IndexableArray<I, DK>).addIndexFrom(this);
   }

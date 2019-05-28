@@ -97,6 +97,7 @@ users.enableIndex(); // Index is recreated from scratch.
     - [.sortBy([key])](#IndexableArray+sortBy) ⇒ <code>this</code>
     - [.map(callbackfn, [thisArg])](#IndexableArray+map) ⇒ [<code>IndexableArray</code>](#IndexableArray)
     - [.mapWithIndex(callbackfn, [thisArg])](#IndexableArray+mapWithIndex) ⇒ [<code>IndexableArray</code>](#IndexableArray)
+    - [.mapToArray(callbackfn, [thisArg])](#IndexableArray+mapToArray) ⇒ <code>Array</code>
     - [.concatIndexed(...items)](#IndexableArray+concatIndexed) ⇒ [<code>IndexableArray</code>](#IndexableArray)
     - [.setDefaultIndex(key)](#IndexableArray+setDefaultIndex) ⇒ <code>this</code>
     - [.getIndex(value, [options])](#IndexableArray+getIndex) ⇒ <code>number</code>
@@ -273,6 +274,30 @@ const usersWithNick = usersWithName.map(user => ({ id: user.id, nick: name.subst
 ```ts
 const usersWithName = new IndexableArray({ id: 23, name: "Geroge" }, { id: 96, name: "Lisa" }).addIndex("name");
 const usersTrimmedName = usersWithName.mapWithIndex(user => ({ id: user.id, name: name.trim() })); // Has "name" index already.
+```
+
+<br><a name="IndexableArray+mapToArray"></a>
+
+### indexableArray.mapToArray(callbackfn, [thisArg]) ⇒ <code>Array</code>
+
+> <p>Creates a new base Array (not IndexableArray) with the results of calling a provided function on every element in the calling array.</p>
+
+**Returns**: <code>Array</code> - <ul>
+
+<li>A new <code>IndexableArray</code> with each element being the result of the callback function. Returned value <strong>has no indexes</strong>.</li>
+</ul>  
+**See**: [indexableArray#mapWithIndex](indexableArray#mapWithIndex) or [indexableArray#map](indexableArray#map) to get an `IndexableArray`.
+
+| Param      | Type                  | Description                                                                                                                                                |
+| ---------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| callbackfn | <code>function</code> | <p>Function that produces an element of the new Array, taking three arguments: <code>value</code>, <code>index</code> and <code>indexableArray</code>.</p> |
+| [thisArg]  | <code>\*</code>       | <p>Value to use as this when executing callback.</p>                                                                                                       |
+
+**Example**
+
+```ts
+const usersWithName = new IndexableArray({ id: 23, name: "Geroge" }, { id: 96, name: "Lisa" }).addIndex("name");
+const baseArray = usersWithName.mapToArray(user => ({ id: user.id, nick: name.substring(0, 2) })); // Normal base array.
 ```
 
 <br><a name="IndexableArray+concatIndexed"></a>

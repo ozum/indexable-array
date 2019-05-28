@@ -264,6 +264,15 @@ describe("Indexable Array", () => {
     });
   });
 
+  describe("mapToArray()", () => {
+    it("should return base array.", () => {
+      const result = ia().mapToArray((user): { name: string } => ({ name: `X${user.name}` }));
+      expect(result instanceof IndexableArray).toBeFalsy();
+      expect(result instanceof Array).toBeTruthy();
+      expect(() => (result as any).getAllIndexes(12)).toThrow("result.getAllIndexes is not a function");
+    });
+  });
+
   describe("filter()", () => {
     it("should return filtered array with same indexes.", () => {
       const result = ia().filter(user => user.id && user.id >= 2);
