@@ -1,6 +1,6 @@
 {
   "name": "indexable-array",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Extended native JavaScript Array which provides indexed lookup similar to native Map.",
   "keywords": [
     "lookup",
