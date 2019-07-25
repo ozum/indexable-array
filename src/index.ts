@@ -363,7 +363,13 @@ export default class IndexableArray<I extends any, DK extends IndexKey<I> = Inde
         });
   }
 
-  public filter(callbackfn: (value: I, index: number, array: IndexableArray<I, DK>) => any, thisArg?: any): IndexableArray<I, DK> {
+  public filter<S extends I>(
+    callbackfn: (value: I, index: number, array: IndexableArray<I, DK>) => value is S,
+    thisArg?: any
+  ): IndexableArray<I, DK>;
+
+  public filter(callbackfn: (value: I, index: number, array: IndexableArray<I, DK>) => unknown, thisArg?: any): IndexableArray<I, DK>;
+  public filter(callbackfn: (value: I, index: number, array: IndexableArray<I, DK>) => unknown, thisArg?: any): IndexableArray<I, DK> {
     return (super.filter((callbackfn as unknown) as any, thisArg) as IndexableArray<I, DK>).addIndexFrom(this);
   }
 
