@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.2](https://github.com/ozum/indexable-array/compare/v0.5.1...v0.5.2) (2019-07-26)
+
+
+### Bug Fixes
+
+* fix TS type of filter, add test ([27dbad2](https://github.com/ozum/indexable-array/commit/27dbad2))
+
+
+
 ### [0.5.1](https://github.com/ozum/indexable-array/compare/v0.5.0...v0.5.1) (2019-07-25)
 
 
