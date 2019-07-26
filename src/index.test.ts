@@ -255,9 +255,29 @@ describe("Indexable Array", () => {
     });
   });
 
+  describe("flatMap()", () => {
+    it("should return IndexableArray without any index.", () => {
+      const result = ia().flatMap(user => [{ name: `X${user.name}` }]);
+      expect(result instanceof IndexableArray).toBeTruthy();
+      expect(result.indexedKeys).toEqual(new Set());
+
+      result.addIndex("name");
+      expect(result.getAllIndexes("XGeorge")).toEqual([0, 2]);
+    });
+  });
+
   describe("mapWithIndex()", () => {
     it("should return IndexableArray with same indexes.", () => {
       const result = ia().mapWithIndex((user): { name: string } => ({ name: `X${user.name}` }));
+      expect(result instanceof IndexableArray).toBeTruthy();
+      expect(result.indexedKeys).toEqual(new Set(["id", "name"]));
+      expect(result.getAllIndexes("XGeorge")).toEqual([0, 2]);
+    });
+  });
+
+  describe("flatMapWithIndex()", () => {
+    it("should return IndexableArray with same indexes.", () => {
+      const result = ia().flatMapWithIndex(user => [{ name: `X${user.name}` }]);
       expect(result instanceof IndexableArray).toBeTruthy();
       expect(result.indexedKeys).toEqual(new Set(["id", "name"]));
       expect(result.getAllIndexes("XGeorge")).toEqual([0, 2]);

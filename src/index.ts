@@ -380,7 +380,7 @@ export default class IndexableArray<I extends any, DK extends IndexKey<I> = Inde
    * Creates a new `IndexableArray` with the results of calling a provided function on every element in the calling array.
    * Returned `IndexedArray` does not have any indexes, because callback function may return different kind of elements from source array.
    * To have same indexes as source `IndexedArray`, use `mapWithIndex()` instead.
-   * @param   {Function}        callbackfn  - Function that produces an element of the new Array, taking three arguments: `value`, `index` and `indexableArray`.
+   * @param   {Function}        callbackFn  - Function that produces an element of the new Array, taking three arguments: `value`, `index` and `indexableArray`.
    * @param   {*}               [thisArg]   - Value to use as this when executing callback.
    * @returns {IndexableArray}              - A new `IndexableArray` with each element being the result of the callback function. Returned value **has no indexes**.
    * @see {@link indexableArray#mapWithIndex} to get an `IndexableArray` with same index keys.
@@ -388,14 +388,29 @@ export default class IndexableArray<I extends any, DK extends IndexKey<I> = Inde
    * const usersWithName = new IndexableArray({ id: 23, name: "Geroge" }, { id: 96, name: "Lisa" }).addIndex("name");
    * const usersWithNick = usersWithName.map(user => ({ id: user.id, nick: name.substring(0,2) })).addIndex("nick"); // Has only "nick" index.
    */
-  public map<U>(callbackfn: (value: I, index: number, array: IndexableArray<I, DK>) => U, thisArg?: any): IndexableArray<U> {
-    return super.map(callbackfn as any, thisArg) as IndexableArray<U>;
+  public map<U>(callbackFn: (value: I, index: number, array: IndexableArray<I, DK>) => U, thisArg?: any): IndexableArray<U> {
+    return super.map(callbackFn as any, thisArg) as IndexableArray<U>;
+  }
+
+  /**
+   * Calls a defined callback function on each element of an indexable array. Then, flattens the result into
+   * a new indexable array.
+   * This is identical to a map followed by flat with depth 1. Returned `IndexedArray` does not have any indexes. To have same indexes as source `IndexedArray`, use `flatMapWithIndex()` instead.
+   *
+   * @param callback A function that accepts up to three arguments. The flatMap method calls the callback function one time for each element in the array.
+   * @param thisArg An object to which the this keyword can refer in the callback function. If thisArg is omitted, undefined is used as the this value.
+   */
+  public flatMap<U, This = undefined>(
+    callbackFn: (this: This, value: I, index: number, array: IndexableArray<I, DK>) => U | readonly U[] | IndexableArray<U>,
+    thisArg?: This
+  ): IndexableArray<U> {
+    return super.flatMap(callbackFn as any, thisArg) as IndexableArray<U>;
   }
 
   /**
    * Creates a new `IndexableArray` with the results of calling a provided function on every element in the calling array.
    * Returned `IndexedArray` have same indexes as source `IndexedArray`. To have different indexes than source `IndexedArray` use `map()` instead.
-   * @param   {Function}        callbackfn  - Function that produces an element of the new Array, taking three arguments: `value`, `index` and `indexableArray`.
+   * @param   {Function}        callbackFn  - Function that produces an element of the new Array, taking three arguments: `value`, `index` and `indexableArray`.
    * @param   {*}               [thisArg]   - Value to use as this when executing callback.
    * @returns {IndexableArray}              - A new `IndexableArray` with each element being the result of the callback function. Returned value **has same indexes with source `IndexedArray`**.
    * @see {@link indexableArray#map} to get an `IndexableArray` without any index keys.
@@ -403,8 +418,23 @@ export default class IndexableArray<I extends any, DK extends IndexKey<I> = Inde
    * const usersWithName = new IndexableArray({ id: 23, name: "Geroge" }, { id: 96, name: "Lisa" }).addIndex("name");
    * const usersTrimmedName = usersWithName.mapWithIndex(user => ({ id: user.id, name: name.trim() })); // Has "name" index already.
    */
-  public mapWithIndex<U>(callbackfn: (value: I, index: number, array: IndexableArray<I, DK>) => U, thisArg?: any): IndexableArray<U> {
-    return (super.map(callbackfn as any, thisArg) as IndexableArray<U>).addIndexFrom(this);
+  public mapWithIndex<U>(callbackFn: (value: I, index: number, array: IndexableArray<I, DK>) => U, thisArg?: any): IndexableArray<U> {
+    return (super.map(callbackFn as any, thisArg) as IndexableArray<U>).addIndexFrom(this);
+  }
+
+  /**
+   * Calls a defined callback function on each element of an indexable array. Then, flattens the result into
+   * a new indexable array.
+   * This is identical to a map followed by flat with depth 1. Returned `IndexedArray` have same indexes as source. To have different indexes than source `IndexedArray` use `flatMap()` instead.
+   *
+   * @param callback A function that accepts up to three arguments. The flatMap method calls the callback function one time for each element in the array.
+   * @param thisArg An object to which the this keyword can refer in the callback function. If thisArg is omitted, undefined is used as the this value.
+   */
+  public flatMapWithIndex<U, This = undefined>(
+    callbackFn: (this: This, value: I, index: number, array: IndexableArray<I, DK>) => U | readonly U[] | IndexableArray<U>,
+    thisArg?: This
+  ): IndexableArray<U> {
+    return (super.flatMap(callbackFn as any, thisArg) as IndexableArray<U>).addIndexFrom(this);
   }
 
   /**
