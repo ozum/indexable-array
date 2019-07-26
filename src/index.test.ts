@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import IndexableArray from "./index";
+import IndexableArray, { Self } from "./index";
 
 class User {
   public id?: number;
@@ -279,6 +279,14 @@ describe("Indexable Array", () => {
       expect(result instanceof IndexableArray).toBeTruthy();
       expect(result.indexedKeys).toEqual(new Set(["id", "name"]));
       expect(result.getAllIndexes("George")).toEqual([1]);
+    });
+
+    it("should filter array based on type.", () => {
+      const localIa = new IndexableArray<number | string>(1, "a").addIndex(Self);
+      const isNumber = (i: any): i is string => typeof i === "string";
+      const result = localIa.filter(isNumber);
+      expect(result instanceof IndexableArray).toBeTruthy();
+      expect(result.getIndex("a")).toEqual(0);
     });
   });
 
