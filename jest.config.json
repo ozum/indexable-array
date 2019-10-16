@@ -3,7 +3,6 @@
   "preset": "ts-jest",
   "testEnvironment": "node",
   "coveragePathIgnorePatterns": [
-    "<rootDir>/.*",
     "<rootDir>/dist/",
     "<rootDir>/node_modules/",
     "<rootDir>/test-helper/",
@@ -11,19 +10,11 @@
     "<rootDir>/src/test-helper/"
   ],
   "testPathIgnorePatterns": [
-    "<rootDir>/.*",
     "<rootDir>/dist/",
     "<rootDir>/node_modules/",
     "<rootDir>/test-helper/",
     "<rootDir>/test/test-helper/",
     "<rootDir>/src/test-helper/"
   ],
-  "coverageThreshold": {
-    "global": {
-      "branches": 100,
-      "functions": 100,
-      "lines": 100,
-      "statements": 100
-    }
-  }
+  "coverageThreshold": { "global": { "branches": 100, "functions": 100, "lines": 100, "statements": 100 } }
 }
