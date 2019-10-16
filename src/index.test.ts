@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable max-classes-per-file */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import IndexableArray, { Self } from "./index";
+
+import IndexableArray from ".";
 
 class User {
   public id?: number;
@@ -20,24 +23,21 @@ function getData(): User[] {
 }
 
 function ia() {
-  return new IndexableArray(...getData()).addIndex("name", "id");
+  return IndexableArray.from(getData(), "name", "id");
+  // const b = IndexableArray.from(a, "id", "plusOne", "id");
 }
 
 function singleIa() {
-  return new IndexableArray(...getData()).addIndex("name");
+  return IndexableArray.from(getData(), "name");
 }
 
-function selfIa() {
-  return new IndexableArray(...getData()).addSelfIndex();
-}
+// function selfIa() {
+//   return new IndexableArray(...getData()).addSelfIndex();
+// }
 
-function selfPrimitiveIa() {
-  return new IndexableArray(1, 3, 1).addSelfIndex();
-}
-
-function primitiveIa() {
-  return new IndexableArray(1, 3, 1);
-}
+// function selfPrimitiveIa() {
+//   return IndexableArray.from([1, 3, 1]);
+// }
 
 describe("Indexable Array", () => {
   describe("instance", () => {
@@ -66,7 +66,7 @@ describe("Indexable Array", () => {
     });
 
     it("should update sub values using set() even if sub field does not exists.", () => {
-      const result = new IndexableArray({ id: 1 }, { id: 10, name: "Lisa" }, { id: 3, name: "George" }).addIndex("name");
+      const result = IndexableArray.from([{ id: 1 }, { id: 10, name: "Lisa" }, { id: 3, name: "George" }], "name");
       result.set(0, "name", "Kevin");
       expect(result.getAllIndexes("George")).toEqual([2]);
       expect(result.getAllIndexes("Kevin")).toEqual([0]);
@@ -98,46 +98,46 @@ describe("Indexable Array", () => {
         { id: 3, name: "George" },
       ];
 
-      const result = new IndexableArray(...testData).addIndex("name");
+      const result = IndexableArray.from(testData, "name", "id");
 
       expect(result.getIndex(nameObject)).toBe(1);
     });
 
     it("can change default index key.", () => {
-      const result = ia().setDefaultIndex("id");
+      const result = ia().withDefaultIndex("id");
       expect(result.getIndex(1)).toBe(0);
     });
 
-    it("wont re-build already built index", () => {
-      const result = ia();
-      result.addIndex("name");
-      expect(result.getIndex("Lisa")).toBe(1);
-    });
-
     it("should index getters.", () => {
-      const result = new IndexableArray(...getData()).addIndex("plusOne");
+      const result = IndexableArray.from(getData(), "plusOne");
       expect(result.getIndex(11)).toBe(1);
     });
   });
 
   describe("IndexableArray.from()", () => {
     it("should create new IndexableArray from normal array", () => {
-      const result = IndexableArray.from([{ id: 1, name: "George" }, { id: 10, name: "Lisa" }, { id: 3, name: "George" }]).addIndex("name");
+      const result = IndexableArray.from([{ id: 1, name: "George" }, { id: 10, name: "Lisa" }, { id: 3, name: "George" }], "name");
       expect(result.getAllIndexes("George")).toEqual([0, 2]);
-    });
-
-    it("should create new IndexableArray from normal array using map function", () => {
-      const result = IndexableArray.from(
-        [{ id: 1, name: "George" }, { id: 10, name: "Lisa" }, { id: 3, name: "George" }],
-        ({ id, name }) => ({ id: id + 1, name })
-      ).addIndex("name");
-
-      expect(result.getAll("George")).toEqual([{ id: 2, name: "George" }, { id: 4, name: "George" }]);
     });
 
     it("should create new IndexableArray from IndexableArray", () => {
       const result = IndexableArray.from(ia());
       expect(result.getAllIndexes("George")).toEqual([0, 2]);
+    });
+
+    it("should create new throwing IndexableArray from throwing IndexableArray", () => {
+      const source = IndexableArray.throwingFrom([{ id: 1, name: "George" }, { id: 10, name: "Lisa" }, { id: 3, name: "George" }], "name");
+      const result = IndexableArray.from(source);
+      expect(result.getAllIndexes("George")).toEqual([0, 2]);
+      expect(() => result.get("XYZ")).toThrow("'XYZ' cannot be found in 'name'.");
+    });
+  });
+
+  describe("IndexableArray.throwingFrom()", () => {
+    it("should create new IndexableArray from normal array and throw for unknown values", () => {
+      const result = IndexableArray.throwingFrom([{ id: 1, name: "George" }, { id: 10, name: "Lisa" }, { id: 3, name: "George" }], "name");
+      expect(result.getAllIndexes("George")).toEqual([0, 2]);
+      expect(() => result.get("XYZ")).toThrow("'XYZ' cannot be found in 'name'.");
     });
   });
 
@@ -174,11 +174,6 @@ describe("Indexable Array", () => {
       expect(ia().getIndex("George", { key: "name", fromIndex: -2 })).toBe(2);
     });
 
-    it("should return index of selfIndexed data for default value", () => {
-      const result = selfIa();
-      expect(result.getIndex(result[0])).toBe(0);
-    });
-
     it("should return index of value for default field with single field index.", () => {
       expect(singleIa().getIndex("George")).toBe(0);
     });
@@ -203,6 +198,22 @@ describe("Indexable Array", () => {
 
     it("should return index of value for given field from given index.", () => {
       expect(ia().get("George", { key: "name", fromIndex: 1 })).toEqual({ name: "George", id: 3 });
+    });
+
+    it("should thrw for unknown result.", () => {
+      expect(() => ia().get("XYZT", { throwUnknown: true })).toThrow("'XYZT' cannot be found in 'name'.");
+    });
+  });
+
+  describe("getSure()", () => {
+    it("should throw for unknown result.", () => {
+      expect(() => ia().getSure("XYZT")).toThrow("'XYZT' cannot be found in 'name'.");
+    });
+  });
+
+  describe("getMaybe()", () => {
+    it("should return undefined for unknown result.", () => {
+      expect(ia().getMaybe("XYZT")).toBeUndefined();
     });
   });
 
@@ -245,39 +256,38 @@ describe("Indexable Array", () => {
   });
 
   describe("map()", () => {
-    it("should return IndexableArray without any index.", () => {
-      const result = ia().map(user => ({ name: `X${user.name}` }));
+    it("should return IndexableArray with same indexes.", () => {
+      const result = ia().map((user): { name: string } => ({ name: `X${user.name}` }));
       expect(result instanceof IndexableArray).toBeTruthy();
-      expect(result.indexedKeys).toEqual(new Set());
+      expect(result.indexedKeys).toEqual(new Set(["id", "name"]));
+      expect(result.getAllIndexes("XGeorge")).toEqual([0, 2]);
+    });
 
-      result.addIndex("name");
+    it("should return IndexableArray with same indexes (custom this argument).", () => {
+      const result = ia().map((user): { name: string } => ({ name: `X${user.name}` }), {});
+      expect(result instanceof IndexableArray).toBeTruthy();
+      expect(result.indexedKeys).toEqual(new Set(["id", "name"]));
+      expect(result.getAllIndexes("XGeorge")).toEqual([0, 2]);
+    });
+
+    it("should return IndexableArray with totally different indexes.", () => {
+      const result = ia().map(user => ({ xname: `X${user.name}` }), "xname");
+      expect(result instanceof IndexableArray).toBeTruthy();
+      expect(result.indexedKeys).toEqual(new Set(["xname"]));
       expect(result.getAllIndexes("XGeorge")).toEqual([0, 2]);
     });
   });
 
   describe("flatMap()", () => {
-    it("should return IndexableArray without any index.", () => {
-      const result = ia().flatMap(user => [{ name: `X${user.name}` }]);
-      expect(result instanceof IndexableArray).toBeTruthy();
-      expect(result.indexedKeys).toEqual(new Set());
-
-      result.addIndex("name");
-      expect(result.getAllIndexes("XGeorge")).toEqual([0, 2]);
-    });
-  });
-
-  describe("mapWithIndex()", () => {
     it("should return IndexableArray with same indexes.", () => {
-      const result = ia().mapWithIndex((user): { name: string } => ({ name: `X${user.name}` }));
+      const result = ia().flatMap(user => [{ name: `X${user.name}` }]);
       expect(result instanceof IndexableArray).toBeTruthy();
       expect(result.indexedKeys).toEqual(new Set(["id", "name"]));
       expect(result.getAllIndexes("XGeorge")).toEqual([0, 2]);
     });
-  });
 
-  describe("flatMapWithIndex()", () => {
-    it("should return IndexableArray with same indexes.", () => {
-      const result = ia().flatMapWithIndex(user => [{ name: `X${user.name}` }]);
+    it("should return IndexableArray with same indexes (custom this argument).", () => {
+      const result = ia().flatMap(user => [{ name: `X${user.name}` }], {});
       expect(result instanceof IndexableArray).toBeTruthy();
       expect(result.indexedKeys).toEqual(new Set(["id", "name"]));
       expect(result.getAllIndexes("XGeorge")).toEqual([0, 2]);
@@ -301,13 +311,13 @@ describe("Indexable Array", () => {
       expect(result.getAllIndexes("George")).toEqual([1]);
     });
 
-    it("should filter array based on type.", () => {
-      const localIa = new IndexableArray<number | string>(1, "a").addIndex(Self);
-      const isNumber = (i: any): i is string => typeof i === "string";
-      const result = localIa.filter(isNumber);
-      expect(result instanceof IndexableArray).toBeTruthy();
-      expect(result.getIndex("a")).toEqual(0);
-    });
+    // it("should filter array based on type.", () => {
+    //   const localIa = IndexableArray<number | string>.from([1, "a"]).addIndex(Self);
+    //   const isNumber = (i: any): i is string => typeof i === "string";
+    //   const result = localIa.filter(isNumber);
+    //   expect(result instanceof IndexableArray).toBeTruthy();
+    //   expect(result.getIndex("a")).toEqual(0);
+    // });
   });
 
   describe("slice()", () => {
@@ -319,60 +329,60 @@ describe("Indexable Array", () => {
     });
   });
 
-  describe("includes()", () => {
-    it("should use binary search if array has self index.", () => {
-      const result = selfPrimitiveIa();
-      expect(result.includes(1)).toBeTruthy();
-    });
+  // describe("includes()", () => {
+  //   it("should use binary search if array has self index.", () => {
+  //     const result = selfPrimitiveIa();
+  //     expect(result.includes(1)).toBeTruthy();
+  //   });
 
-    it("should use binary search if array has self index (with from index).", () => {
-      const result = selfPrimitiveIa();
-      expect(result.includes(1, 1)).toBeTruthy();
-    });
+  //   it("should use binary search if array has self index (with from index).", () => {
+  //     const result = selfPrimitiveIa();
+  //     expect(result.includes(1, 1)).toBeTruthy();
+  //   });
 
-    it("should use parent method if array does not have self index.", () => {
-      const result = primitiveIa();
-      expect(result.includes(1)).toBeTruthy();
-    });
-  });
+  //   it("should use parent method if array does not have self index.", () => {
+  //     const result = primitiveIa();
+  //     expect(result.includes(1)).toBeTruthy();
+  //   });
+  // });
 
-  describe("indexOf()", () => {
-    it("should use binary search if array has self index.", () => {
-      const result = selfPrimitiveIa();
-      expect(result.indexOf(1)).toBe(0);
-    });
+  // describe("indexOf()", () => {
+  //   it("should use binary search if array has self index.", () => {
+  //     const result = selfPrimitiveIa();
+  //     expect(result.indexOf(1)).toBe(0);
+  //   });
 
-    it("should use binary search if array has self index (with from index).", () => {
-      const result = selfPrimitiveIa();
-      expect(result.indexOf(1, 1)).toBe(2);
-    });
+  //   it("should use binary search if array has self index (with from index).", () => {
+  //     const result = selfPrimitiveIa();
+  //     expect(result.indexOf(1, 1)).toBe(2);
+  //   });
 
-    it("should use parent method if array does not have self index.", () => {
-      const result = primitiveIa();
-      expect(result.indexOf(1)).toBe(0);
-    });
-  });
+  //   it("should use parent method if array does not have self index.", () => {
+  //     const result = primitiveIa();
+  //     expect(result.indexOf(1)).toBe(0);
+  //   });
+  // });
 
-  describe("lastIndexOf()", () => {
-    it("should use binary search if array has self index.", () => {
-      const result = selfPrimitiveIa();
-      expect(result.lastIndexOf(1)).toBe(2);
-    });
+  // describe("lastIndexOf()", () => {
+  //   it("should use binary search if array has self index.", () => {
+  //     const result = selfPrimitiveIa();
+  //     expect(result.lastIndexOf(1)).toBe(2);
+  //   });
 
-    it("should use binary search if array has self index (with from index).", () => {
-      const result = selfPrimitiveIa();
-      expect(result.lastIndexOf(1, 1)).toBe(0);
-    });
+  //   it("should use binary search if array has self index (with from index).", () => {
+  //     const result = selfPrimitiveIa();
+  //     expect(result.lastIndexOf(1, 1)).toBe(0);
+  //   });
 
-    it("should use parent method if array does not have self index.", () => {
-      const result = primitiveIa();
-      expect(result.lastIndexOf(1)).toBe(2);
-    });
-  });
+  //   it("should use parent method if array does not have self index.", () => {
+  //     const result = primitiveIa();
+  //     expect(result.lastIndexOf(1)).toBe(2);
+  //   });
+  // });
 
   describe("concatIndexed()", () => {
     it("should concat given items and preserve same indexes as source.", () => {
-      const result = ia().concatIndexed(new User("George", 102));
+      const result = ia().concat(new User("George", 102));
       expect(result.getAllIndexes("George")).toEqual([0, 2, 3]);
     });
   });
@@ -400,17 +410,17 @@ describe("Indexable Array", () => {
       expect(result.getAllIndexes("George")).toEqual([0]);
     });
 
-    it("should remove last value for self Indexable Array.", () => {
-      const result = selfIa();
-      result.pop();
-      expect([...result]).toEqual([{ id: 1, name: "George" }, { id: 10, name: "Lisa" }]);
-      expect(result.getIndex(result[1])).toEqual(1);
-    });
+    // it("should remove last value for self Indexable Array.", () => {
+    //   const result = selfIa();
+    //   result.pop();
+    //   expect([...result]).toEqual([{ id: 1, name: "George" }, { id: 10, name: "Lisa" }]);
+    //   expect(result.getIndex(result[1])).toEqual(1);
+    // });
 
-    it("should return index of self indexed data for default value", () => {
-      const result = selfIa();
-      expect(result.getIndex(result[0])).toBe(0);
-    });
+    // it("should return index of self indexed data for default value", () => {
+    //   const result = selfIa();
+    //   expect(result.getIndex(result[0])).toBe(0);
+    // });
   });
 
   describe("shift()", () => {
@@ -496,14 +506,17 @@ describe("Indexable Array", () => {
     });
 
     it("should not disable index if operations coverage are below threshold", () => {
-      const result = new IndexableArray(
-        { id: 1, name: "Mia" },
-        { id: 2, name: "Mia" },
-        { id: 3, name: "George" },
-        { id: 4, name: "Mia" },
-        { id: 5, name: "Sam" },
-        { id: 6, name: "Mia" }
-      ).addIndex("name");
+      const result = IndexableArray.from(
+        [
+          { id: 1, name: "Mia" },
+          { id: 2, name: "Mia" },
+          { id: 3, name: "George" },
+          { id: 4, name: "Mia" },
+          { id: 5, name: "Sam" },
+          { id: 6, name: "Mia" },
+        ],
+        "name"
+      );
       result.splice(5, 1);
 
       expect([...result]).toEqual([
@@ -607,8 +620,83 @@ describe("sortBy()", () => {
     expect(result.getAllIndexes("George")).toEqual([0, 1]);
   });
 
-  it("should sort by self and update indexes.", () => {
-    const result = primitiveIa().sortBy();
-    expect(result).toEqual([1, 1, 3]);
+  // it("should sort by self and update indexes.", () => {
+  //   const result = primitiveIa().sortBy();
+  //   expect(result).toEqual([1, 1, 3]);
+  // });
+});
+
+describe("Cross Assignment", () => {
+  class A {
+    public constructor(args: any) {
+      this.name = args.name;
+      this.surname = args.surname;
+    }
+
+    public name: string;
+    public surname: string;
+    public options: Record<string, any> = {};
+  }
+  class SubA extends A {
+    public constructor(args: any) {
+      super(args);
+      this.age = args.age;
+    }
+
+    public age: number;
+  }
+
+  it("should assign sub class to parent type.", () => {
+    // const b1 = IndexableArray.from([new SubA({ name: "a", age: 20 })]) as IndexableArray<SubA, "name", "name" | "surname">;
+
+    const b1 = IndexableArray.from([new SubA({ name: "a", age: 20 })], "name", "surname");
+
+    const o: A = new SubA({ name: "j" });
+    const b0 = ([] as unknown) as IndexableArray<SubA, "name", "surname">;
+
+    const nb1 = [new SubA({ name: "hj" })];
+    const b2: IndexableArray<A, "name", "surname"> = b1;
+
+    const b3 = IndexableArray.from(b1);
+
+    const nb2: A[] = nb1;
+    const nb3: A[] = b1;
+
+    const zz = IndexableArray.from([{ name: "js", surname: "d", age: 12 }], "name", "surname");
+    const zz2 = IndexableArray.from(zz);
+
+    expect(b1).toBe(b2);
+    expect(nb1).toBe(nb2);
+    expect(nb3).toBe(b1);
+  });
+
+  it("should map sub classses.", () => {
+    const a = new Set([{ name: "oz", sur: 2 }, { name: "al", sur: 2 }]);
+    const b = IndexableArray.from(a, "name");
+
+    const c1 = b.map(e => ({ fn: e.name, za: 3, name: "j" }));
+    const c2 = b.map(e => ({ fn: e.name, za: 3, name: "j" }), {});
+    const c3 = b.map(e => ({ fn: e.name, za: 3 }), "za");
+    const c4 = b.map(e => ({ fn: e.name, za: 3 }), "za", "fn");
+    const c5 = b.map(e => ({ fn: e.name, za: 3 }), {}, "za");
+    const c6 = b.map(e => ({ fn: e.name, za: 3 }), {}, "za", "fn");
+
+    const fc1 = b.flatMap(e => ({ fn: e.name, za: 3, name: "j" }));
+    const fc2 = b.flatMap(e => ({ fn: e.name, za: 3, name: "j" }), {});
+    const fc3 = b.flatMap(e => ({ fn: e.name, za: 3 }), "za");
+    const fc4 = b.flatMap(e => ({ fn: e.name, za: 3 }), "za", "fn");
+    const fc5 = b.flatMap(e => ({ fn: e.name, za: 3 }), {}, "za");
+    const fc6 = b.flatMap(e => ({ fn: e.name, za: 3 }), {}, "za", "fn");
+    // const c2 = b.map2(e => ({ fn: e.name, za: 3, name: "j" }), "za");
+
+    const z = b.concat([{ name: "jjj", sur: 9 }]).get("jjj");
+
+    const mul = IndexableArray.from(a, "name", "sur");
+    const nm = mul.map(e => ({ name: "x" }));
+    const sc = mul.map(e => e.name);
+
+    const nm2 = mul.map(e => ({ xyz: "x" }), "xyz");
+
+    expect(1).toBe(1);
   });
 });

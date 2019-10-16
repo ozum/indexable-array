@@ -10,80 +10,92 @@
     "map",
     "array"
   ],
-  "homepage": "https://github.com/ozum/indexable-array",
-  "bugs": "https://github.com/ozum/indexable-array/issues",
-  "author": {
-    "name": "Özüm Eldoğan"
+  "engines": {
+    "node": ">=10.8.0"
   },
-  "license": "MIT",
-  "main": "dist/index",
-  "types": "dist/index",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
+    "/module-files",
+    "LICENSE",
     "/bin",
     "/lib/**/!(*.spec|*.test)*.*",
     "/dist/**/!(*.spec|*.test)*.*",
     "/@types"
   ],
+  "homepage": "https://github.com/ozum/indexable-array",
+  "bugs": "https://github.com/ozum/indexable-array/issues",
   "repository": {
     "type": "git",
     "url": "https://github.com/ozum/indexable-array.git"
   },
-  "shields": [
-    {
-      "name": "Commitizen Friendly",
-      "image": "https://img.shields.io/badge/commitizen-friendly-brightgreen.svg",
-      "url": "http://commitizen.github.io/cz-cli/"
-    },
-    {
-      "name": "Conventional Commits",
-      "image": "https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg",
-      "url": "https://conventionalcommits.org"
-    }
-  ],
+  "author": {
+    "name": "Özüm Eldoğan"
+  },
+  "license": "MIT",
   "scripts": {
-    "build": "tsc",
-    "doc": "echo '\\033[33mBuilding doc.. (Do NOT forget build project first.)\\033[0m' && jsdoc2md --plugin dmd-readable --example-lang ts --template readme-template.hbs --configure ./jsdoc.json --no-cache dist/*.js > README.md",
-    "test": "jest --coverage",
-    "lint": "eslint --ignore-path .gitignore --cache 'src/**/*.+(js|jsx|ts|tsx|vue)'",
-    "format": "prettier --write --config .prettierrc --check 'src/**/*.+(js|jsx|json|less|css|ts|tsx|md|vue|gql)'",
-    "watch:run": "ts-node-dev --respawn --transpileOnly",
-    "watch:test": "jest --watch",
-    "validate": "npm-run-all --parallel lint test",
+    "build": "rm -rf dist && tsc -b",
     "commit": "git-cz",
     "commit:add": "git add -A && npm run commit",
-    "release": "npm-run-all build doc commit:add && git checkout master && git pull origin master && standard-version --no-verify && git push --follow-tags origin master && npm publish"
+    "devkeeper:update": "devkeeper update",
+    "format": "prettier --write --config .prettierrc --check 'src/**/*.+(js|jsx|json|less|css|ts|tsx|md|vue|gql)'",
+    "lint": "eslint --max-warnings=0 --ignore-path .gitignore --cache 'src/**/*.+(js|jsx|ts|tsx|vue)'",
+    "readme": "if grep -q '{% include \"api.md\" %}' 'README.njk'; then npm run typedoc:single-md; mkdir -p temp && mv api.md temp/; fi && readmeasy --partial-dirs temp && rm -rf temp",
+    "release": "(git diff --quiet && git diff --staged --quiet && echo No files has been changed) || (npm-run-all -p build commit:add && git checkout master && git pull origin master && standard-version --no-verify && npm run readme && git add README.md && git commit --amend --no-edit && git push --follow-tags origin master && npm publish)",
+    "test": "NODE_ENV=test jest --coverage --config=jest.config.json",
+    "test:watch": "NODE_ENV=test jest --watch --config=jest.config.json",
+    "typedoc:html": "rm -rf api-docs-html && typedoc --plugin typedoc-plugin-example-tag,typedoc-neo-theme --theme ./node_modules/typedoc-neo-theme/bin/default --mode file --out api-docs-html",
+    "typedoc:md": "rm -rf api-docs-md && typedoc --plugin typedoc-plugin-example-tag,typedoc-plugin-markdown --excludeExternals --excludePrivate --excludeProtected --theme markdown --readme none --mode file --out api-docs-md && find api-docs-md -name \"index.md\" -exec sh -c 'mv \"$1\" \"${1%index.md}\"index2.md' - {} \\;",
+    "typedoc:single-md": "npm run typedoc:md && concat-md --dir-name-as-title api-docs-md > api.md && rm -rf api-docs-md",
+    "validate": "npm-run-all -p lint test"
   },
+  "shields": [
+    "commitizen",
+    "conventionalcommits"
+  ],
   "dependencies": {
     "lodash.set": "^4.3.2",
     "sorted-array-functions": "^1.2.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^7.6.1",
-    "@commitlint/config-conventional": "^7.6.0",
-    "@types/jest": "^24.0.13",
     "@types/lodash.set": "^4.3.6",
-    "@types/node": "^12.0.2",
-    "@typescript-eslint/eslint-plugin": "^1.9.0",
-    "commitizen": "^3.1.1",
-    "cz-conventional-changelog": "^2.1.0",
-    "dmd-readable": "^0.2.1",
-    "doctoc": "^1.4.0",
-    "eslint": "^5.15.1",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-config-prettier": "^4.1.0",
-    "eslint-plugin-import": "^2.17.3",
-    "eslint-plugin-jest": "^22.6.4",
-    "eslint-plugin-prettier": "^3.0.1",
-    "husky": "^2.3.0",
-    "jest": "^24.8.0",
-    "jsdoc-to-markdown": "^5.0.0",
-    "jsonlint": "^1.6.3",
-    "lint-staged": "^8.1.7",
-    "npm-run-all": "^4.1.5",
-    "prettier": "^1.17.1",
-    "standard-version": "^6.0.1",
-    "ts-jest": "^24.0.2",
-    "ts-node-dev": "^1.0.0-pre.39",
-    "typescript": "^3.4.5"
+    "devkeeper": "^0.1.19"
+  },
+  "devkeeperModifications": {
+    "files": [
+      ".gitignore",
+      ".commitlintrc",
+      ".czrc",
+      ".editorconfig",
+      ".eslintignore",
+      ".eslintrc.js",
+      ".gitattributes",
+      ".gitignore-to-rename",
+      ".huskyrc",
+      ".lintstagedrc",
+      ".prettierrc",
+      "jest.config.json",
+      "tsconfig.json"
+    ],
+    "objectKeys": [
+      "scripts.build",
+      "scripts.typedoc:md",
+      "scripts.typedoc:html",
+      "scripts.typedoc:single-md",
+      "scripts.readme",
+      "scripts.format",
+      "scripts.lint",
+      "scripts.test",
+      "scripts.test:watch",
+      "scripts.validate",
+      "scripts.commit",
+      "scripts.commit:add",
+      "scripts.release",
+      "scripts.devkeeper:update"
+    ],
+    "arrayKeys": {
+      "files": []
+    },
+    "version": "0.1.19"
   }
 }

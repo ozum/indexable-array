@@ -1,19 +1,4 @@
-<!-- DO NOT EDIT README.md (It will be overridden by README.hbs) -->
-
-# {{changeCase "title" (package "name")}}
-
-<!-- Badges from shield.io -->
-> {{package "description"}}
->
-> {{#each (package "shields")}}[![{{this.name}}][{{this.name}}]][{{this.name}}-url]{{/each}}
-
-{{#each (package "shields")}}
-[{{this.name}}]: {{this.image}}
-[{{this.name}}-url]: {{this.url}}
-{{/each}}
-
-<!-- START doctoc -->
-<!-- END doctoc -->
+{% include "module-header" %}
 
 # Installation
 
@@ -79,4 +64,6 @@ users.enableIndex();                      // Index is recreated from scratch.
 * Methods such as `map()`, `filter()`, `slice()` returns `IndexedArray`. Additionally provides `mapIndexed()` method.
 
 # API
-{{>main~}}
+
+{% include "api.md" %}
+

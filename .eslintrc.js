@@ -33,7 +33,9 @@ module.exports = {
     "lines-between-class-members": ["warn", "always", { exceptAfterSingleLine: true }],
     "no-dupe-class-members": "off", // Prevents method overload in TypeScript, and TypeScript already checks duplicates.
     "no-unused-vars": "off", // @typescript-eslint/recommended has same rule
+    "no-underscore-dangle": "off",
     "@typescript-eslint/explicit-function-return-type": ["warn", { allowExpressions: true, allowTypedFunctionExpressions: true }],
+    "@typescript-eslint/no-explicit-any": "off",
   },
   overrides: [
     {
