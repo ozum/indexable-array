@@ -197,7 +197,7 @@ users.enableIndex(); // Index is recreated from scratch.
 
 Ƭ **AvailableDefaultIndex**: _AvailableDefaultIndex<U, DK, OK>_
 
-_Defined in [index.ts:11](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L11)_
+_Defined in [index.ts:11](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L11)_
 
 ---
 
@@ -205,7 +205,7 @@ _Defined in [index.ts:11](https://github.com/ozum/indexable-array/blob/04ab1b6/s
 
 Ƭ **AvailableIndex**: _Exclude‹Extract‹OK, keyof U›, [AvailableDefaultIndex](#availabledefaultindex)‹U, DK, OK››_
 
-_Defined in [index.ts:12](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L12)_
+_Defined in [index.ts:12](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L12)_
 
 ---
 
@@ -213,7 +213,7 @@ _Defined in [index.ts:12](https://github.com/ozum/indexable-array/blob/04ab1b6/s
 
 Ƭ **Callback**: _function_
 
-_Defined in [index.ts:14](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L14)_
+_Defined in [index.ts:14](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L14)_
 
 #### Type declaration:
 
@@ -233,7 +233,7 @@ _Defined in [index.ts:14](https://github.com/ozum/indexable-array/blob/04ab1b6/s
 
 Ƭ **CallbackThis**: _function_
 
-_Defined in [index.ts:19](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L19)_
+_Defined in [index.ts:19](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L19)_
 
 #### Type declaration:
 
@@ -254,7 +254,7 @@ _Defined in [index.ts:19](https://github.com/ozum/indexable-array/blob/04ab1b6/s
 
 Ƭ **ObjectLookup**: _WeakMap‹object, number[]›_
 
-_Defined in [index.ts:6](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L6)_
+_Defined in [index.ts:6](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L6)_
 
 ---
 
@@ -262,7 +262,7 @@ _Defined in [index.ts:6](https://github.com/ozum/indexable-array/blob/04ab1b6/sr
 
 Ƭ **ObjectLookups**: _Map‹K, [ObjectLookup](#objectlookup)›_
 
-_Defined in [index.ts:7](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L7)_
+_Defined in [index.ts:7](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L7)_
 
 ---
 
@@ -270,7 +270,7 @@ _Defined in [index.ts:7](https://github.com/ozum/indexable-array/blob/04ab1b6/sr
 
 Ƭ **PrimitiveLookup**: _Map‹I[DK] | I[OK], number[]›_
 
-_Defined in [index.ts:8](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L8)_
+_Defined in [index.ts:8](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L8)_
 
 ---
 
@@ -278,7 +278,7 @@ _Defined in [index.ts:8](https://github.com/ozum/indexable-array/blob/04ab1b6/sr
 
 Ƭ **PrimitiveLookups**: _Map‹DK | OK, [PrimitiveLookup](#primitivelookup)‹I, DK, OK››_
 
-_Defined in [index.ts:9](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L9)_
+_Defined in [index.ts:9](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L9)_
 
 ## Variables
 
@@ -295,7 +295,7 @@ _Defined in [index.ts:9](https://github.com/ozum/indexable-array/blob/04ab1b6/sr
 "_throwUnknown",
 ])
 
-_Defined in [index.ts:30](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L30)_
+_Defined in [index.ts:30](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L30)_
 
 ## Functions
 
@@ -303,7 +303,7 @@ _Defined in [index.ts:30](https://github.com/ozum/indexable-array/blob/04ab1b6/s
 
 ▸ **isDefaultKey**<**I**, **DK**>(`value`: any): _boolean_
 
-_Defined in [index.ts:26](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L26)_
+_Defined in [index.ts:26](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L26)_
 
 **Type parameters:**
 
@@ -456,7 +456,7 @@ users.enableIndex(); // Index is recreated from scratch.
 
 • **indexedKeys**: _Set‹DK | OK›_ = new Set()
 
-_Defined in [index.ts:82](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L82)_
+_Defined in [index.ts:82](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L82)_
 
 Set of the indexed key names. `$$self` is used for the whole value.
 
@@ -538,7 +538,7 @@ when they will be absent when used in a 'with' statement.
 
 _Overrides void_
 
-_Defined in [index.ts:651](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L651)_
+_Defined in [index.ts:651](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L651)_
 
 **Parameters:**
 
@@ -552,7 +552,7 @@ _Defined in [index.ts:651](https://github.com/ozum/indexable-array/blob/04ab1b6/
 
 _Overrides void_
 
-_Defined in [index.ts:652](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L652)_
+_Defined in [index.ts:652](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L652)_
 
 **Parameters:**
 
@@ -591,7 +591,7 @@ to the same array starting at position target
 
 ▸ **disableIndex**(): _void_
 
-_Defined in [index.ts:834](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L834)_
+_Defined in [index.ts:836](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L836)_
 
 Disables indexing of the array. It may be used to disable temporarily
 
@@ -618,7 +618,7 @@ indexedArray.enableIndex(); // Index is recreated from scratch.
 
 ▸ **enableIndex**(): _void_
 
-_Defined in [index.ts:843](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L843)_
+_Defined in [index.ts:845](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L845)_
 
 Enables indexing and recreates index from scratch.
 
@@ -704,7 +704,7 @@ Returns the this object after filling the section identified by start and end wi
 
 _Overrides void_
 
-_Defined in [index.ts:471](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L471)_
+_Defined in [index.ts:471](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L471)_
 
 **Type parameters:**
 
@@ -732,7 +732,7 @@ _Defined in [index.ts:471](https://github.com/ozum/indexable-array/blob/04ab1b6/
 
 _Overrides void_
 
-_Defined in [index.ts:476](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L476)_
+_Defined in [index.ts:476](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L476)_
 
 **Parameters:**
 
@@ -1057,7 +1057,7 @@ specified depth. If no depth is provided, flat method defaults to the depth of 1
 
 _Overrides void_
 
-_Defined in [index.ts:558](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L558)_
+_Defined in [index.ts:558](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L558)_
 
 Calls a defined callback function on each element of an indexable array. Then, flattens the result into
 a new indexable array.
@@ -1089,7 +1089,7 @@ a new `IndexableArray` of dept 1.
 
 _Overrides void_
 
-_Defined in [index.ts:569](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L569)_
+_Defined in [index.ts:569](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L569)_
 
 Calls a defined callback function on each element of an indexable array. Then, flattens the result into
 a new indexable array.
@@ -1122,7 +1122,7 @@ a new `IndexableArray` of dept 1.
 
 _Overrides void_
 
-_Defined in [index.ts:581](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L581)_
+_Defined in [index.ts:581](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L581)_
 
 Calls a defined callback function on each element of an indexable array. Then, flattens the result into
 a new indexable array.
@@ -1154,7 +1154,7 @@ a new `IndexableArray` of dept 1.
 
 _Overrides void_
 
-_Defined in [index.ts:587](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L587)_
+_Defined in [index.ts:587](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L587)_
 
 Calls a defined callback function on each element of an indexable array. Then, flattens the result into
 a new indexable array.
@@ -1187,7 +1187,7 @@ a new `IndexableArray` of dept 1.
 
 _Overrides void_
 
-_Defined in [index.ts:594](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L594)_
+_Defined in [index.ts:594](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L594)_
 
 Calls a defined callback function on each element of an indexable array. Then, flattens the result into
 a new indexable array.
@@ -1251,7 +1251,7 @@ An object to which the this keyword can refer in the callbackfn function. If thi
 
 ▸ **get**<**K**, **TH2**>(`value`: I[K], `__namedParameters`: object): _TH2 extends true ? I : I | undefined_
 
-_Defined in [index.ts:722](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L722)_
+_Defined in [index.ts:722](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L722)_
 
 Returns the first item at which a given indexed value can be found in the array. According to construction option or `throwUnknown` option,
 returns `undefined` or throws exception if value cannot be found.
@@ -1286,7 +1286,7 @@ the first item with given indexed value in the array; `undefined` if not found.
 
 ▸ **getAll**<**K**>(`value`: I[K], `__namedParameters`: object): _I[]_
 
-_Defined in [index.ts:776](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L776)_
+_Defined in [index.ts:778](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L778)_
 
 Returns all items at which a given indexed value can be found in the array, or empty array if it is not present.
 
@@ -1316,7 +1316,7 @@ all items with given indexed value in the array; Empty array if not found.
 
 ▸ **getAllIndexes**<**K**>(`value`: I[K], `__namedParameters`: object): _number[]_
 
-_Defined in [index.ts:706](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L706)_
+_Defined in [index.ts:706](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L706)_
 
 Returns all indexes at which a given indexed value can be found in the array, or empty array if it is not present.
 
@@ -1346,7 +1346,7 @@ all indexes of the element in the array; Empty array if not found.
 
 ▸ **getIndex**<**K**>(`value`: I[K], `__namedParameters`: object): _number_
 
-_Defined in [index.ts:683](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L683)_
+_Defined in [index.ts:683](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L683)_
 
 Returns the first index at which a given indexed value can be found in the array, or -1 if it is not present.
 
@@ -1377,7 +1377,7 @@ the first index of the element in the array; -1 if not found.
 
 ▸ **getMaybe**<**K**>(`value`: I[K], `__namedParameters`: object): _I | undefined_
 
-_Defined in [index.ts:761](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L761)_
+_Defined in [index.ts:763](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L763)_
 
 Returns the first item at which a given indexed value can be found in the array. Returns `undefined` if value cannot be found.
 
@@ -1408,7 +1408,7 @@ is the first item with given indexed value in the array; `undefined` if not foun
 
 ▸ **getSure**<**K**>(`value`: I[K], `__namedParameters`: object): _I_
 
-_Defined in [index.ts:748](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L748)_
+_Defined in [index.ts:750](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L750)_
 
 Returns the first item at which a given indexed value can be found in the array, or throws exception if it is not present.
 
@@ -1439,7 +1439,7 @@ the first item with given indexed value in the array; `undefined` if not found.
 
 ▸ **has**<**K**>(`value`: I[K], `__namedParameters`: object): _boolean_
 
-_Defined in [index.ts:791](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L791)_
+_Defined in [index.ts:793](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L793)_
 
 Determines whether an array includes a certain indexed value among its entries' keys, returning true or false as appropriate.
 
@@ -1569,7 +1569,7 @@ Returns the index of the last occurrence of a specified value in an array.
 
 _Overrides void_
 
-_Defined in [index.ts:486](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L486)_
+_Defined in [index.ts:486](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L486)_
 
 Creates a new `IndexableArray` with the results of calling a provided function on every element in the calling array.
 Returned `IndexedArray` does not have any indexes, because callback function may return different kind of elements from source array.
@@ -1606,7 +1606,7 @@ a new `IndexableArray` with each element being the result of the callback functi
 
 _Overrides void_
 
-_Defined in [index.ts:492](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L492)_
+_Defined in [index.ts:492](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L492)_
 
 Creates a new `IndexableArray` with the results of calling a provided function on every element in the calling array.
 Returned `IndexedArray` does not have any indexes, because callback function may return different kind of elements from source array.
@@ -1644,7 +1644,7 @@ a new `IndexableArray` with each element being the result of the callback functi
 
 _Overrides void_
 
-_Defined in [index.ts:499](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L499)_
+_Defined in [index.ts:499](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L499)_
 
 Creates a new `IndexableArray` with the results of calling a provided function on every element in the calling array.
 Returned `IndexedArray` does not have any indexes, because callback function may return different kind of elements from source array.
@@ -1681,7 +1681,7 @@ a new `IndexableArray` with each element being the result of the callback functi
 
 _Overrides void_
 
-_Defined in [index.ts:505](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L505)_
+_Defined in [index.ts:505](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L505)_
 
 Creates a new `IndexableArray` with the results of calling a provided function on every element in the calling array.
 Returned `IndexedArray` does not have any indexes, because callback function may return different kind of elements from source array.
@@ -1719,7 +1719,7 @@ a new `IndexableArray` with each element being the result of the callback functi
 
 _Overrides void_
 
-_Defined in [index.ts:512](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L512)_
+_Defined in [index.ts:512](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L512)_
 
 Creates a new `IndexableArray` with the results of calling a provided function on every element in the calling array.
 Returned `IndexedArray` does not have any indexes, because callback function may return different kind of elements from source array.
@@ -1753,7 +1753,7 @@ a new `IndexableArray` with each element being the result of the callback functi
 
 ▸ **mapToArray**<**U**>(`callbackfn`: [Callback](#callback)‹I, DK, OK, TH, U | keyof U[]›, `thisArg?`: any): _U[]_
 
-_Defined in [index.ts:643](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L643)_
+_Defined in [index.ts:643](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L643)_
 
 Creates a new base Array (not IndexableArray) with the results of calling a provided function on every element in the calling array.
 
@@ -1803,7 +1803,7 @@ Removes the last element from an array and returns it.
 
 _Overrides void_
 
-_Defined in [index.ts:427](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L427)_
+_Defined in [index.ts:427](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L427)_
 
 **Parameters:**
 
@@ -2015,7 +2015,7 @@ Reverses the elements in an Array.
 
 ▸ **set**(`position`: number, `path`: string, `value`: any): _void_
 
-_Defined in [index.ts:808](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L808)_
+_Defined in [index.ts:810](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L810)_
 
 Sets value at path of the object, which is one of the entires of array. To update fields of the objects, this method should be used. Otherwise
 index cannot be updated, because sub fileds are not tracked for chage detection.
@@ -2059,7 +2059,7 @@ Removes the first element from an array and returns it.
 
 _Overrides void_
 
-_Defined in [index.ts:647](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L647)_
+_Defined in [index.ts:647](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L647)_
 
 **Parameters:**
 
@@ -2112,7 +2112,7 @@ An object to which the this keyword can refer in the callbackfn function. If thi
 
 _Overrides void_
 
-_Defined in [index.ts:446](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L446)_
+_Defined in [index.ts:446](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L446)_
 
 **Parameters:**
 
@@ -2128,7 +2128,7 @@ _Defined in [index.ts:446](https://github.com/ozum/indexable-array/blob/04ab1b6/
 
 ▸ **sortBy**(`key`: DK | OK): _this_
 
-_Defined in [index.ts:459](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L459)_
+_Defined in [index.ts:459](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L459)_
 
 Sorts the elements of an array by given key in place and returns the sorted array.
 
@@ -2150,7 +2150,7 @@ this instance.
 
 _Overrides void_
 
-_Defined in [index.ts:434](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L434)_
+_Defined in [index.ts:434](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L434)_
 
 **Parameters:**
 
@@ -2230,7 +2230,7 @@ Returns an iterable of values in the array
 
 ▸ **withDefaultIndex**<**K**>(`key`: K): _[IndexableArray](#classesindexablearraymd)‹I, K, OK, TH›_
 
-_Defined in [index.ts:669](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L669)_
+_Defined in [index.ts:669](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L669)_
 
 Sets default index key to be used with lookup functions. Returns same instance.
 
@@ -2262,7 +2262,7 @@ this object.
 
 ▸ **from**<**I2**, **DK2**, **DK3**, **OK2**, **OK3**, **TH2**>(`indexableArray`: [IndexableArray](#classesindexablearraymd)‹I2, DK2, OK2, TH2›, `defaultKey?`: [DK3](undefined), ...`indexKeys`: OK3[]): _[IndexableArray](#classesindexablearraymd)‹I2, DK3, Exclude‹OK3, DK3›, TH2›_
 
-_Defined in [index.ts:100](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L100)_
+_Defined in [index.ts:100](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L100)_
 
 Creates a new, shallow-copied `IndexableArray` instance from an array-like or iterable object. If source is also `IndexableArray`,
 returned `IndexableArray` will have same indexed keys.
@@ -2295,7 +2295,7 @@ a new `IndexableArray` instance.
 
 ▸ **from**<**I2**, **DK2**, **OK2**>(`arrayLike`: Iterable‹I2› | ArrayLike‹I2›, `defaultKey`: DK2, ...`indexKeys`: OK2[]): _[IndexableArray](#classesindexablearraymd)‹I2, DK2, Exclude‹OK2, DK2›, false›_
 
-_Defined in [index.ts:113](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L113)_
+_Defined in [index.ts:113](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L113)_
 
 Creates a new, shallow-copied `IndexableArray` instance from an array-like or iterable object. If source is also `IndexableArray`,
 returned `IndexableArray` will have same indexed keys.
@@ -2326,7 +2326,7 @@ a new `IndexableArray` instance.
 
 ▸ **throwingFrom**<**I2**, **DK2**, **DK3**, **OK2**, **OK3**, **TH2**>(`indexableArray`: [IndexableArray](#classesindexablearraymd)‹I2, DK2, OK2, TH2›, `defaultKey?`: [DK3](undefined), ...`indexKeys`: OK3[]): _[IndexableArray](#classesindexablearraymd)‹I2, DK3, Exclude‹OK3, DK3›, true›_
 
-_Defined in [index.ts:159](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L159)_
+_Defined in [index.ts:159](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L159)_
 
 Creates a new, shallow-copied `IndexableArray` instance from an array-like or iterable object. If source is also `IndexableArray`,
 returned `IndexableArray` will have same indexed keys. Returned instance throws exception if `get()` methods cannot find given value.
@@ -2359,7 +2359,7 @@ a new `IndexableArray` instance.
 
 ▸ **throwingFrom**<**I2**, **DK2**, **OK2**>(`arrayLike`: Iterable‹I2› | ArrayLike‹I2›, `defaultKey`: DK2, ...`indexKeys`: OK2[]): _[IndexableArray](#classesindexablearraymd)‹I2, DK2, Exclude‹OK2, DK2›, true›_
 
-_Defined in [index.ts:172](https://github.com/ozum/indexable-array/blob/04ab1b6/src/index.ts#L172)_
+_Defined in [index.ts:172](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L172)_
 
 Creates a new, shallow-copied `IndexableArray` instance from an array-like or iterable object. If source is also `IndexableArray`,
 returned `IndexableArray` will have same indexed keys. Returned instance throws exception if `get()` methods cannot find given value.
