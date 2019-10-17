@@ -730,7 +730,9 @@ export default class IndexableArray<
     const index = this.getIndex(value, { key, fromIndex });
 
     if (throwUnknown && index === -1) {
-      throw new Error(`'${value}' cannot be found in '${key}'.`);
+      const firstObjectElement = this.find(e => typeof e === "object");
+      const possibleType = firstObjectElement && `${firstObjectElement.constructor.name}'s `;
+      throw new Error(`'${value}' cannot be found in ${possibleType || ""}${key}.`);
     }
 
     return (index > -1 ? this[index] : undefined) as any;

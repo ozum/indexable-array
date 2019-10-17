@@ -129,7 +129,7 @@ describe("Indexable Array", () => {
       const source = IndexableArray.throwingFrom([{ id: 1, name: "George" }, { id: 10, name: "Lisa" }, { id: 3, name: "George" }], "name");
       const result = IndexableArray.from(source);
       expect(result.getAllIndexes("George")).toEqual([0, 2]);
-      expect(() => result.get("XYZ")).toThrow("'XYZ' cannot be found in 'name'.");
+      expect(() => result.get("XYZ")).toThrow("'XYZ' cannot be found in Object's name.");
     });
   });
 
@@ -137,7 +137,7 @@ describe("Indexable Array", () => {
     it("should create new IndexableArray from normal array and throw for unknown values", () => {
       const result = IndexableArray.throwingFrom([{ id: 1, name: "George" }, { id: 10, name: "Lisa" }, { id: 3, name: "George" }], "name");
       expect(result.getAllIndexes("George")).toEqual([0, 2]);
-      expect(() => result.get("XYZ")).toThrow("'XYZ' cannot be found in 'name'.");
+      expect(() => result.get("XYZ")).toThrow("'XYZ' cannot be found in Object's name.");
     });
   });
 
@@ -201,13 +201,23 @@ describe("Indexable Array", () => {
     });
 
     it("should thrw for unknown result.", () => {
-      expect(() => ia().get("XYZT", { throwUnknown: true })).toThrow("'XYZT' cannot be found in 'name'.");
+      expect(() => ia().get("XYZT", { throwUnknown: true })).toThrow("'XYZT' cannot be found in User's name.");
     });
   });
 
   describe("getSure()", () => {
-    it("should throw for unknown result.", () => {
-      expect(() => ia().getSure("XYZT")).toThrow("'XYZT' cannot be found in 'name'.");
+    it("should throw for unknown result for named object.", () => {
+      expect(() => ia().getSure("XYZT")).toThrow("'XYZT' cannot be found in User's name.");
+    });
+
+    it("should throw for unknown result for unnamed object.", () => {
+      expect(() => IndexableArray.throwingFrom([{ name: "abc" }], "name").getSure("XYZT")).toThrow(
+        "'XYZT' cannot be found in Object's name."
+      );
+    });
+
+    it("should throw for unknown result for unnamed object 2.", () => {
+      expect(() => IndexableArray.throwingFrom([] as any, "name").getSure("XYZT")).toThrow("'XYZT' cannot be found in name.");
     });
   });
 
