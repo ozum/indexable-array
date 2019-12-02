@@ -13,37 +13,16 @@ Extended native JavaScript Array which provides indexed lookup similar to native
 - [Details](#details)
 - [API](#api)
 - [indexable-array](#indexable-array)
-  - [Index](#index)
-    - [Classes](#classes)
-    - [Type aliases](#type-aliases)
-    - [Variables](#variables)
-    - [Functions](#functions)
-  - [Type aliases](#type-aliases-1)
-    - [AvailableDefaultIndex](#availabledefaultindex)
-    - [AvailableIndex](#availableindex)
-    - [Callback](#callback)
-    - [CallbackThis](#callbackthis)
-    - [ObjectLookup](#objectlookup)
-    - [ObjectLookups](#objectlookups)
-    - [PrimitiveLookup](#primitivelookup)
-    - [PrimitiveLookups](#primitivelookups)
-  - [Variables](#variables-1)
-    - [`Const` nonEnumerableProps](#const-nonenumerableprops)
-  - [Functions](#functions-1)
-    - [isDefaultKey](#isdefaultkey)
-- [Classes](#classes-1)
+- [Classes](#classes)
 - [Class: IndexableArray <**I, DK, OK, TH**>](#class-indexablearray-i-dk-ok-th)
   - [Type parameters](#type-parameters)
   - [Hierarchy](#hierarchy)
   - [Indexable](#indexable)
-  - [Index](#index-1)
-    - [Properties](#properties)
-    - [Methods](#methods)
-  - [Properties](#properties-1)
+  - [Properties](#properties)
     - [indexedKeys](#indexedkeys)
     - [length](#length)
     - [`Static` Array](#static-array)
-  - [Methods](#methods-1)
+  - [Methods](#methods)
     - [\_\_@iterator](#__iterator)
     - [\_\_@unscopables](#__unscopables)
     - [concat](#concat)
@@ -166,159 +145,6 @@ users.enableIndex(); // Index is recreated from scratch.
 
 # indexable-array
 
-## Index
-
-### Classes
-
-- [IndexableArray](#classesindexablearraymd)
-
-### Type aliases
-
-- [AvailableDefaultIndex](#availabledefaultindex)
-- [AvailableIndex](#availableindex)
-- [Callback](#callback)
-- [CallbackThis](#callbackthis)
-- [ObjectLookup](#objectlookup)
-- [ObjectLookups](#objectlookups)
-- [PrimitiveLookup](#primitivelookup)
-- [PrimitiveLookups](#primitivelookups)
-
-### Variables
-
-- [nonEnumerableProps](#const-nonenumerableprops)
-
-### Functions
-
-- [isDefaultKey](#isdefaultkey)
-
-## Type aliases
-
-### AvailableDefaultIndex
-
-Ƭ **AvailableDefaultIndex**: _AvailableDefaultIndex<U, DK, OK>_
-
-_Defined in [index.ts:11](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L11)_
-
----
-
-### AvailableIndex
-
-Ƭ **AvailableIndex**: _Exclude‹Extract‹OK, keyof U›, [AvailableDefaultIndex](#availabledefaultindex)‹U, DK, OK››_
-
-_Defined in [index.ts:12](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L12)_
-
----
-
-### Callback
-
-Ƭ **Callback**: _function_
-
-_Defined in [index.ts:14](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L14)_
-
-#### Type declaration:
-
-▸ (`value`: I, `index`: number, `array`: [IndexableArray](#classesindexablearraymd)‹I, DK, OK, TH›): _R_
-
-**Parameters:**
-
-| Name    | Type                                                      |
-| ------- | --------------------------------------------------------- |
-| `value` | I                                                         |
-| `index` | number                                                    |
-| `array` | [IndexableArray](#classesindexablearraymd)‹I, DK, OK, TH› |
-
----
-
-### CallbackThis
-
-Ƭ **CallbackThis**: _function_
-
-_Defined in [index.ts:19](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L19)_
-
-#### Type declaration:
-
-▸ (`this`: T, `value`: I, `index`: number, `array`: [IndexableArray](#classesindexablearraymd)‹I, DK, OK, TH›): _R_
-
-**Parameters:**
-
-| Name    | Type                                                      |
-| ------- | --------------------------------------------------------- |
-| `this`  | T                                                         |
-| `value` | I                                                         |
-| `index` | number                                                    |
-| `array` | [IndexableArray](#classesindexablearraymd)‹I, DK, OK, TH› |
-
----
-
-### ObjectLookup
-
-Ƭ **ObjectLookup**: _WeakMap‹object, number[]›_
-
-_Defined in [index.ts:6](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L6)_
-
----
-
-### ObjectLookups
-
-Ƭ **ObjectLookups**: _Map‹K, [ObjectLookup](#objectlookup)›_
-
-_Defined in [index.ts:7](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L7)_
-
----
-
-### PrimitiveLookup
-
-Ƭ **PrimitiveLookup**: _Map‹I[DK] | I[OK], number[]›_
-
-_Defined in [index.ts:8](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L8)_
-
----
-
-### PrimitiveLookups
-
-Ƭ **PrimitiveLookups**: _Map‹DK | OK, [PrimitiveLookup](#primitivelookup)‹I, DK, OK››_
-
-_Defined in [index.ts:9](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L9)_
-
-## Variables
-
-### `Const` nonEnumerableProps
-
-• **nonEnumerableProps**: _Set‹string›_ = new Set([
-"primitiveLookups",
-"objectLookups",
-"indexedKeys",
-"_defaultKey",
-"indexEnabled",
-"operationAtEnd",
-"builtIndexKeys",
-"_throwUnknown",
-])
-
-_Defined in [index.ts:30](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L30)_
-
-## Functions
-
-### isDefaultKey
-
-▸ **isDefaultKey**<**I**, **DK**>(`value`: any): _boolean_
-
-_Defined in [index.ts:26](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L26)_
-
-**Type parameters:**
-
-▪ **I**
-
-▪ **DK**: _keyof I_
-
-**Parameters:**
-
-| Name    | Type |
-| ------- | ---- |
-| `value` | any  |
-
-**Returns:** _boolean_
-
 # Classes
 
 <a name="classesindexablearraymd"></a>
@@ -391,72 +217,13 @@ users[0].name = "THIS IS OK NOW";
 users.enableIndex(); // Index is recreated from scratch.
 ```
 
-## Index
-
-### Properties
-
-- [indexedKeys](#indexedkeys)
-- [length](#length)
-- [Array](#static-array)
-
-### Methods
-
-- [\_\_@iterator](#__@iterator)
-- [\_\_@unscopables](#__@unscopables)
-- [concat](#concat)
-- [copyWithin](#copywithin)
-- [disableIndex](#disableindex)
-- [enableIndex](#enableindex)
-- [entries](#entries)
-- [every](#every)
-- [fill](#fill)
-- [filter](#filter)
-- [find](#find)
-- [findIndex](#findindex)
-- [flat](#flat)
-- [flatMap](#flatmap)
-- [forEach](#foreach)
-- [get](#get)
-- [getAll](#getall)
-- [getAllIndexes](#getallindexes)
-- [getIndex](#getindex)
-- [getMaybe](#getmaybe)
-- [getSure](#getsure)
-- [has](#has)
-- [includes](#includes)
-- [indexOf](#indexof)
-- [join](#join)
-- [keys](#keys)
-- [lastIndexOf](#lastindexof)
-- [map](#map)
-- [mapToArray](#maptoarray)
-- [pop](#pop)
-- [push](#push)
-- [reduce](#reduce)
-- [reduceRight](#reduceright)
-- [reverse](#reverse)
-- [set](#set)
-- [shift](#shift)
-- [slice](#slice)
-- [some](#some)
-- [sort](#sort)
-- [sortBy](#sortby)
-- [splice](#splice)
-- [toLocaleString](#tolocalestring)
-- [toString](#tostring)
-- [unshift](#unshift)
-- [values](#values)
-- [withDefaultIndex](#withdefaultindex)
-- [from](#static-from)
-- [throwingFrom](#static-throwingfrom)
-
 ## Properties
 
 ### indexedKeys
 
 • **indexedKeys**: _Set‹DK | OK›_ = new Set()
 
-_Defined in [index.ts:82](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L82)_
+_Defined in [src/index.ts:82](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L82)_
 
 Set of the indexed key names. `$$self` is used for the whole value.
 
@@ -475,7 +242,7 @@ users.indexedArray; // ["$$self", "name"]
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es5.d.ts:1209
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1215
 
 Gets or sets the length of the array. This is a number one higher than the highest element defined in an array.
 
@@ -485,7 +252,7 @@ Gets or sets the length of the array. This is a number one higher than the highe
 
 ▪ **Array**: _ArrayConstructor_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es5.d.ts:1368
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1385
 
 ## Methods
 
@@ -495,7 +262,7 @@ Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/l
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es2015.iterable.d.ts:60
+Defined in node_modules/typescript/lib/lib.es2015.iterable.d.ts:60
 
 Iterator
 
@@ -509,26 +276,12 @@ Iterator
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts:94
+Defined in node_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts:94
 
 Returns an object whose properties have the value 'true'
 when they will be absent when used in a 'with' statement.
 
 **Returns:** _object_
-
-- **copyWithin**: _boolean_
-
-- **entries**: _boolean_
-
-- **fill**: _boolean_
-
-- **find**: _boolean_
-
-- **findIndex**: _boolean_
-
-- **keys**: _boolean_
-
-- **values**: _boolean_
 
 ---
 
@@ -538,7 +291,7 @@ when they will be absent when used in a 'with' statement.
 
 _Overrides void_
 
-_Defined in [index.ts:651](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L651)_
+_Defined in [src/index.ts:651](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L651)_
 
 **Parameters:**
 
@@ -552,7 +305,7 @@ _Defined in [index.ts:651](https://github.com/ozum/indexable-array/blob/516dde9/
 
 _Overrides void_
 
-_Defined in [index.ts:652](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L652)_
+_Defined in [src/index.ts:652](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L652)_
 
 **Parameters:**
 
@@ -570,7 +323,7 @@ _Defined in [index.ts:652](https://github.com/ozum/indexable-array/blob/516dde9/
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es2015.core.d.ts:64
+Defined in node_modules/typescript/lib/lib.es2015.core.d.ts:64
 
 Returns the this object after copying a section of the array identified by start and end
 to the same array starting at position target
@@ -591,7 +344,7 @@ to the same array starting at position target
 
 ▸ **disableIndex**(): _void_
 
-_Defined in [index.ts:836](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L836)_
+_Defined in [src/index.ts:836](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L836)_
 
 Disables indexing of the array. It may be used to disable temporarily
 
@@ -618,7 +371,7 @@ indexedArray.enableIndex(); // Index is recreated from scratch.
 
 ▸ **enableIndex**(): _void_
 
-_Defined in [index.ts:845](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L845)_
+_Defined in [src/index.ts:845](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L845)_
 
 Enables indexing and recreates index from scratch.
 
@@ -634,7 +387,7 @@ Enables indexing and recreates index from scratch.
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es2015.iterable.d.ts:65
+Defined in node_modules/typescript/lib/lib.es2015.iterable.d.ts:65
 
 Returns an iterable of key, value pairs for every entry in the array
 
@@ -648,7 +401,7 @@ Returns an iterable of key, value pairs for every entry in the array
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es5.d.ts:1296
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1310
 
 Determines whether all the members of an array satisfy the specified test.
 
@@ -656,7 +409,9 @@ Determines whether all the members of an array satisfy the specified test.
 
 ▪ **callbackfn**: _function_
 
-A function that accepts up to three arguments. The every method calls the callbackfn function for each element in array1 until the callbackfn returns false, or until the end of the array.
+A function that accepts up to three arguments. The every method calls
+the callbackfn function for each element in the array until the callbackfn returns a value
+which is coercible to the Boolean value false, or until the end of the array.
 
 ▸ (`value`: I, `index`: number, `array`: I[]): _unknown_
 
@@ -670,7 +425,8 @@ A function that accepts up to three arguments. The every method calls the callba
 
 ▪`Optional` **thisArg**: _any_
 
-An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
+An object to which the this keyword can refer in the callbackfn function.
+If thisArg is omitted, undefined is used as the this value.
 
 **Returns:** _boolean_
 
@@ -682,7 +438,7 @@ An object to which the this keyword can refer in the callbackfn function. If thi
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es2015.core.d.ts:53
+Defined in node_modules/typescript/lib/lib.es2015.core.d.ts:53
 
 Returns the this object after filling the section identified by start and end with value
 
@@ -704,7 +460,7 @@ Returns the this object after filling the section identified by start and end wi
 
 _Overrides void_
 
-_Defined in [index.ts:471](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L471)_
+_Defined in [src/index.ts:471](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L471)_
 
 **Type parameters:**
 
@@ -714,7 +470,7 @@ _Defined in [index.ts:471](https://github.com/ozum/indexable-array/blob/516dde9/
 
 ▪ **callbackfn**: _function_
 
-▸ (`value`: I, `index`: number, `array`: [IndexableArray](#classesindexablearraymd)‹I, DK, OK, TH›): _boolean_
+▸ (`value`: I, `index`: number, `array`: [IndexableArray](#classesindexablearraymd)‹I, DK, OK, TH›): _value is S_
 
 **Parameters:**
 
@@ -728,18 +484,18 @@ _Defined in [index.ts:471](https://github.com/ozum/indexable-array/blob/516dde9/
 
 **Returns:** _[IndexableArray](#classesindexablearraymd)‹S, DK, OK, TH›_
 
-▸ **filter**(`callbackfn`: [Callback](#callback)‹I, DK, OK, TH, unknown›, `thisArg?`: any): _[IndexableArray](#classesindexablearraymd)‹I, DK, OK, TH›_
+▸ **filter**(`callbackfn`: Callback‹I, DK, OK, TH, unknown›, `thisArg?`: any): _[IndexableArray](#classesindexablearraymd)‹I, DK, OK, TH›_
 
 _Overrides void_
 
-_Defined in [index.ts:476](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L476)_
+_Defined in [src/index.ts:476](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L476)_
 
 **Parameters:**
 
-| Name         | Type                                          |
-| ------------ | --------------------------------------------- |
-| `callbackfn` | [Callback](#callback)‹I, DK, OK, TH, unknown› |
-| `thisArg?`   | any                                           |
+| Name         | Type                             |
+| ------------ | -------------------------------- |
+| `callbackfn` | Callback‹I, DK, OK, TH, unknown› |
+| `thisArg?`   | any                              |
 
 **Returns:** _[IndexableArray](#classesindexablearraymd)‹I, DK, OK, TH›_
 
@@ -751,7 +507,7 @@ _Defined in [index.ts:476](https://github.com/ozum/indexable-array/blob/516dde9/
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es2015.core.d.ts:31
+Defined in node_modules/typescript/lib/lib.es2015.core.d.ts:31
 
 Returns the value of the first element in the array where predicate is true, and undefined
 otherwise.
@@ -768,7 +524,7 @@ find calls predicate once for each element of the array, in ascending
 order, until it finds one where predicate returns true. If such an element is found, find
 immediately returns that element value. Otherwise, find returns undefined.
 
-▸ (`this`: void, `value`: I, `index`: number, `obj`: I[]): _boolean_
+▸ (`this`: void, `value`: I, `index`: number, `obj`: I[]): _value is S_
 
 **Parameters:**
 
@@ -790,7 +546,7 @@ predicate. If it is not provided, undefined is used instead.
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es2015.core.d.ts:32
+Defined in node_modules/typescript/lib/lib.es2015.core.d.ts:32
 
 **Parameters:**
 
@@ -818,7 +574,7 @@ Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/l
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es2015.core.d.ts:43
+Defined in node_modules/typescript/lib/lib.es2015.core.d.ts:43
 
 Returns the index of the first element in the array where predicate is true, and -1
 otherwise.
@@ -856,7 +612,7 @@ predicate. If it is not provided, undefined is used instead.
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es2019.array.d.ts:158
+Defined in node_modules/typescript/lib/lib.es2019.array.d.ts:158
 
 Returns a new array with all sub-array elements concatenated into it recursively up to the
 specified depth.
@@ -878,7 +634,7 @@ specified depth.
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es2019.array.d.ts:166
+Defined in node_modules/typescript/lib/lib.es2019.array.d.ts:166
 
 Returns a new array with all sub-array elements concatenated into it recursively up to the
 specified depth.
@@ -900,7 +656,7 @@ specified depth.
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es2019.array.d.ts:174
+Defined in node_modules/typescript/lib/lib.es2019.array.d.ts:174
 
 Returns a new array with all sub-array elements concatenated into it recursively up to the
 specified depth.
@@ -922,7 +678,7 @@ specified depth.
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es2019.array.d.ts:182
+Defined in node_modules/typescript/lib/lib.es2019.array.d.ts:182
 
 Returns a new array with all sub-array elements concatenated into it recursively up to the
 specified depth.
@@ -944,7 +700,7 @@ specified depth.
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es2019.array.d.ts:190
+Defined in node_modules/typescript/lib/lib.es2019.array.d.ts:190
 
 Returns a new array with all sub-array elements concatenated into it recursively up to the
 specified depth.
@@ -966,7 +722,7 @@ specified depth.
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es2019.array.d.ts:198
+Defined in node_modules/typescript/lib/lib.es2019.array.d.ts:198
 
 Returns a new array with all sub-array elements concatenated into it recursively up to the
 specified depth.
@@ -988,7 +744,7 @@ specified depth.
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es2019.array.d.ts:206
+Defined in node_modules/typescript/lib/lib.es2019.array.d.ts:206
 
 Returns a new array with all sub-array elements concatenated into it recursively up to the
 specified depth.
@@ -1010,7 +766,7 @@ specified depth.
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es2019.array.d.ts:214
+Defined in node_modules/typescript/lib/lib.es2019.array.d.ts:214
 
 Returns a new array with all sub-array elements concatenated into it recursively up to the
 specified depth.
@@ -1032,7 +788,7 @@ specified depth.
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es2019.array.d.ts:222
+Defined in node_modules/typescript/lib/lib.es2019.array.d.ts:222
 
 Returns a new array with all sub-array elements concatenated into it recursively up to the
 specified depth. If no depth is provided, flat method defaults to the depth of 1.
@@ -1053,11 +809,11 @@ specified depth. If no depth is provided, flat method defaults to the depth of 1
 
 ### flatMap
 
-▸ **flatMap**<**U**, **DK2**, **OK2**, **This**>(`callbackFn`: [CallbackThis](#callbackthis)‹I, DK, OK, TH, U | keyof U[], This›, `defaultKey?`: [DK2](undefined), ...`indexKeys`: OK2[]): _[IndexableArray](#classesindexablearraymd)‹U, DK2, Exclude‹OK2, DK2›, TH›_
+▸ **flatMap**<**U**, **DK2**, **OK2**, **This**>(`callbackFn`: CallbackThis‹I, DK, OK, TH, U | keyof U[], This›, `defaultKey?`: [DK2](undefined), ...`indexKeys`: OK2[]): _[IndexableArray](#classesindexablearraymd)‹U, DK2, Exclude‹OK2, DK2›, TH›_
 
 _Overrides void_
 
-_Defined in [index.ts:558](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L558)_
+_Defined in [src/index.ts:558](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L558)_
 
 Calls a defined callback function on each element of an indexable array. Then, flattens the result into
 a new indexable array.
@@ -1075,21 +831,21 @@ This is identical to a map followed by flat with depth 1.
 
 **Parameters:**
 
-| Name           | Type                                                                   | Description                                                                                                                              |
-| -------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `callbackFn`   | [CallbackThis](#callbackthis)‹I, DK, OK, TH, U &#124; keyof U[], This› | is a function that accepts up to three arguments. The flatMap method calls the callback function one time for each element in the array. |
-| `defaultKey?`  | [DK2](undefined)                                                       | -                                                                                                                                        |
-| `...indexKeys` | OK2[]                                                                  | -                                                                                                                                        |
+| Name           | Type                                                  | Description                                                                                                                              |
+| -------------- | ----------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `callbackFn`   | CallbackThis‹I, DK, OK, TH, U &#124; keyof U[], This› | is a function that accepts up to three arguments. The flatMap method calls the callback function one time for each element in the array. |
+| `defaultKey?`  | [DK2](undefined)                                      | -                                                                                                                                        |
+| `...indexKeys` | OK2[]                                                 | -                                                                                                                                        |
 
 **Returns:** _[IndexableArray](#classesindexablearraymd)‹U, DK2, Exclude‹OK2, DK2›, TH›_
 
 a new `IndexableArray` of dept 1.
 
-▸ **flatMap**<**U**, **DK2**, **OK2**, **This**>(`callbackFn`: [CallbackThis](#callbackthis)‹I, DK, OK, TH, U | keyof U[], This›, `thisArg`: object, `defaultKey?`: [DK2](undefined), ...`indexKeys`: OK2[]): _[IndexableArray](#classesindexablearraymd)‹U, DK2, Exclude‹OK2, DK2›, TH›_
+▸ **flatMap**<**U**, **DK2**, **OK2**, **This**>(`callbackFn`: CallbackThis‹I, DK, OK, TH, U | keyof U[], This›, `thisArg`: object, `defaultKey?`: [DK2](undefined), ...`indexKeys`: OK2[]): _[IndexableArray](#classesindexablearraymd)‹U, DK2, Exclude‹OK2, DK2›, TH›_
 
 _Overrides void_
 
-_Defined in [index.ts:569](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L569)_
+_Defined in [src/index.ts:569](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L569)_
 
 Calls a defined callback function on each element of an indexable array. Then, flattens the result into
 a new indexable array.
@@ -1107,22 +863,22 @@ This is identical to a map followed by flat with depth 1.
 
 **Parameters:**
 
-| Name           | Type                                                                   | Description                                                                                                                              |
-| -------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `callbackFn`   | [CallbackThis](#callbackthis)‹I, DK, OK, TH, U &#124; keyof U[], This› | is a function that accepts up to three arguments. The flatMap method calls the callback function one time for each element in the array. |
-| `thisArg`      | object                                                                 | -                                                                                                                                        |
-| `defaultKey?`  | [DK2](undefined)                                                       | -                                                                                                                                        |
-| `...indexKeys` | OK2[]                                                                  | -                                                                                                                                        |
+| Name           | Type                                                  | Description                                                                                                                              |
+| -------------- | ----------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `callbackFn`   | CallbackThis‹I, DK, OK, TH, U &#124; keyof U[], This› | is a function that accepts up to three arguments. The flatMap method calls the callback function one time for each element in the array. |
+| `thisArg`      | object                                                | -                                                                                                                                        |
+| `defaultKey?`  | [DK2](undefined)                                      | -                                                                                                                                        |
+| `...indexKeys` | OK2[]                                                 | -                                                                                                                                        |
 
 **Returns:** _[IndexableArray](#classesindexablearraymd)‹U, DK2, Exclude‹OK2, DK2›, TH›_
 
 a new `IndexableArray` of dept 1.
 
-▸ **flatMap**<**U**, **DK2**, **OK2**, **This**>(`callbackFn`: [CallbackThis](#callbackthis)‹I, DK, OK, TH, U | keyof U[], This›, `defaultKey`: DK2, ...`indexKeys`: OK2[]): _[IndexableArray](#classesindexablearraymd)‹U, DK2, Exclude‹OK2, DK2›, TH›_
+▸ **flatMap**<**U**, **DK2**, **OK2**, **This**>(`callbackFn`: CallbackThis‹I, DK, OK, TH, U | keyof U[], This›, `defaultKey`: DK2, ...`indexKeys`: OK2[]): _[IndexableArray](#classesindexablearraymd)‹U, DK2, Exclude‹OK2, DK2›, TH›_
 
 _Overrides void_
 
-_Defined in [index.ts:581](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L581)_
+_Defined in [src/index.ts:581](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L581)_
 
 Calls a defined callback function on each element of an indexable array. Then, flattens the result into
 a new indexable array.
@@ -1140,21 +896,21 @@ This is identical to a map followed by flat with depth 1.
 
 **Parameters:**
 
-| Name           | Type                                                                   | Description                                                                                                                              |
-| -------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `callbackFn`   | [CallbackThis](#callbackthis)‹I, DK, OK, TH, U &#124; keyof U[], This› | is a function that accepts up to three arguments. The flatMap method calls the callback function one time for each element in the array. |
-| `defaultKey`   | DK2                                                                    | -                                                                                                                                        |
-| `...indexKeys` | OK2[]                                                                  | -                                                                                                                                        |
+| Name           | Type                                                  | Description                                                                                                                              |
+| -------------- | ----------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `callbackFn`   | CallbackThis‹I, DK, OK, TH, U &#124; keyof U[], This› | is a function that accepts up to three arguments. The flatMap method calls the callback function one time for each element in the array. |
+| `defaultKey`   | DK2                                                   | -                                                                                                                                        |
+| `...indexKeys` | OK2[]                                                 | -                                                                                                                                        |
 
 **Returns:** _[IndexableArray](#classesindexablearraymd)‹U, DK2, Exclude‹OK2, DK2›, TH›_
 
 a new `IndexableArray` of dept 1.
 
-▸ **flatMap**<**U**, **DK2**, **OK2**, **This**>(`callbackFn`: [CallbackThis](#callbackthis)‹I, DK, OK, TH, U | keyof U[], This›, `thisArg`: object, `defaultKey`: DK2, ...`indexKeys`: OK2[]): _[IndexableArray](#classesindexablearraymd)‹U, DK2, Exclude‹OK2, DK2›, TH›_
+▸ **flatMap**<**U**, **DK2**, **OK2**, **This**>(`callbackFn`: CallbackThis‹I, DK, OK, TH, U | keyof U[], This›, `thisArg`: object, `defaultKey`: DK2, ...`indexKeys`: OK2[]): _[IndexableArray](#classesindexablearraymd)‹U, DK2, Exclude‹OK2, DK2›, TH›_
 
 _Overrides void_
 
-_Defined in [index.ts:587](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L587)_
+_Defined in [src/index.ts:587](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L587)_
 
 Calls a defined callback function on each element of an indexable array. Then, flattens the result into
 a new indexable array.
@@ -1172,22 +928,22 @@ This is identical to a map followed by flat with depth 1.
 
 **Parameters:**
 
-| Name           | Type                                                                   | Description                                                                                                                              |
-| -------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `callbackFn`   | [CallbackThis](#callbackthis)‹I, DK, OK, TH, U &#124; keyof U[], This› | is a function that accepts up to three arguments. The flatMap method calls the callback function one time for each element in the array. |
-| `thisArg`      | object                                                                 | -                                                                                                                                        |
-| `defaultKey`   | DK2                                                                    | -                                                                                                                                        |
-| `...indexKeys` | OK2[]                                                                  | -                                                                                                                                        |
+| Name           | Type                                                  | Description                                                                                                                              |
+| -------------- | ----------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `callbackFn`   | CallbackThis‹I, DK, OK, TH, U &#124; keyof U[], This› | is a function that accepts up to three arguments. The flatMap method calls the callback function one time for each element in the array. |
+| `thisArg`      | object                                                | -                                                                                                                                        |
+| `defaultKey`   | DK2                                                   | -                                                                                                                                        |
+| `...indexKeys` | OK2[]                                                 | -                                                                                                                                        |
 
 **Returns:** _[IndexableArray](#classesindexablearraymd)‹U, DK2, Exclude‹OK2, DK2›, TH›_
 
 a new `IndexableArray` of dept 1.
 
-▸ **flatMap**<**U**, **This**>(`callbackFn`: [CallbackThis](#callbackthis)‹I, DK, OK, TH, U | keyof U[], This›, `thisArg?`: [This](undefined), ...`rest`: never[]): _[IndexableArray](#classesindexablearraymd)‹U, [AvailableDefaultIndex](#availabledefaultindex)‹U, DK, OK›, [AvailableIndex](#availableindex)‹U, DK, OK›, TH›_
+▸ **flatMap**<**U**, **This**>(`callbackFn`: CallbackThis‹I, DK, OK, TH, U | keyof U[], This›, `thisArg?`: [This](undefined), ...`rest`: never[]): _[IndexableArray](#classesindexablearraymd)‹U, AvailableDefaultIndex‹U, DK, OK›, AvailableIndex‹U, DK, OK›, TH›_
 
 _Overrides void_
 
-_Defined in [index.ts:594](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L594)_
+_Defined in [src/index.ts:594](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L594)_
 
 Calls a defined callback function on each element of an indexable array. Then, flattens the result into
 a new indexable array.
@@ -1201,13 +957,13 @@ This is identical to a map followed by flat with depth 1.
 
 **Parameters:**
 
-| Name         | Type                                                                   | Description                                                                                                                              |
-| ------------ | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `callbackFn` | [CallbackThis](#callbackthis)‹I, DK, OK, TH, U &#124; keyof U[], This› | is a function that accepts up to three arguments. The flatMap method calls the callback function one time for each element in the array. |
-| `thisArg?`   | [This](undefined)                                                      | -                                                                                                                                        |
-| `...rest`    | never[]                                                                | -                                                                                                                                        |
+| Name         | Type                                                  | Description                                                                                                                              |
+| ------------ | ----------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `callbackFn` | CallbackThis‹I, DK, OK, TH, U &#124; keyof U[], This› | is a function that accepts up to three arguments. The flatMap method calls the callback function one time for each element in the array. |
+| `thisArg?`   | [This](undefined)                                     | -                                                                                                                                        |
+| `...rest`    | never[]                                               | -                                                                                                                                        |
 
-**Returns:** _[IndexableArray](#classesindexablearraymd)‹U, [AvailableDefaultIndex](#availabledefaultindex)‹U, DK, OK›, [AvailableIndex](#availableindex)‹U, DK, OK›, TH›_
+**Returns:** _[IndexableArray](#classesindexablearraymd)‹U, AvailableDefaultIndex‹U, DK, OK›, AvailableIndex‹U, DK, OK›, TH›_
 
 a new `IndexableArray` of dept 1.
 
@@ -1219,7 +975,7 @@ a new `IndexableArray` of dept 1.
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es5.d.ts:1308
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1325
 
 Performs the specified action for each element in an array.
 
@@ -1251,7 +1007,7 @@ An object to which the this keyword can refer in the callbackfn function. If thi
 
 ▸ **get**<**K**, **TH2**>(`value`: I[K], `__namedParameters`: object): _TH2 extends true ? I : I | undefined_
 
-_Defined in [index.ts:722](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L722)_
+_Defined in [src/index.ts:722](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L722)_
 
 Returns the first item at which a given indexed value can be found in the array. According to construction option or `throwUnknown` option,
 returns `undefined` or throws exception if value cannot be found.
@@ -1264,17 +1020,10 @@ returns `undefined` or throws exception if value cannot be found.
 
 **Parameters:**
 
-▪ **value**: _I[K]_
-
-is indexed value to search for.
-
-▪`Default value` **\_\_namedParameters**: _object_= {}
-
-| Name           | Type    | Default              |
-| -------------- | ------- | -------------------- |
-| `fromIndex`    | number  | 0                    |
-| `key`          | K       | this.defaultKey as K |
-| `throwUnknown` | boolean | this.\_throwUnknown  |
+| Name                | Type   | Default | Description                     |
+| ------------------- | ------ | ------- | ------------------------------- |
+| `value`             | I[K]   | -       | is indexed value to search for. |
+| `__namedParameters` | object | {}      | -                               |
 
 **Returns:** _TH2 extends true ? I : I | undefined_
 
@@ -1286,7 +1035,7 @@ the first item with given indexed value in the array; `undefined` if not found.
 
 ▸ **getAll**<**K**>(`value`: I[K], `__namedParameters`: object): _I[]_
 
-_Defined in [index.ts:778](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L778)_
+_Defined in [src/index.ts:778](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L778)_
 
 Returns all items at which a given indexed value can be found in the array, or empty array if it is not present.
 
@@ -1296,15 +1045,10 @@ Returns all items at which a given indexed value can be found in the array, or e
 
 **Parameters:**
 
-▪ **value**: _I[K]_
-
-is indexed value to search for.
-
-▪`Default value` **\_\_namedParameters**: _object_= {}
-
-| Name  | Type | Default              |
-| ----- | ---- | -------------------- |
-| `key` | K    | this.defaultKey as K |
+| Name                | Type   | Default | Description                     |
+| ------------------- | ------ | ------- | ------------------------------- |
+| `value`             | I[K]   | -       | is indexed value to search for. |
+| `__namedParameters` | object | {}      | -                               |
 
 **Returns:** _I[]_
 
@@ -1316,7 +1060,7 @@ all items with given indexed value in the array; Empty array if not found.
 
 ▸ **getAllIndexes**<**K**>(`value`: I[K], `__namedParameters`: object): _number[]_
 
-_Defined in [index.ts:706](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L706)_
+_Defined in [src/index.ts:706](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L706)_
 
 Returns all indexes at which a given indexed value can be found in the array, or empty array if it is not present.
 
@@ -1326,15 +1070,10 @@ Returns all indexes at which a given indexed value can be found in the array, or
 
 **Parameters:**
 
-▪ **value**: _I[K]_
-
-indexed value to search for.
-
-▪`Default value` **\_\_namedParameters**: _object_= {}
-
-| Name  | Type | Default              |
-| ----- | ---- | -------------------- |
-| `key` | K    | this.defaultKey as K |
+| Name                | Type   | Default | Description                  |
+| ------------------- | ------ | ------- | ---------------------------- |
+| `value`             | I[K]   | -       | indexed value to search for. |
+| `__namedParameters` | object | {}      | -                            |
 
 **Returns:** _number[]_
 
@@ -1346,7 +1085,7 @@ all indexes of the element in the array; Empty array if not found.
 
 ▸ **getIndex**<**K**>(`value`: I[K], `__namedParameters`: object): _number_
 
-_Defined in [index.ts:683](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L683)_
+_Defined in [src/index.ts:683](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L683)_
 
 Returns the first index at which a given indexed value can be found in the array, or -1 if it is not present.
 
@@ -1356,16 +1095,10 @@ Returns the first index at which a given indexed value can be found in the array
 
 **Parameters:**
 
-▪ **value**: _I[K]_
-
-indexed value to search for.
-
-▪`Default value` **\_\_namedParameters**: _object_= {}
-
-| Name        | Type   | Default              |
-| ----------- | ------ | -------------------- |
-| `fromIndex` | number | 0                    |
-| `key`       | K      | this.defaultKey as K |
+| Name                | Type   | Default | Description                  |
+| ------------------- | ------ | ------- | ---------------------------- |
+| `value`             | I[K]   | -       | indexed value to search for. |
+| `__namedParameters` | object | {}      | -                            |
 
 **Returns:** _number_
 
@@ -1377,7 +1110,7 @@ the first index of the element in the array; -1 if not found.
 
 ▸ **getMaybe**<**K**>(`value`: I[K], `__namedParameters`: object): _I | undefined_
 
-_Defined in [index.ts:763](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L763)_
+_Defined in [src/index.ts:763](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L763)_
 
 Returns the first item at which a given indexed value can be found in the array. Returns `undefined` if value cannot be found.
 
@@ -1387,16 +1120,10 @@ Returns the first item at which a given indexed value can be found in the array.
 
 **Parameters:**
 
-▪ **value**: _I[K]_
-
-is indexed value to search for.
-
-▪`Default value` **\_\_namedParameters**: _object_= {}
-
-| Name        | Type   | Default              |
-| ----------- | ------ | -------------------- |
-| `fromIndex` | number | 0                    |
-| `key`       | K      | this.defaultKey as K |
+| Name                | Type   | Default | Description                     |
+| ------------------- | ------ | ------- | ------------------------------- |
+| `value`             | I[K]   | -       | is indexed value to search for. |
+| `__namedParameters` | object | {}      | -                               |
 
 **Returns:** _I | undefined_
 
@@ -1408,7 +1135,7 @@ is the first item with given indexed value in the array; `undefined` if not foun
 
 ▸ **getSure**<**K**>(`value`: I[K], `__namedParameters`: object): _I_
 
-_Defined in [index.ts:750](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L750)_
+_Defined in [src/index.ts:750](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L750)_
 
 Returns the first item at which a given indexed value can be found in the array, or throws exception if it is not present.
 
@@ -1418,16 +1145,10 @@ Returns the first item at which a given indexed value can be found in the array,
 
 **Parameters:**
 
-▪ **value**: _I[K]_
-
-is indexed value to search for.
-
-▪`Default value` **\_\_namedParameters**: _object_= {}
-
-| Name        | Type   | Default              |
-| ----------- | ------ | -------------------- |
-| `fromIndex` | number | 0                    |
-| `key`       | K      | this.defaultKey as K |
+| Name                | Type   | Default | Description                     |
+| ------------------- | ------ | ------- | ------------------------------- |
+| `value`             | I[K]   | -       | is indexed value to search for. |
+| `__namedParameters` | object | {}      | -                               |
 
 **Returns:** _I_
 
@@ -1439,7 +1160,7 @@ the first item with given indexed value in the array; `undefined` if not found.
 
 ▸ **has**<**K**>(`value`: I[K], `__namedParameters`: object): _boolean_
 
-_Defined in [index.ts:793](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L793)_
+_Defined in [src/index.ts:793](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L793)_
 
 Determines whether an array includes a certain indexed value among its entries' keys, returning true or false as appropriate.
 
@@ -1449,16 +1170,10 @@ Determines whether an array includes a certain indexed value among its entries' 
 
 **Parameters:**
 
-▪ **value**: _I[K]_
-
-is indexed value to search for.
-
-▪`Default value` **\_\_namedParameters**: _object_= {}
-
-| Name        | Type   | Default              |
-| ----------- | ------ | -------------------- |
-| `fromIndex` | number | 0                    |
-| `key`       | K      | this.defaultKey as K |
+| Name                | Type   | Default | Description                     |
+| ------------------- | ------ | ------- | ------------------------------- |
+| `value`             | I[K]   | -       | is indexed value to search for. |
+| `__namedParameters` | object | {}      | -                               |
 
 **Returns:** _boolean_
 
@@ -1472,7 +1187,7 @@ true if indexed value is found among array's entries' keys.
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es2016.array.include.d.ts:27
+Defined in node_modules/typescript/lib/lib.es2016.array.include.d.ts:27
 
 Determines whether an array includes a certain element, returning true or false as appropriate.
 
@@ -1493,7 +1208,7 @@ Determines whether an array includes a certain element, returning true or false 
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es5.d.ts:1284
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1295
 
 Returns the index of the first occurrence of a value in an array.
 
@@ -1514,7 +1229,7 @@ Returns the index of the first occurrence of a value in an array.
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es5.d.ts:1241
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1247
 
 Adds all the elements of an array separated by the specified separator string.
 
@@ -1534,7 +1249,7 @@ Adds all the elements of an array separated by the specified separator string.
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es2015.iterable.d.ts:70
+Defined in node_modules/typescript/lib/lib.es2015.iterable.d.ts:70
 
 Returns an iterable of keys in the array
 
@@ -1548,7 +1263,7 @@ Returns an iterable of keys in the array
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es5.d.ts:1290
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1301
 
 Returns the index of the last occurrence of a specified value in an array.
 
@@ -1565,11 +1280,11 @@ Returns the index of the last occurrence of a specified value in an array.
 
 ### map
 
-▸ **map**<**U**, **DK2**, **OK2**>(`callbackFn`: [Callback](#callback)‹I, DK, OK, TH, U›, `defaultKey?`: [DK2](undefined), ...`indexKeys`: OK2[]): _[IndexableArray](#classesindexablearraymd)‹U, DK2, Exclude‹OK2, DK2›, TH›_
+▸ **map**<**U**, **DK2**, **OK2**>(`callbackFn`: Callback‹I, DK, OK, TH, U›, `defaultKey?`: [DK2](undefined), ...`indexKeys`: OK2[]): _[IndexableArray](#classesindexablearraymd)‹U, DK2, Exclude‹OK2, DK2›, TH›_
 
 _Overrides void_
 
-_Defined in [index.ts:486](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L486)_
+_Defined in [src/index.ts:486](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L486)_
 
 Creates a new `IndexableArray` with the results of calling a provided function on every element in the calling array.
 Returned `IndexedArray` does not have any indexes, because callback function may return different kind of elements from source array.
@@ -1592,21 +1307,21 @@ const usersWithNick = usersWithName.map(user => ({ id: user.id, nick: name.subst
 
 **Parameters:**
 
-| Name           | Type                                    | Description                                                                                                           |
-| -------------- | --------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `callbackFn`   | [Callback](#callback)‹I, DK, OK, TH, U› | is function that produces an element of the new Array, taking three arguments: `value`, `index` and `indexableArray`. |
-| `defaultKey?`  | [DK2](undefined)                        | -                                                                                                                     |
-| `...indexKeys` | OK2[]                                   | -                                                                                                                     |
+| Name           | Type                       | Description                                                                                                           |
+| -------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `callbackFn`   | Callback‹I, DK, OK, TH, U› | is function that produces an element of the new Array, taking three arguments: `value`, `index` and `indexableArray`. |
+| `defaultKey?`  | [DK2](undefined)           | -                                                                                                                     |
+| `...indexKeys` | OK2[]                      | -                                                                                                                     |
 
 **Returns:** _[IndexableArray](#classesindexablearraymd)‹U, DK2, Exclude‹OK2, DK2›, TH›_
 
 a new `IndexableArray` with each element being the result of the callback function.
 
-▸ **map**<**U**, **DK2**, **OK2**>(`callbackFn`: [Callback](#callback)‹I, DK, OK, TH, U›, `thisArg`: object, `defaultKey?`: [DK2](undefined), ...`indexKeys`: OK2[]): _[IndexableArray](#classesindexablearraymd)‹U, DK2, Exclude‹OK2, DK2›, TH›_
+▸ **map**<**U**, **DK2**, **OK2**>(`callbackFn`: Callback‹I, DK, OK, TH, U›, `thisArg`: object, `defaultKey?`: [DK2](undefined), ...`indexKeys`: OK2[]): _[IndexableArray](#classesindexablearraymd)‹U, DK2, Exclude‹OK2, DK2›, TH›_
 
 _Overrides void_
 
-_Defined in [index.ts:492](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L492)_
+_Defined in [src/index.ts:492](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L492)_
 
 Creates a new `IndexableArray` with the results of calling a provided function on every element in the calling array.
 Returned `IndexedArray` does not have any indexes, because callback function may return different kind of elements from source array.
@@ -1629,22 +1344,22 @@ const usersWithNick = usersWithName.map(user => ({ id: user.id, nick: name.subst
 
 **Parameters:**
 
-| Name           | Type                                    | Description                                                                                                           |
-| -------------- | --------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `callbackFn`   | [Callback](#callback)‹I, DK, OK, TH, U› | is function that produces an element of the new Array, taking three arguments: `value`, `index` and `indexableArray`. |
-| `thisArg`      | object                                  | -                                                                                                                     |
-| `defaultKey?`  | [DK2](undefined)                        | -                                                                                                                     |
-| `...indexKeys` | OK2[]                                   | -                                                                                                                     |
+| Name           | Type                       | Description                                                                                                           |
+| -------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `callbackFn`   | Callback‹I, DK, OK, TH, U› | is function that produces an element of the new Array, taking three arguments: `value`, `index` and `indexableArray`. |
+| `thisArg`      | object                     | -                                                                                                                     |
+| `defaultKey?`  | [DK2](undefined)           | -                                                                                                                     |
+| `...indexKeys` | OK2[]                      | -                                                                                                                     |
 
 **Returns:** _[IndexableArray](#classesindexablearraymd)‹U, DK2, Exclude‹OK2, DK2›, TH›_
 
 a new `IndexableArray` with each element being the result of the callback function.
 
-▸ **map**<**U**, **DK2**, **OK2**>(`callbackFn`: [Callback](#callback)‹I, DK, OK, TH, U›, `defaultKey`: DK2, ...`indexKeys`: OK2[]): _[IndexableArray](#classesindexablearraymd)‹U, DK2, Exclude‹OK2, DK2›, TH›_
+▸ **map**<**U**, **DK2**, **OK2**>(`callbackFn`: Callback‹I, DK, OK, TH, U›, `defaultKey`: DK2, ...`indexKeys`: OK2[]): _[IndexableArray](#classesindexablearraymd)‹U, DK2, Exclude‹OK2, DK2›, TH›_
 
 _Overrides void_
 
-_Defined in [index.ts:499](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L499)_
+_Defined in [src/index.ts:499](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L499)_
 
 Creates a new `IndexableArray` with the results of calling a provided function on every element in the calling array.
 Returned `IndexedArray` does not have any indexes, because callback function may return different kind of elements from source array.
@@ -1667,21 +1382,21 @@ const usersWithNick = usersWithName.map(user => ({ id: user.id, nick: name.subst
 
 **Parameters:**
 
-| Name           | Type                                    | Description                                                                                                           |
-| -------------- | --------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `callbackFn`   | [Callback](#callback)‹I, DK, OK, TH, U› | is function that produces an element of the new Array, taking three arguments: `value`, `index` and `indexableArray`. |
-| `defaultKey`   | DK2                                     | -                                                                                                                     |
-| `...indexKeys` | OK2[]                                   | -                                                                                                                     |
+| Name           | Type                       | Description                                                                                                           |
+| -------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `callbackFn`   | Callback‹I, DK, OK, TH, U› | is function that produces an element of the new Array, taking three arguments: `value`, `index` and `indexableArray`. |
+| `defaultKey`   | DK2                        | -                                                                                                                     |
+| `...indexKeys` | OK2[]                      | -                                                                                                                     |
 
 **Returns:** _[IndexableArray](#classesindexablearraymd)‹U, DK2, Exclude‹OK2, DK2›, TH›_
 
 a new `IndexableArray` with each element being the result of the callback function.
 
-▸ **map**<**U**, **DK2**, **OK2**>(`callbackFn`: [Callback](#callback)‹I, DK, OK, TH, U›, `thisArg`: object, `defaultKey`: DK2, ...`indexKeys`: OK2[]): _[IndexableArray](#classesindexablearraymd)‹U, DK2, Exclude‹OK2, DK2›, TH›_
+▸ **map**<**U**, **DK2**, **OK2**>(`callbackFn`: Callback‹I, DK, OK, TH, U›, `thisArg`: object, `defaultKey`: DK2, ...`indexKeys`: OK2[]): _[IndexableArray](#classesindexablearraymd)‹U, DK2, Exclude‹OK2, DK2›, TH›_
 
 _Overrides void_
 
-_Defined in [index.ts:505](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L505)_
+_Defined in [src/index.ts:505](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L505)_
 
 Creates a new `IndexableArray` with the results of calling a provided function on every element in the calling array.
 Returned `IndexedArray` does not have any indexes, because callback function may return different kind of elements from source array.
@@ -1704,22 +1419,22 @@ const usersWithNick = usersWithName.map(user => ({ id: user.id, nick: name.subst
 
 **Parameters:**
 
-| Name           | Type                                    | Description                                                                                                           |
-| -------------- | --------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `callbackFn`   | [Callback](#callback)‹I, DK, OK, TH, U› | is function that produces an element of the new Array, taking three arguments: `value`, `index` and `indexableArray`. |
-| `thisArg`      | object                                  | -                                                                                                                     |
-| `defaultKey`   | DK2                                     | -                                                                                                                     |
-| `...indexKeys` | OK2[]                                   | -                                                                                                                     |
+| Name           | Type                       | Description                                                                                                           |
+| -------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `callbackFn`   | Callback‹I, DK, OK, TH, U› | is function that produces an element of the new Array, taking three arguments: `value`, `index` and `indexableArray`. |
+| `thisArg`      | object                     | -                                                                                                                     |
+| `defaultKey`   | DK2                        | -                                                                                                                     |
+| `...indexKeys` | OK2[]                      | -                                                                                                                     |
 
 **Returns:** _[IndexableArray](#classesindexablearraymd)‹U, DK2, Exclude‹OK2, DK2›, TH›_
 
 a new `IndexableArray` with each element being the result of the callback function.
 
-▸ **map**<**U**>(`callbackFn`: [Callback](#callback)‹I, DK, OK, TH, U›, `thisArg?`: undefined | object): _[IndexableArray](#classesindexablearraymd)‹U, [AvailableDefaultIndex](#availabledefaultindex)‹U, DK, OK›, [AvailableIndex](#availableindex)‹U, DK, OK›, TH›_
+▸ **map**<**U**>(`callbackFn`: Callback‹I, DK, OK, TH, U›, `thisArg?`: undefined | object): _[IndexableArray](#classesindexablearraymd)‹U, AvailableDefaultIndex‹U, DK, OK›, AvailableIndex‹U, DK, OK›, TH›_
 
 _Overrides void_
 
-_Defined in [index.ts:512](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L512)_
+_Defined in [src/index.ts:512](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L512)_
 
 Creates a new `IndexableArray` with the results of calling a provided function on every element in the calling array.
 Returned `IndexedArray` does not have any indexes, because callback function may return different kind of elements from source array.
@@ -1738,12 +1453,12 @@ const usersWithNick = usersWithName.map(user => ({ id: user.id, nick: name.subst
 
 **Parameters:**
 
-| Name         | Type                                    | Description                                                                                                           |
-| ------------ | --------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `callbackFn` | [Callback](#callback)‹I, DK, OK, TH, U› | is function that produces an element of the new Array, taking three arguments: `value`, `index` and `indexableArray`. |
-| `thisArg?`   | undefined &#124; object                 | -                                                                                                                     |
+| Name         | Type                       | Description                                                                                                           |
+| ------------ | -------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `callbackFn` | Callback‹I, DK, OK, TH, U› | is function that produces an element of the new Array, taking three arguments: `value`, `index` and `indexableArray`. |
+| `thisArg?`   | undefined &#124; object    | -                                                                                                                     |
 
-**Returns:** _[IndexableArray](#classesindexablearraymd)‹U, [AvailableDefaultIndex](#availabledefaultindex)‹U, DK, OK›, [AvailableIndex](#availableindex)‹U, DK, OK›, TH›_
+**Returns:** _[IndexableArray](#classesindexablearraymd)‹U, AvailableDefaultIndex‹U, DK, OK›, AvailableIndex‹U, DK, OK›, TH›_
 
 a new `IndexableArray` with each element being the result of the callback function.
 
@@ -1751,9 +1466,9 @@ a new `IndexableArray` with each element being the result of the callback functi
 
 ### mapToArray
 
-▸ **mapToArray**<**U**>(`callbackfn`: [Callback](#callback)‹I, DK, OK, TH, U | keyof U[]›, `thisArg?`: any): _U[]_
+▸ **mapToArray**<**U**>(`callbackfn`: Callback‹I, DK, OK, TH, U | keyof U[]›, `thisArg?`: any): _U[]_
 
-_Defined in [index.ts:643](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L643)_
+_Defined in [src/index.ts:643](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L643)_
 
 Creates a new base Array (not IndexableArray) with the results of calling a provided function on every element in the calling array.
 
@@ -1772,10 +1487,10 @@ const baseArray = usersWithName.mapToArray(user => ({ id: user.id, nick: name.su
 
 **Parameters:**
 
-| Name         | Type                                                     | Description                                                                                                           |
-| ------------ | -------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `callbackfn` | [Callback](#callback)‹I, DK, OK, TH, U &#124; keyof U[]› | is function that produces an element of the new Array, taking three arguments: `value`, `index` and `indexableArray`. |
-| `thisArg?`   | any                                                      | is value to use as this when executing callback.                                                                      |
+| Name         | Type                                        | Description                                                                                                           |
+| ------------ | ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `callbackfn` | Callback‹I, DK, OK, TH, U &#124; keyof U[]› | is function that produces an element of the new Array, taking three arguments: `value`, `index` and `indexableArray`. |
+| `thisArg?`   | any                                         | is value to use as this when executing callback.                                                                      |
 
 **Returns:** _U[]_
 
@@ -1789,7 +1504,7 @@ a new `Array` with each element being the result of the callback function.
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es5.d.ts:1221
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1227
 
 Removes the last element from an array and returns it.
 
@@ -1803,7 +1518,7 @@ Removes the last element from an array and returns it.
 
 _Overrides void_
 
-_Defined in [index.ts:427](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L427)_
+_Defined in [src/index.ts:427](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L427)_
 
 **Parameters:**
 
@@ -1821,7 +1536,7 @@ _Defined in [index.ts:427](https://github.com/ozum/indexable-array/blob/516dde9/
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es5.d.ts:1332
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1349
 
 Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
 
@@ -1848,7 +1563,7 @@ A function that accepts up to four arguments. The reduce method calls the callba
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es5.d.ts:1333
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1350
 
 **Parameters:**
 
@@ -1873,7 +1588,7 @@ Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/l
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es5.d.ts:1339
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1356
 
 Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
 
@@ -1912,7 +1627,7 @@ If initialValue is specified, it is used as the initial value to start the accum
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es5.d.ts:1345
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1362
 
 Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
 
@@ -1939,7 +1654,7 @@ A function that accepts up to four arguments. The reduceRight method calls the c
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es5.d.ts:1346
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1363
 
 **Parameters:**
 
@@ -1964,7 +1679,7 @@ Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/l
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es5.d.ts:1352
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1369
 
 Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
 
@@ -2003,7 +1718,7 @@ If initialValue is specified, it is used as the initial value to start the accum
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es5.d.ts:1245
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1251
 
 Reverses the elements in an Array.
 
@@ -2015,7 +1730,7 @@ Reverses the elements in an Array.
 
 ▸ **set**(`position`: number, `path`: string, `value`: any): _void_
 
-_Defined in [index.ts:810](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L810)_
+_Defined in [src/index.ts:810](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L810)_
 
 Sets value at path of the object, which is one of the entires of array. To update fields of the objects, this method should be used. Otherwise
 index cannot be updated, because sub fileds are not tracked for chage detection.
@@ -2045,7 +1760,7 @@ indexedArray.set(0, "name", "OK"); // Index updated.
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es5.d.ts:1249
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1255
 
 Removes the first element from an array and returns it.
 
@@ -2059,7 +1774,7 @@ Removes the first element from an array and returns it.
 
 _Overrides void_
 
-_Defined in [index.ts:647](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L647)_
+_Defined in [src/index.ts:647](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L647)_
 
 **Parameters:**
 
@@ -2078,7 +1793,7 @@ _Defined in [index.ts:647](https://github.com/ozum/indexable-array/blob/516dde9/
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es5.d.ts:1302
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1319
 
 Determines whether the specified callback function returns true for any element of an array.
 
@@ -2086,7 +1801,9 @@ Determines whether the specified callback function returns true for any element 
 
 ▪ **callbackfn**: _function_
 
-A function that accepts up to three arguments. The some method calls the callbackfn function for each element in array1 until the callbackfn returns true, or until the end of the array.
+A function that accepts up to three arguments. The some method calls
+the callbackfn function for each element in the array until the callbackfn returns a value
+which is coercible to the Boolean value true, or until the end of the array.
 
 ▸ (`value`: I, `index`: number, `array`: I[]): _unknown_
 
@@ -2100,7 +1817,8 @@ A function that accepts up to three arguments. The some method calls the callbac
 
 ▪`Optional` **thisArg**: _any_
 
-An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
+An object to which the this keyword can refer in the callbackfn function.
+If thisArg is omitted, undefined is used as the this value.
 
 **Returns:** _boolean_
 
@@ -2112,7 +1830,7 @@ An object to which the this keyword can refer in the callbackfn function. If thi
 
 _Overrides void_
 
-_Defined in [index.ts:446](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L446)_
+_Defined in [src/index.ts:446](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L446)_
 
 **Parameters:**
 
@@ -2128,7 +1846,7 @@ _Defined in [index.ts:446](https://github.com/ozum/indexable-array/blob/516dde9/
 
 ▸ **sortBy**(`key`: DK | OK): _this_
 
-_Defined in [index.ts:459](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L459)_
+_Defined in [src/index.ts:459](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L459)_
 
 Sorts the elements of an array by given key in place and returns the sorted array.
 
@@ -2150,7 +1868,7 @@ this instance.
 
 _Overrides void_
 
-_Defined in [index.ts:434](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L434)_
+_Defined in [src/index.ts:434](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L434)_
 
 **Parameters:**
 
@@ -2170,7 +1888,7 @@ _Defined in [index.ts:434](https://github.com/ozum/indexable-array/blob/516dde9/
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es5.d.ts:1217
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1223
 
 Returns a string representation of an array. The elements are converted to string using their toLocalString methods.
 
@@ -2184,7 +1902,7 @@ Returns a string representation of an array. The elements are converted to strin
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es5.d.ts:1213
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1219
 
 Returns a string representation of an array.
 
@@ -2198,7 +1916,7 @@ Returns a string representation of an array.
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es5.d.ts:1278
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1289
 
 Inserts new elements at the start of an array.
 
@@ -2218,7 +1936,7 @@ Inserts new elements at the start of an array.
 
 _Inherited from void_
 
-Defined in /Users/ozum/Development/indexable-array/node_modules/typescript/lib/lib.es2015.iterable.d.ts:75
+Defined in node_modules/typescript/lib/lib.es2015.iterable.d.ts:75
 
 Returns an iterable of values in the array
 
@@ -2230,14 +1948,17 @@ Returns an iterable of values in the array
 
 ▸ **withDefaultIndex**<**K**>(`key`: K): _[IndexableArray](#classesindexablearraymd)‹I, K, OK, TH›_
 
-_Defined in [index.ts:669](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L669)_
+_Defined in [src/index.ts:669](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L669)_
 
 Sets default index key to be used with lookup functions. Returns same instance.
 
 #### Example
 
 ```typescript
-const input = [{ id: 23, name: "Geroge" }, { id: 96, name: "Lisa" }];
+const input = [
+  { id: 23, name: "Geroge" },
+  { id: 96, name: "Lisa" },
+];
 let users = new IndexableArray(...input).addIndex("name", "id"); // "name" is default index
 users = users.withDefaultIndex("id"); // "id" is default index. Assignment is used for TypeScript to assign right type to variable.
 ```
@@ -2262,7 +1983,7 @@ this object.
 
 ▸ **from**<**I2**, **DK2**, **DK3**, **OK2**, **OK3**, **TH2**>(`indexableArray`: [IndexableArray](#classesindexablearraymd)‹I2, DK2, OK2, TH2›, `defaultKey?`: [DK3](undefined), ...`indexKeys`: OK3[]): _[IndexableArray](#classesindexablearraymd)‹I2, DK3, Exclude‹OK3, DK3›, TH2›_
 
-_Defined in [index.ts:100](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L100)_
+_Defined in [src/index.ts:100](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L100)_
 
 Creates a new, shallow-copied `IndexableArray` instance from an array-like or iterable object. If source is also `IndexableArray`,
 returned `IndexableArray` will have same indexed keys.
@@ -2295,7 +2016,7 @@ a new `IndexableArray` instance.
 
 ▸ **from**<**I2**, **DK2**, **OK2**>(`arrayLike`: Iterable‹I2› | ArrayLike‹I2›, `defaultKey`: DK2, ...`indexKeys`: OK2[]): _[IndexableArray](#classesindexablearraymd)‹I2, DK2, Exclude‹OK2, DK2›, false›_
 
-_Defined in [index.ts:113](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L113)_
+_Defined in [src/index.ts:113](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L113)_
 
 Creates a new, shallow-copied `IndexableArray` instance from an array-like or iterable object. If source is also `IndexableArray`,
 returned `IndexableArray` will have same indexed keys.
@@ -2326,7 +2047,7 @@ a new `IndexableArray` instance.
 
 ▸ **throwingFrom**<**I2**, **DK2**, **DK3**, **OK2**, **OK3**, **TH2**>(`indexableArray`: [IndexableArray](#classesindexablearraymd)‹I2, DK2, OK2, TH2›, `defaultKey?`: [DK3](undefined), ...`indexKeys`: OK3[]): _[IndexableArray](#classesindexablearraymd)‹I2, DK3, Exclude‹OK3, DK3›, true›_
 
-_Defined in [index.ts:159](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L159)_
+_Defined in [src/index.ts:159](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L159)_
 
 Creates a new, shallow-copied `IndexableArray` instance from an array-like or iterable object. If source is also `IndexableArray`,
 returned `IndexableArray` will have same indexed keys. Returned instance throws exception if `get()` methods cannot find given value.
@@ -2359,7 +2080,7 @@ a new `IndexableArray` instance.
 
 ▸ **throwingFrom**<**I2**, **DK2**, **OK2**>(`arrayLike`: Iterable‹I2› | ArrayLike‹I2›, `defaultKey`: DK2, ...`indexKeys`: OK2[]): _[IndexableArray](#classesindexablearraymd)‹I2, DK2, Exclude‹OK2, DK2›, true›_
 
-_Defined in [index.ts:172](https://github.com/ozum/indexable-array/blob/516dde9/src/index.ts#L172)_
+_Defined in [src/index.ts:172](https://github.com/ozum/indexable-array/blob/98a8d87/src/index.ts#L172)_
 
 Creates a new, shallow-copied `IndexableArray` instance from an array-like or iterable object. If source is also `IndexableArray`,
 returned `IndexableArray` will have same indexed keys. Returned instance throws exception if `get()` methods cannot find given value.
