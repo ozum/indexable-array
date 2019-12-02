@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.4](https://github.com/ozum/indexable-array/compare/v0.6.0...v0.6.4) (2019-12-02)
+
+
+### Bug Fixes
+
+* add more descriptive exception message to get() ([54bff95](https://github.com/ozum/indexable-array/commit/54bff95505d7dcc1cfa15b8fa75a29cddbaadc6a))
+* update dependencies ([4e99f6a](https://github.com/ozum/indexable-array/commit/4e99f6a00afa4ec1c827623baba61170addf6b3b))
+
 ### [0.6.3](https://github.com/ozum/indexable-array/compare/v0.6.0...v0.6.3) (2019-10-17)
 
 
