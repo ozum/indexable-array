@@ -1,12 +1,6 @@
 {
-  "test": {
-    "coverageThreshold": {
-      "global": {
-        "branches": 100,
-        "functions": 100,
-        "lines": 100,
-        "statements": 100
-      }
-    }
+  "test": { "coverageThreshold": { "global": { "branches": 100, "functions": 100, "lines": 100, "statements": 100 } } },
+  "files": {
+    "jest.config.json": { "coverageThreshold": { "global": { "branches": 100, "functions": 100, "lines": 100, "statements": 100 } } }
   }
 }
