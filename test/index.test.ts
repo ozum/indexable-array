@@ -1,8 +1,9 @@
+/* eslint-disable jest/no-commented-out-tests */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-classes-per-file */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import IndexableArray from ".";
+import IndexableArray from "../src/index";
 
 class User {
   public id?: number;
@@ -116,7 +117,14 @@ describe("Indexable Array", () => {
 
   describe("IndexableArray.from()", () => {
     it("should create new IndexableArray from normal array", () => {
-      const result = IndexableArray.from([{ id: 1, name: "George" }, { id: 10, name: "Lisa" }, { id: 3, name: "George" }], "name");
+      const result = IndexableArray.from(
+        [
+          { id: 1, name: "George" },
+          { id: 10, name: "Lisa" },
+          { id: 3, name: "George" },
+        ],
+        "name"
+      );
       expect(result.getAllIndexes("George")).toEqual([0, 2]);
     });
 
@@ -126,7 +134,14 @@ describe("Indexable Array", () => {
     });
 
     it("should create new throwing IndexableArray from throwing IndexableArray", () => {
-      const source = IndexableArray.throwingFrom([{ id: 1, name: "George" }, { id: 10, name: "Lisa" }, { id: 3, name: "George" }], "name");
+      const source = IndexableArray.throwingFrom(
+        [
+          { id: 1, name: "George" },
+          { id: 10, name: "Lisa" },
+          { id: 3, name: "George" },
+        ],
+        "name"
+      );
       const result = IndexableArray.from(source);
       expect(result.getAllIndexes("George")).toEqual([0, 2]);
       expect(() => result.get("XYZ")).toThrow("'XYZ' cannot be found in Object's name.");
@@ -135,7 +150,14 @@ describe("Indexable Array", () => {
 
   describe("IndexableArray.throwingFrom()", () => {
     it("should create new IndexableArray from normal array and throw for unknown values", () => {
-      const result = IndexableArray.throwingFrom([{ id: 1, name: "George" }, { id: 10, name: "Lisa" }, { id: 3, name: "George" }], "name");
+      const result = IndexableArray.throwingFrom(
+        [
+          { id: 1, name: "George" },
+          { id: 10, name: "Lisa" },
+          { id: 3, name: "George" },
+        ],
+        "name"
+      );
       expect(result.getAllIndexes("George")).toEqual([0, 2]);
       expect(() => result.get("XYZ")).toThrow("'XYZ' cannot be found in Object's name.");
     });
@@ -217,7 +239,7 @@ describe("Indexable Array", () => {
     });
 
     it("should throw for unknown result for unnamed object 2.", () => {
-      expect(() => IndexableArray.throwingFrom([] as any, "name").getSure("XYZT")).toThrow("'XYZT' cannot be found in name.");
+      expect(() => IndexableArray.throwingFrom([] as any, "name" as any).getSure("XYZT")).toThrow("'XYZT' cannot be found in name.");
     });
   });
 
@@ -229,7 +251,10 @@ describe("Indexable Array", () => {
 
   describe("getAll()", () => {
     it("should return values for default field.", () => {
-      expect(ia().getAll("George")).toEqual([{ name: "George", id: 1 }, { name: "George", id: 3 }]);
+      expect(ia().getAll("George")).toEqual([
+        { name: "George", id: 1 },
+        { name: "George", id: 3 },
+      ]);
     });
 
     it("should return empty array if default field is not found.", () => {
@@ -281,7 +306,7 @@ describe("Indexable Array", () => {
     });
 
     it("should return IndexableArray with totally different indexes.", () => {
-      const result = ia().map(user => ({ xname: `X${user.name}` }), "xname");
+      const result = ia().map((user) => ({ xname: `X${user.name}` }), "xname");
       expect(result instanceof IndexableArray).toBeTruthy();
       expect(result.indexedKeys).toEqual(new Set(["xname"]));
       expect(result.getAllIndexes("XGeorge")).toEqual([0, 2]);
@@ -290,14 +315,14 @@ describe("Indexable Array", () => {
 
   describe("flatMap()", () => {
     it("should return IndexableArray with same indexes.", () => {
-      const result = ia().flatMap(user => [{ name: `X${user.name}` }]);
+      const result = ia().flatMap((user) => [{ name: `X${user.name}` }]);
       expect(result instanceof IndexableArray).toBeTruthy();
       expect(result.indexedKeys).toEqual(new Set(["id", "name"]));
       expect(result.getAllIndexes("XGeorge")).toEqual([0, 2]);
     });
 
     it("should return IndexableArray with same indexes (custom this argument).", () => {
-      const result = ia().flatMap(user => [{ name: `X${user.name}` }], {});
+      const result = ia().flatMap((user) => [{ name: `X${user.name}` }], {});
       expect(result instanceof IndexableArray).toBeTruthy();
       expect(result.indexedKeys).toEqual(new Set(["id", "name"]));
       expect(result.getAllIndexes("XGeorge")).toEqual([0, 2]);
@@ -315,7 +340,7 @@ describe("Indexable Array", () => {
 
   describe("filter()", () => {
     it("should return filtered array with same indexes.", () => {
-      const result = ia().filter(user => user.id && user.id >= 2);
+      const result = ia().filter((user) => user.id && user.id >= 2);
       expect(result instanceof IndexableArray).toBeTruthy();
       expect(result.indexedKeys).toEqual(new Set(["id", "name"]));
       expect(result.getAllIndexes("George")).toEqual([1]);
@@ -416,7 +441,10 @@ describe("Indexable Array", () => {
     it("should remove last value.", () => {
       const result = ia();
       result.pop();
-      expect([...result]).toEqual([{ id: 1, name: "George" }, { id: 10, name: "Lisa" }]);
+      expect([...result]).toEqual([
+        { id: 1, name: "George" },
+        { id: 10, name: "Lisa" },
+      ]);
       expect(result.getAllIndexes("George")).toEqual([0]);
     });
 
@@ -437,7 +465,10 @@ describe("Indexable Array", () => {
     it("should remove first value.", () => {
       const result = ia();
       result.shift();
-      expect([...result]).toEqual([{ id: 10, name: "Lisa" }, { id: 3, name: "George" }]);
+      expect([...result]).toEqual([
+        { id: 10, name: "Lisa" },
+        { id: 3, name: "George" },
+      ]);
       expect(result.getAllIndexes("George")).toEqual([1]);
     });
   });
@@ -468,7 +499,10 @@ describe("Indexable Array", () => {
     it("should handle decrease.", () => {
       const result = ia();
       result.length = 2;
-      expect([...result]).toEqual([{ id: 1, name: "George" }, { id: 10, name: "Lisa" }]);
+      expect([...result]).toEqual([
+        { id: 1, name: "George" },
+        { id: 10, name: "Lisa" },
+      ]);
       expect(result.getAllIndexes("George")).toEqual([0]);
     });
   });
@@ -477,7 +511,10 @@ describe("Indexable Array", () => {
     it("should remove elements.", () => {
       const result = ia();
       result.splice(0, 1);
-      expect([...result]).toEqual([{ id: 10, name: "Lisa" }, { id: 3, name: "George" }]);
+      expect([...result]).toEqual([
+        { id: 10, name: "Lisa" },
+        { id: 3, name: "George" },
+      ]);
       expect(result.getAllIndexes("George")).toEqual([1]);
     });
 
@@ -546,7 +583,12 @@ describe("Indexable Array", () => {
       const result = ia();
       result.push(new User("Mia", 9));
       result.reverse();
-      expect([...result]).toEqual([{ id: 9, name: "Mia" }, { id: 3, name: "George" }, { id: 10, name: "Lisa" }, { id: 1, name: "George" }]);
+      expect([...result]).toEqual([
+        { id: 9, name: "Mia" },
+        { id: 3, name: "George" },
+        { id: 10, name: "Lisa" },
+        { id: 1, name: "George" },
+      ]);
       expect(result.getAllIndexes("George")).toEqual([1, 3]);
     });
   });
@@ -565,7 +607,11 @@ describe("copyWithin()", () => {
   it("should copy elements.", () => {
     const result = ia();
     result.copyWithin(0, 1, 2);
-    expect([...result]).toEqual([{ id: 10, name: "Lisa" }, { id: 10, name: "Lisa" }, { id: 3, name: "George" }]);
+    expect([...result]).toEqual([
+      { id: 10, name: "Lisa" },
+      { id: 10, name: "Lisa" },
+      { id: 3, name: "George" },
+    ]);
     expect(result.getAllIndexes("Lisa")).toEqual([0, 1]);
     expect(result.getAllIndexes("George")).toEqual([2]);
   });
@@ -575,7 +621,11 @@ describe("fill()", () => {
   it("should fill elements.", () => {
     const result = ia();
     result.fill(new User("Mia", 9), 1, 3);
-    expect([...result]).toEqual([{ id: 1, name: "George" }, { id: 9, name: "Mia" }, { id: 9, name: "Mia" }]);
+    expect([...result]).toEqual([
+      { id: 1, name: "George" },
+      { id: 9, name: "Mia" },
+      { id: 9, name: "Mia" },
+    ]);
     expect(result.getAllIndexes("Mia")).toEqual([1, 2]);
     expect(result.getAllIndexes("George")).toEqual([0]);
   });
@@ -585,7 +635,11 @@ describe("assignment()", () => {
   it("should change value of assigned item.", () => {
     const result = ia();
     result[0] = new User("Mia", 9);
-    expect([...result]).toEqual([{ id: 9, name: "Mia" }, { id: 10, name: "Lisa" }, { id: 3, name: "George" }]);
+    expect([...result]).toEqual([
+      { id: 9, name: "Mia" },
+      { id: 10, name: "Lisa" },
+      { id: 3, name: "George" },
+    ]);
     expect(result.getAllIndexes("Mia")).toEqual([0]);
     expect(result.getAllIndexes("George")).toEqual([2]);
   });
@@ -618,9 +672,7 @@ describe("sort()", () => {
 
 describe("sortBy()", () => {
   it("should sort by given key and update indexes.", () => {
-    const result = ia()
-      .sortBy("id")
-      .getAllIndexes("George");
+    const result = ia().sortBy("id").getAllIndexes("George");
 
     expect(result).toEqual([0, 1]);
   });
@@ -681,31 +733,35 @@ describe("Cross Assignment", () => {
   });
 
   it("should map sub classses.", () => {
-    const a = new Set([{ name: "oz", sur: 2 }, { name: "al", sur: 2 }]);
+    const a = new Set([
+      { name: "oz", sur: 2 },
+      { name: "al", sur: 2 },
+    ]);
     const b = IndexableArray.from(a, "name");
 
-    const c1 = b.map(e => ({ fn: e.name, za: 3, name: "j" }));
-    const c2 = b.map(e => ({ fn: e.name, za: 3, name: "j" }), {});
-    const c3 = b.map(e => ({ fn: e.name, za: 3 }), "za");
-    const c4 = b.map(e => ({ fn: e.name, za: 3 }), "za", "fn");
-    const c5 = b.map(e => ({ fn: e.name, za: 3 }), {}, "za");
-    const c6 = b.map(e => ({ fn: e.name, za: 3 }), {}, "za", "fn");
+    const c1 = b.map((e) => ({ fn: e.name, za: 3, name: "j" }));
+    const c2 = b.map((e) => ({ fn: e.name, za: 3, name: "j" }), {});
+    const c3 = b.map((e) => ({ fn: e.name, za: 3 }), "za");
+    const c4 = b.map((e) => ({ fn: e.name, za: 3 }), "za", "fn");
+    const c5 = b.map((e) => ({ fn: e.name, za: 3 }), {}, "za");
+    const c6 = b.map((e) => ({ fn: e.name, za: 3 }), {}, "za", "fn");
 
-    const fc1 = b.flatMap(e => ({ fn: e.name, za: 3, name: "j" }));
-    const fc2 = b.flatMap(e => ({ fn: e.name, za: 3, name: "j" }), {});
-    const fc3 = b.flatMap(e => ({ fn: e.name, za: 3 }), "za");
-    const fc4 = b.flatMap(e => ({ fn: e.name, za: 3 }), "za", "fn");
-    const fc5 = b.flatMap(e => ({ fn: e.name, za: 3 }), {}, "za");
-    const fc6 = b.flatMap(e => ({ fn: e.name, za: 3 }), {}, "za", "fn");
+    const fc1 = b.flatMap((e) => ({ fn: e.name, za: 3, name: "j" }));
+    const fc2 = b.flatMap((e) => ({ fn: e.name, za: 3, name: "j" }), {});
+    const fc3 = b.flatMap((e) => ({ fn: e.name, za: 3 }), "za");
+    const fc4 = b.flatMap((e) => ({ fn: e.name, za: 3 }), "za", "fn");
+    const fc5 = b.flatMap((e) => ({ fn: e.name, za: 3 }), {}, "za");
+    const fc6 = b.flatMap((e) => ({ fn: e.name, za: 3 }), {}, "za", "fn");
+    const fc7 = b.flatMap((e) => e.name);
     // const c2 = b.map2(e => ({ fn: e.name, za: 3, name: "j" }), "za");
 
     const z = b.concat([{ name: "jjj", sur: 9 }]).get("jjj");
 
     const mul = IndexableArray.from(a, "name", "sur");
-    const nm = mul.map(e => ({ name: "x" }));
-    const sc = mul.map(e => e.name);
+    const nm = mul.map((e) => ({ name: "x" }));
+    const sc = mul.map((e) => e.name);
 
-    const nm2 = mul.map(e => ({ xyz: "x" }), "xyz");
+    const nm2 = mul.map((e) => ({ xyz: "x" }), "xyz");
 
     expect(1).toBe(1);
   });

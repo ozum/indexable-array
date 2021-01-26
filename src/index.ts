@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any, class-methods-use-this, no-dupe-class-members */
+/* eslint-disable @typescript-eslint/no-explicit-any, class-methods-use-this, no-dupe-class-members, no-use-before-define, @typescript-eslint/explicit-module-boundary-types */
 
 import sorted from "sorted-array-functions";
 import set from "lodash.set";
 
-type ObjectLookup = WeakMap<object, number[]>;
+type ObjectLookup = WeakMap<Record<string, unknown>, number[]>;
 type ObjectLookups<I, K extends keyof I> = Map<K, ObjectLookup>;
 type PrimitiveLookup<I, DK extends keyof I, OK extends keyof I> = Map<I[DK] | I[OK], number[]>; // "john": [1,23], "sarah": [2,4]
 type PrimitiveLookups<I, DK extends keyof I, OK extends keyof I> = Map<DK | OK, PrimitiveLookup<I, DK, OK>>; // name: ("john": [1,23], "sarah": [2,4])
@@ -58,12 +58,7 @@ const nonEnumerableProps = new Set([
  * users[0].name = "THIS IS OK NOW";
  * users.enableIndex(); // Index is recreated from scratch.
  */
-export default class IndexableArray<
-  I extends any,
-  DK extends keyof I = never,
-  OK extends keyof I = never,
-  TH extends boolean = false
-> extends Array<I> {
+export default class IndexableArray<I extends any, DK extends keyof I, OK extends keyof I, TH extends boolean = false> extends Array<I> {
   private readonly primitiveLookups: PrimitiveLookups<I, DK, OK> = new Map();
   private readonly objectLookups: ObjectLookups<I, DK | OK> = new Map();
   private readonly builtIndexKeys: Set<DK | OK> = new Set();
@@ -89,7 +84,7 @@ export default class IndexableArray<
   private constructor(...items: I[]) {
     super(...items);
 
-    nonEnumerableProps.forEach(property => Object.defineProperty(this, property, { writable: true, enumerable: false })); // Make added fields non-enumerable.
+    nonEnumerableProps.forEach((property) => Object.defineProperty(this, property, { writable: true, enumerable: false })); // Make added fields non-enumerable.
 
     return new Proxy(this, {
       set: (target: IndexableArray<I, DK, OK, TH>, property: number, value: I): boolean => target.setProperty(property, value),
@@ -214,7 +209,7 @@ export default class IndexableArray<
    * @ignore
    */
   private clearIndex(): void {
-    this.indexedKeys.forEach(key => {
+    this.indexedKeys.forEach((key) => {
       this.primitiveLookups.set(key, new Map());
       this.objectLookups.set(key, new WeakMap());
       this.builtIndexKeys.delete(key);
@@ -235,8 +230,8 @@ export default class IndexableArray<
     this.operationAtEnd = true;
 
     keys
-      .filter(key => !this.builtIndexKeys.has(key))
-      .forEach(key => {
+      .filter((key) => !this.builtIndexKeys.has(key))
+      .forEach((key) => {
         if (!this._defaultKey) {
           this._defaultKey = key as DK;
         }
@@ -262,7 +257,7 @@ export default class IndexableArray<
    * const users = new IndexableArray({ id: 23, name: "Geroge" }, { id: 96, name: "Lisa" }).addIndex("name");
    * const other = new IndexableArray().addIndexFrom(users); // Indexes "name".
    */
-  public _copyMeta<I2 extends any, DK2 extends DK, OK2 extends OK>(source: IndexableArray<I2, DK2, OK2, any>): this {
+  public _copyMeta<I2 extends any, DK2 extends DK & keyof I2, OK2 extends OK & keyof I2>(source: IndexableArray<I2, DK2, OK2, any>): this {
     this._throwUnknown = source._throwUnknown;
     return this.addIndex(...source.indexedKeys);
   }
@@ -298,10 +293,10 @@ export default class IndexableArray<
    * @param keys are fields to add lookup. (i.e. "name")
    */
   private addToIndex(position: number, item: I, keys: (DK | OK)[] = Array.from(this.indexedKeys)): void {
-    keys.forEach(key => {
+    keys.forEach((key) => {
       const value = item[key];
       const lookup = this.getLookup(key, value);
-      const sortedIndex = lookup.get(value);
+      const sortedIndex = lookup.get(value as any);
 
       if (sortedIndex) {
         if (position === 0) {
@@ -312,7 +307,7 @@ export default class IndexableArray<
           sorted.add(sortedIndex, position);
         }
       } else {
-        lookup.set(value, [position]);
+        lookup.set(value as any, [position]);
       }
     });
   }
@@ -327,13 +322,13 @@ export default class IndexableArray<
    */
   private removeFromIndex(position: number, keys: (DK | OK)[] = Array.from(this.indexedKeys)): void {
     const item = this[position];
-    keys.forEach(key => {
+    keys.forEach((key) => {
       const value = item[key];
       const lookup = this.getLookup(key, value);
-      const sortedIndex = lookup.get(value) as number[]; // Cannot be undefined, otherwise value should not be there and therefore should not have executed a delete operation.
+      const sortedIndex = lookup.get(value as any) as number[]; // Cannot be undefined, otherwise value should not be there and therefore should not have executed a delete operation.
 
       if (sortedIndex.length === 1) {
-        lookup.delete(value);
+        lookup.delete(value as any);
       } else if (position === 0) {
         sortedIndex.shift();
       } else if (this.operationAtEnd || position >= this.length - 1) {
@@ -457,12 +452,12 @@ export default class IndexableArray<
    * @returns this instance.
    */
   public sortBy(key: DK | OK = this.defaultKey): this {
-    return this.sort((a, b) => {
-      if (typeof a[key] === "number" && typeof b[key] === "number") {
-        return a[key] - b[key];
-      }
-      const textA = a[key].toUpperCase();
-      const textB = b[key].toUpperCase();
+    return this.sort((aObject, bObject) => {
+      const [a, b] = [aObject[key] as any, bObject[key] as any];
+      if (typeof a === "number" && typeof b === "number") return a - b;
+
+      const textA = a.toUpperCase();
+      const textB = b.toUpperCase();
       // eslint-disable-next-line no-nested-ternary
       return textA < textB ? -1 : textA > textB ? 1 : 0;
     });
@@ -491,27 +486,32 @@ export default class IndexableArray<
 
   public map<U extends Pick<I, DK | OK>, DK2 extends keyof U = DK, OK2 extends keyof U = OK>(
     callbackFn: Callback<I, DK, OK, TH, U>,
-    thisArg: object,
+    thisArg: Record<string, unknown>,
     defaultKey?: DK2,
     ...indexKeys: OK2[]
   ): IndexableArray<U, DK2, Exclude<OK2, DK2>, TH>;
 
-  public map<U extends any, DK2 extends keyof U, OK2 extends keyof U = never>(
+  public map<U extends Record<string, unknown>, DK2 extends keyof U, OK2 extends keyof U = never>(
     callbackFn: Callback<I, DK, OK, TH, U>,
     defaultKey: DK2,
     ...indexKeys: OK2[]
   ): IndexableArray<U, DK2, Exclude<OK2, DK2>, TH>;
 
-  public map<U extends any, DK2 extends keyof U, OK2 extends keyof U = never>(
+  public map<U extends Record<string, unknown>, DK2 extends keyof U, OK2 extends keyof U = never>(
     callbackFn: Callback<I, DK, OK, TH, U>,
-    thisArg: object,
+    thisArg: Record<string, unknown>,
     defaultKey: DK2,
     ...indexKeys: OK2[]
   ): IndexableArray<U, DK2, Exclude<OK2, DK2>, TH>;
+
+  public map<U extends Record<string, unknown>>(
+    callbackFn: Callback<I, DK, OK, TH, U>,
+    thisArg?: Record<string, unknown>
+  ): IndexableArray<U, AvailableDefaultIndex<U, DK, OK>, AvailableIndex<U, DK, OK>, TH>;
 
   public map<U extends any>(
     callbackFn: Callback<I, DK, OK, TH, U>,
-    thisArg?: object
+    thisArg?: Record<string, unknown>
   ): IndexableArray<U, AvailableDefaultIndex<U, DK, OK>, AvailableIndex<U, DK, OK>, TH>;
 
   /**
@@ -528,9 +528,9 @@ export default class IndexableArray<
    * const usersWithName = new IndexableArray({ id: 23, name: "Geroge" }, { id: 96, name: "Lisa" }).addIndex("name");
    * const usersWithNick = usersWithName.map(user => ({ id: user.id, nick: name.substring(0,2) })).addIndex("nick"); // Has only "nick" index.
    */
-  public map<U extends any, DK2 extends keyof U = DK, OK2 extends keyof U = never>(
+  public map<U extends Record<string, unknown>, DK2 extends keyof U, OK2 extends keyof U>(
     callbackFn: Callback<I, DK, OK, TH, U>,
-    defaultKeyOrThisArg?: DK2 | object,
+    defaultKeyOrThisArg?: DK2 | any,
     ...keys: [DK2, ...OK2[]] | OK2[]
   ): IndexableArray<U, DK2, Exclude<OK2, DK2>, TH> | IndexableArray<U, AvailableDefaultIndex<U, DK, OK>, AvailableIndex<U, DK, OK>, TH> {
     const [thisArg, defaultKey, indexKeys] = isDefaultKey(defaultKeyOrThisArg)
@@ -559,7 +559,7 @@ export default class IndexableArray<
     U extends Pick<I, DK | OK>,
     DK2 extends keyof U = DK,
     OK2 extends keyof U = OK,
-    This extends undefined | object = undefined
+    This extends undefined | Record<string, unknown> = undefined
   >(
     callbackFn: CallbackThis<I, DK, OK, TH, U | readonly U[], This>,
     defaultKey?: DK2,
@@ -570,28 +570,44 @@ export default class IndexableArray<
     U extends Pick<I, DK | OK>,
     DK2 extends keyof U = DK,
     OK2 extends keyof U = OK,
-    This extends undefined | object = undefined
+    This extends undefined | Record<string, unknown> = undefined
   >(
     callbackFn: CallbackThis<I, DK, OK, TH, U | readonly U[], This>,
-    thisArg: object,
+    thisArg: This,
     defaultKey?: DK2,
     ...indexKeys: OK2[]
   ): IndexableArray<U, DK2, Exclude<OK2, DK2>, TH>;
 
-  public flatMap<U extends any, DK2 extends keyof U, OK2 extends keyof U = never, This extends undefined | object = undefined>(
+  public flatMap<
+    U extends Record<string, unknown>,
+    DK2 extends keyof U,
+    OK2 extends keyof U = never,
+    This extends undefined | Record<string, unknown> = undefined
+  >(
     callbackFn: CallbackThis<I, DK, OK, TH, U | readonly U[], This>,
     defaultKey: DK2,
     ...indexKeys: OK2[]
   ): IndexableArray<U, DK2, Exclude<OK2, DK2>, TH>;
 
-  public flatMap<U extends any, DK2 extends keyof U, OK2 extends keyof U = never, This extends undefined | object = undefined>(
+  public flatMap<
+    U extends Record<string, unknown>,
+    DK2 extends keyof U,
+    OK2 extends keyof U = never,
+    This extends undefined | Record<string, unknown> = undefined
+  >(
     callbackFn: CallbackThis<I, DK, OK, TH, U | readonly U[], This>,
-    thisArg: object,
+    thisArg: This,
     defaultKey: DK2,
     ...indexKeys: OK2[]
   ): IndexableArray<U, DK2, Exclude<OK2, DK2>, TH>;
 
-  public flatMap<U extends any, This extends undefined | object = undefined>(
+  public flatMap<U extends Record<string, unknown>, This extends undefined | Record<string, unknown> = undefined>(
+    callbackFn: CallbackThis<I, DK, OK, TH, U | readonly U[], This>,
+    thisArg?: This,
+    ...rest: never[]
+  ): IndexableArray<U, AvailableDefaultIndex<U, DK, OK>, AvailableIndex<U, DK, OK>, TH>;
+
+  public flatMap<U extends any, This extends undefined | Record<string, unknown> = undefined>(
     callbackFn: CallbackThis<I, DK, OK, TH, U | readonly U[], This>,
     thisArg?: This,
     ...rest: never[]
@@ -607,7 +623,12 @@ export default class IndexableArray<
    * @param keys are the keys to be indexed.
    * @returns a new `IndexableArray` of dept 1.
    */
-  public flatMap<U extends any, DK2 extends keyof U = DK, OK2 extends keyof U = never, This extends undefined | object = undefined>(
+  public flatMap<
+    U extends Record<string, unknown>,
+    DK2 extends keyof U,
+    OK2 extends keyof U = never,
+    This extends undefined | Record<string, unknown> = undefined
+  >(
     callbackFn: CallbackThis<I, DK, OK, TH, U | readonly U[], This>,
     defaultKeyOrThisArg: DK2 | This,
     ...keys: [DK2, ...OK2[]] | OK2[]
@@ -685,7 +706,7 @@ export default class IndexableArray<
     { key = this.defaultKey as K, fromIndex = 0 }: { key?: K; fromIndex?: number } = {}
   ): number {
     this.assertIndexEnabled();
-    const sortedIndex = this.getLookup(key, value).get(value);
+    const sortedIndex = this.getLookup(key, value as any).get(value as any);
     let index;
 
     if (sortedIndex) {
@@ -705,7 +726,7 @@ export default class IndexableArray<
    */
   public getAllIndexes<K extends OK | DK>(value: I[K], { key = this.defaultKey as K }: { key?: K } = {}): number[] {
     this.assertIndexEnabled();
-    return this.getLookup(key, value).get(value) || [];
+    return this.getLookup(key, value as any).get(value as any) || [];
   }
 
   /**
@@ -730,8 +751,8 @@ export default class IndexableArray<
     const index = this.getIndex(value, { key, fromIndex });
 
     if (throwUnknown && index === -1) {
-      const firstObjectElement = this.find(e => typeof e === "object");
-      const possibleType = firstObjectElement && `${firstObjectElement.constructor.name}'s `;
+      const firstObjectElement = this.find((e) => typeof e === "object");
+      const possibleType = firstObjectElement && `${(firstObjectElement as any).constructor.name}'s `;
       throw new Error(`'${value}' cannot be found in ${possibleType || ""}${key}.`);
     }
 
@@ -778,7 +799,7 @@ export default class IndexableArray<
   public getAll<K extends DK | OK>(value: I[K], { key = this.defaultKey as K }: { key?: K } = {}): I[] {
     this.assertIndexEnabled();
     const allIndexes = this.getAllIndexes(value, { key });
-    return allIndexes.map(index => this[index]);
+    return allIndexes.map((index) => this[index]);
   }
 
   /**
