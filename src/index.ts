@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any, class-methods-use-this, no-dupe-class-members, no-use-before-define, @typescript-eslint/explicit-module-boundary-types */
 
 import sorted from "sorted-array-functions";
-import set from "lodash.set";
+import { set } from "dot-prop";
 
 type ObjectLookup = WeakMap<Record<string, unknown>, number[]>;
 type ObjectLookups<I, K extends keyof I> = Map<K, ObjectLookup>;

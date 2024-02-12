@@ -3,7 +3,6 @@ const os = require("os");
 const { promises: fs, readFileSync } = require("fs");
 const { sep, join, normalize, basename, dirname, parse } = require("path");
 const childProcess = require("child_process");
-const { notSync } = require("not-sync");
 const readmeasy = require("readmeasy").default;
 
 const cwd = process.env.INIT_CWD || process.cwd();
@@ -146,20 +145,9 @@ async function vuepressApi() {
   // intermodular.log("info", "VuePress site updated.");
 }
 
-/**
- * Creates given directories and disables cloud storage syncroonization.
- *
- * @param {string[]} dirs are directories to create and disable syncronization.
- */
-async function applyNotSync(dirs) {
-  if (!hasDependency("not-sync")) return;
-  await notSync(dirs, { createDirs: true });
-}
-
 const commands = {
   readme: () => readme(),
   "vuepress-api": () => vuepressApi(),
-  "not-sync": (args) => applyNotSync(args[0].split(",")),
 };
 
 const [command, ...args] = process.argv.slice(2);
