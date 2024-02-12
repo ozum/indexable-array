@@ -51,7 +51,6 @@
   ],
   "dependencies": {
     "dot-prop": "^6.0.1",
-    "lodash.set": "^4.3.2",
     "sorted-array-functions": "^1.2.0",
     "tslib": "^2.1.0"
   },

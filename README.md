@@ -227,7 +227,7 @@ const users = new IndexableArray({ id: 23, name: "Geroge" }, { id: 96, name: "Li
 users.indexedArray; // ["$$self", "name"]
 ```
 
-Defined in: [index.ts:77](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L77)
+Defined in: [index.ts:77](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L77)
 
 ## Accessors
 
@@ -237,7 +237,7 @@ Defined in: [index.ts:77](https://github.com/ozum/indexable-array/blob/3b01a3b/s
 
 **Returns:** DK
 
-Defined in: [index.ts:200](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L200)
+Defined in: [index.ts:200](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L200)
 
 ## Methods
 
@@ -253,7 +253,7 @@ Defined in: [index.ts:200](https://github.com/ozum/indexable-array/blob/3b01a3b/
 
 **Returns:** [_default_](#classesdefaultmd)<I, DK, OK, TH\>
 
-Defined in: [index.ts:672](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L672)
+Defined in: [index.ts:672](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L672)
 
 ▸ **concat**(...`items`: (I | _ConcatArray_<I\>)[]): [_default_](#classesdefaultmd)<I, DK, OK, TH\>
 
@@ -265,7 +265,7 @@ Defined in: [index.ts:672](https://github.com/ozum/indexable-array/blob/3b01a3b/
 
 **Returns:** [_default_](#classesdefaultmd)<I, DK, OK, TH\>
 
-Defined in: [index.ts:673](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L673)
+Defined in: [index.ts:673](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L673)
 
 ---
 
@@ -292,7 +292,7 @@ indexedArray.enableIndex(); // Index is recreated from scratch.
 
 **Returns:** _void_
 
-Defined in: [index.ts:857](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L857)
+Defined in: [index.ts:857](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L857)
 
 ---
 
@@ -306,7 +306,7 @@ Enables indexing and recreates index from scratch.
 
 **Returns:** _void_
 
-Defined in: [index.ts:866](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L866)
+Defined in: [index.ts:866](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L866)
 
 ---
 
@@ -329,7 +329,7 @@ Defined in: [index.ts:866](https://github.com/ozum/indexable-array/blob/3b01a3b/
 
 **Returns:** [_default_](#classesdefaultmd)<S, DK, OK, TH\>
 
-Defined in: [index.ts:466](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L466)
+Defined in: [index.ts:466](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L466)
 
 ▸ **filter**(`callbackfn`: _Callback_<I, DK, OK, TH, _unknown_\>, `thisArg?`: _any_): [_default_](#classesdefaultmd)<I, DK, OK, TH\>
 
@@ -342,7 +342,7 @@ Defined in: [index.ts:466](https://github.com/ozum/indexable-array/blob/3b01a3b/
 
 **Returns:** [_default_](#classesdefaultmd)<I, DK, OK, TH\>
 
-Defined in: [index.ts:471](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L471)
+Defined in: [index.ts:471](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L471)
 
 ---
 
@@ -369,7 +369,7 @@ Defined in: [index.ts:471](https://github.com/ozum/indexable-array/blob/3b01a3b/
 
 **Returns:** [_default_](#classesdefaultmd)<U, DK2, _Exclude_<OK2, DK2\>, TH\>
 
-Defined in: [index.ts:558](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L558)
+Defined in: [index.ts:558](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L558)
 
 ▸ **flatMap**<U, DK2, OK2, This\>(`callbackFn`: _CallbackThis_<I, DK, OK, TH, U | readonly U[], This\>, `thisArg`: This, `defaultKey?`: DK2, ...`indexKeys`: OK2[]): [_default_](#classesdefaultmd)<U, DK2, _Exclude_<OK2, DK2\>, TH\>
 
@@ -393,7 +393,7 @@ Defined in: [index.ts:558](https://github.com/ozum/indexable-array/blob/3b01a3b/
 
 **Returns:** [_default_](#classesdefaultmd)<U, DK2, _Exclude_<OK2, DK2\>, TH\>
 
-Defined in: [index.ts:569](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L569)
+Defined in: [index.ts:569](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L569)
 
 ▸ **flatMap**<U, DK2, OK2, This\>(`callbackFn`: _CallbackThis_<I, DK, OK, TH, U | readonly U[], This\>, `defaultKey`: DK2, ...`indexKeys`: OK2[]): [_default_](#classesdefaultmd)<U, DK2, _Exclude_<OK2, DK2\>, TH\>
 
@@ -416,7 +416,7 @@ Defined in: [index.ts:569](https://github.com/ozum/indexable-array/blob/3b01a3b/
 
 **Returns:** [_default_](#classesdefaultmd)<U, DK2, _Exclude_<OK2, DK2\>, TH\>
 
-Defined in: [index.ts:581](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L581)
+Defined in: [index.ts:581](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L581)
 
 ▸ **flatMap**<U, DK2, OK2, This\>(`callbackFn`: _CallbackThis_<I, DK, OK, TH, U | readonly U[], This\>, `thisArg`: This, `defaultKey`: DK2, ...`indexKeys`: OK2[]): [_default_](#classesdefaultmd)<U, DK2, _Exclude_<OK2, DK2\>, TH\>
 
@@ -440,7 +440,7 @@ Defined in: [index.ts:581](https://github.com/ozum/indexable-array/blob/3b01a3b/
 
 **Returns:** [_default_](#classesdefaultmd)<U, DK2, _Exclude_<OK2, DK2\>, TH\>
 
-Defined in: [index.ts:592](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L592)
+Defined in: [index.ts:592](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L592)
 
 ▸ **flatMap**<U, This\>(`callbackFn`: _CallbackThis_<I, DK, OK, TH, U | readonly U[], This\>, `thisArg?`: This, ...`rest`: _never_[]): [_default_](#classesdefaultmd)<U, _AvailableDefaultIndex_<U, DK, OK\>, _Exclude_<_Extract_<OK, keyof U\>, _AvailableDefaultIndex_<U, DK, OK\>\>, TH\>
 
@@ -461,7 +461,7 @@ Defined in: [index.ts:592](https://github.com/ozum/indexable-array/blob/3b01a3b/
 
 **Returns:** [_default_](#classesdefaultmd)<U, _AvailableDefaultIndex_<U, DK, OK\>, _Exclude_<_Extract_<OK, keyof U\>, _AvailableDefaultIndex_<U, DK, OK\>\>, TH\>
 
-Defined in: [index.ts:604](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L604)
+Defined in: [index.ts:604](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L604)
 
 ▸ **flatMap**<U, This\>(`callbackFn`: _CallbackThis_<I, DK, OK, TH, U | readonly U[], This\>, `thisArg?`: This, ...`rest`: _never_[]): [_default_](#classesdefaultmd)<U, _AvailableDefaultIndex_<U, DK, OK\>, _Exclude_<_Extract_<OK, keyof U\>, _AvailableDefaultIndex_<U, DK, OK\>\>, TH\>
 
@@ -482,7 +482,7 @@ Defined in: [index.ts:604](https://github.com/ozum/indexable-array/blob/3b01a3b/
 
 **Returns:** [_default_](#classesdefaultmd)<U, _AvailableDefaultIndex_<U, DK, OK\>, _Exclude_<_Extract_<OK, keyof U\>, _AvailableDefaultIndex_<U, DK, OK\>\>, TH\>
 
-Defined in: [index.ts:610](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L610)
+Defined in: [index.ts:610](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L610)
 
 ---
 
@@ -518,7 +518,7 @@ is indexed value to search for.
 
 the first item with given indexed value in the array; `undefined` if not found.
 
-Defined in: [index.ts:743](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L743)
+Defined in: [index.ts:743](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L743)
 
 ---
 
@@ -550,7 +550,7 @@ is indexed value to search for.
 
 all items with given indexed value in the array; Empty array if not found.
 
-Defined in: [index.ts:799](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L799)
+Defined in: [index.ts:799](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L799)
 
 ---
 
@@ -582,7 +582,7 @@ indexed value to search for.
 
 all indexes of the element in the array; Empty array if not found.
 
-Defined in: [index.ts:727](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L727)
+Defined in: [index.ts:727](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L727)
 
 ---
 
@@ -615,7 +615,7 @@ indexed value to search for.
 
 the first index of the element in the array; -1 if not found.
 
-Defined in: [index.ts:704](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L704)
+Defined in: [index.ts:704](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L704)
 
 ---
 
@@ -648,7 +648,7 @@ is indexed value to search for.
 
 is the first item with given indexed value in the array; `undefined` if not found.
 
-Defined in: [index.ts:784](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L784)
+Defined in: [index.ts:784](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L784)
 
 ---
 
@@ -681,7 +681,7 @@ is indexed value to search for.
 
 the first item with given indexed value in the array; `undefined` if not found.
 
-Defined in: [index.ts:771](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L771)
+Defined in: [index.ts:771](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L771)
 
 ---
 
@@ -714,7 +714,7 @@ is indexed value to search for.
 
 true if indexed value is found among array's entries' keys.
 
-Defined in: [index.ts:814](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L814)
+Defined in: [index.ts:814](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L814)
 
 ---
 
@@ -740,7 +740,7 @@ Defined in: [index.ts:814](https://github.com/ozum/indexable-array/blob/3b01a3b/
 
 **Returns:** [_default_](#classesdefaultmd)<U, DK2, _Exclude_<OK2, DK2\>, TH\>
 
-Defined in: [index.ts:481](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L481)
+Defined in: [index.ts:481](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L481)
 
 ▸ **map**<U, DK2, OK2\>(`callbackFn`: _Callback_<I, DK, OK, TH, U\>, `thisArg`: _Record_<_string_, _unknown_\>, `defaultKey?`: DK2, ...`indexKeys`: OK2[]): [_default_](#classesdefaultmd)<U, DK2, _Exclude_<OK2, DK2\>, TH\>
 
@@ -763,7 +763,7 @@ Defined in: [index.ts:481](https://github.com/ozum/indexable-array/blob/3b01a3b/
 
 **Returns:** [_default_](#classesdefaultmd)<U, DK2, _Exclude_<OK2, DK2\>, TH\>
 
-Defined in: [index.ts:487](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L487)
+Defined in: [index.ts:487](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L487)
 
 ▸ **map**<U, DK2, OK2\>(`callbackFn`: _Callback_<I, DK, OK, TH, U\>, `defaultKey`: DK2, ...`indexKeys`: OK2[]): [_default_](#classesdefaultmd)<U, DK2, _Exclude_<OK2, DK2\>, TH\>
 
@@ -785,7 +785,7 @@ Defined in: [index.ts:487](https://github.com/ozum/indexable-array/blob/3b01a3b/
 
 **Returns:** [_default_](#classesdefaultmd)<U, DK2, _Exclude_<OK2, DK2\>, TH\>
 
-Defined in: [index.ts:494](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L494)
+Defined in: [index.ts:494](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L494)
 
 ▸ **map**<U, DK2, OK2\>(`callbackFn`: _Callback_<I, DK, OK, TH, U\>, `thisArg`: _Record_<_string_, _unknown_\>, `defaultKey`: DK2, ...`indexKeys`: OK2[]): [_default_](#classesdefaultmd)<U, DK2, _Exclude_<OK2, DK2\>, TH\>
 
@@ -808,7 +808,7 @@ Defined in: [index.ts:494](https://github.com/ozum/indexable-array/blob/3b01a3b/
 
 **Returns:** [_default_](#classesdefaultmd)<U, DK2, _Exclude_<OK2, DK2\>, TH\>
 
-Defined in: [index.ts:500](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L500)
+Defined in: [index.ts:500](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L500)
 
 ▸ **map**<U\>(`callbackFn`: _Callback_<I, DK, OK, TH, U\>, `thisArg?`: _Record_<_string_, _unknown_\>): [_default_](#classesdefaultmd)<U, _AvailableDefaultIndex_<U, DK, OK\>, _Exclude_<_Extract_<OK, keyof U\>, _AvailableDefaultIndex_<U, DK, OK\>\>, TH\>
 
@@ -827,7 +827,7 @@ Defined in: [index.ts:500](https://github.com/ozum/indexable-array/blob/3b01a3b/
 
 **Returns:** [_default_](#classesdefaultmd)<U, _AvailableDefaultIndex_<U, DK, OK\>, _Exclude_<_Extract_<OK, keyof U\>, _AvailableDefaultIndex_<U, DK, OK\>\>, TH\>
 
-Defined in: [index.ts:507](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L507)
+Defined in: [index.ts:507](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L507)
 
 ▸ **map**<U\>(`callbackFn`: _Callback_<I, DK, OK, TH, U\>, `thisArg?`: _Record_<_string_, _unknown_\>): [_default_](#classesdefaultmd)<U, _AvailableDefaultIndex_<U, DK, OK\>, _Exclude_<_Extract_<OK, keyof U\>, _AvailableDefaultIndex_<U, DK, OK\>\>, TH\>
 
@@ -846,7 +846,7 @@ Defined in: [index.ts:507](https://github.com/ozum/indexable-array/blob/3b01a3b/
 
 **Returns:** [_default_](#classesdefaultmd)<U, _AvailableDefaultIndex_<U, DK, OK\>, _Exclude_<_Extract_<OK, keyof U\>, _AvailableDefaultIndex_<U, DK, OK\>\>, TH\>
 
-Defined in: [index.ts:512](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L512)
+Defined in: [index.ts:512](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L512)
 
 ---
 
@@ -882,7 +882,7 @@ const baseArray = usersWithName.mapToArray((user) => ({ id: user.id, nick: name.
 
 a new `Array` with each element being the result of the callback function.
 
-Defined in: [index.ts:664](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L664)
+Defined in: [index.ts:664](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L664)
 
 ---
 
@@ -898,7 +898,7 @@ Defined in: [index.ts:664](https://github.com/ozum/indexable-array/blob/3b01a3b/
 
 **Returns:** _number_
 
-Defined in: [index.ts:422](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L422)
+Defined in: [index.ts:422](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L422)
 
 ---
 
@@ -926,7 +926,7 @@ indexedArray.set(0, "name", "OK"); // Index updated.
 
 **Returns:** _void_
 
-Defined in: [index.ts:831](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L831)
+Defined in: [index.ts:831](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L831)
 
 ---
 
@@ -943,7 +943,7 @@ Defined in: [index.ts:831](https://github.com/ozum/indexable-array/blob/3b01a3b/
 
 **Returns:** [_default_](#classesdefaultmd)<I, DK, OK, TH\>
 
-Defined in: [index.ts:668](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L668)
+Defined in: [index.ts:668](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L668)
 
 ---
 
@@ -959,7 +959,7 @@ Defined in: [index.ts:668](https://github.com/ozum/indexable-array/blob/3b01a3b/
 
 **Returns:** [_default_](#classesdefaultmd)<I, DK, OK, TH\>
 
-Defined in: [index.ts:441](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L441)
+Defined in: [index.ts:441](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L441)
 
 ---
 
@@ -979,7 +979,7 @@ Sorts the elements of an array by given key in place and returns the sorted arra
 
 this instance.
 
-Defined in: [index.ts:454](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L454)
+Defined in: [index.ts:454](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L454)
 
 ---
 
@@ -997,7 +997,7 @@ Defined in: [index.ts:454](https://github.com/ozum/indexable-array/blob/3b01a3b/
 
 **Returns:** I[]
 
-Defined in: [index.ts:429](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L429)
+Defined in: [index.ts:429](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L429)
 
 ---
 
@@ -1034,7 +1034,7 @@ users = users.withDefaultIndex("id"); // "id" is default index. Assignment is us
 
 this object.
 
-Defined in: [index.ts:690](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L690)
+Defined in: [index.ts:690](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L690)
 
 ---
 
@@ -1063,7 +1063,7 @@ Defined in: [index.ts:690](https://github.com/ozum/indexable-array/blob/3b01a3b/
 
 **Returns:** [_default_](#classesdefaultmd)<I2, DK3, _Exclude_<OK3, DK3\>, TH2\>
 
-Defined in: [index.ts:95](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L95)
+Defined in: [index.ts:95](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L95)
 
 ▸ `Static`**from**<I2, DK2, OK2\>(`arrayLike`: _Iterable_<I2\> | _ArrayLike_<I2\>, `defaultKey`: DK2, ...`indexKeys`: OK2[]): [_default_](#classesdefaultmd)<I2, DK2, _Exclude_<OK2, DK2\>, _false_\>
 
@@ -1085,7 +1085,7 @@ Defined in: [index.ts:95](https://github.com/ozum/indexable-array/blob/3b01a3b/s
 
 **Returns:** [_default_](#classesdefaultmd)<I2, DK2, _Exclude_<OK2, DK2\>, _false_\>
 
-Defined in: [index.ts:108](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L108)
+Defined in: [index.ts:108](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L108)
 
 ---
 
@@ -1114,7 +1114,7 @@ Defined in: [index.ts:108](https://github.com/ozum/indexable-array/blob/3b01a3b/
 
 **Returns:** [_default_](#classesdefaultmd)<I2, DK3, _Exclude_<OK3, DK3\>, _true_\>
 
-Defined in: [index.ts:154](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L154)
+Defined in: [index.ts:154](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L154)
 
 ▸ `Static`**throwingFrom**<I2, DK2, OK2\>(`arrayLike`: _Iterable_<I2\> | _ArrayLike_<I2\>, `defaultKey`: DK2, ...`indexKeys`: OK2[]): [_default_](#classesdefaultmd)<I2, DK2, _Exclude_<OK2, DK2\>, _true_\>
 
@@ -1136,4 +1136,4 @@ Defined in: [index.ts:154](https://github.com/ozum/indexable-array/blob/3b01a3b/
 
 **Returns:** [_default_](#classesdefaultmd)<I2, DK2, _Exclude_<OK2, DK2\>, _true_\>
 
-Defined in: [index.ts:167](https://github.com/ozum/indexable-array/blob/3b01a3b/src/index.ts#L167)
+Defined in: [index.ts:167](https://github.com/ozum/indexable-array/blob/14dbebf/src/index.ts#L167)
